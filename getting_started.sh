@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # macOS: GitHub connection (SSH) to our repo + clone + commit + push
-# Goal: Connect your macOS Terminal to GitHub via SSH and verify you can clone and push to the org repo.
+# Goal: Connect your Terminal to GitHub via SSH, verify clone, and push to org repo.
 # Instructions: Run top to bottom. Replace placeholder values.
 # Authors: Martin Orkuma;
 # Link: https://github.com/ReproAnalytics  
@@ -39,7 +39,8 @@ ssh-add ~/.ssh/id_ed25519
 # Copy your key using
 cat ~/.ssh/id_ed25519.pub
 
-# Open GitHub's website and paste this key: GitHub -> Settings -> SSH and GPG keys -> New SSH key
+# Open GitHub's website and paste this key: 
+# GitHub -> Settings -> SSH and GPG keys -> New SSH key
 # Title: MacBook – <Your Name>
 
 # Test the connection on Bash
@@ -52,7 +53,8 @@ ssh -T git@github.com
 
 
 # One-time step up
-## Next, return to the folder where you want to save our Capstone project: use the path to your own local directory
+## Next, return to the folder where you want to save our Capstone project: 
+# use the path to your own local directory
 mkdir -p ~/data_sci/MyProjects
 cd ~/data_sci/MyProjects
 
@@ -70,7 +72,7 @@ git remote -v
 
 
 # Daily Flow
-# Pull → Branch → Work → Commit → Push → Pull Request → Merge → Clean up (Pull)
+# Pull → Branch → Work → Push → Pull Request → Merge → Clean up (Pull)
 
 
 ####################################################################
@@ -84,8 +86,9 @@ cd ~/data_sci/MyProjects/nmr-ovarian-follicle-ml
 git checkout main
 git pull origin main
 
-# Create a personal branch using this naming convention: feature/<yourname>-<directory>-<task>
-git checkout -b feature/martin-docs-started       # Replace "martin" with your own name
+# Create a personal branch using this naming convention: 
+# feature/<yourname>-<directory>-<task>
+git checkout -b feature/martin-docs-started  # Replace "martin" with your own name
 
 # Verify it was created
 git branch 
@@ -151,4 +154,4 @@ git pull origin main
 git branch -d feature/martin-docs-started
 
 
-# Summary: Pull → Branch → Work → Commit → Push → Pull Request → Merge → Clean up (Pull)
+# Summary: Pull → Branch → Work → Push → Pull Request → Merge → Clean up (Pull)

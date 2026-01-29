@@ -95,4 +95,10 @@ This project separates execution from exploration.
 
 - never train or infer models.
 
-![Mapping Pipeline](image.png)
+
+
+## Work Flow
+
+![Workflow Diagram](images/workflow.png)
+
+Pull → Branch → Work → Push → Pull Request → Merge → Clean up (Pull)

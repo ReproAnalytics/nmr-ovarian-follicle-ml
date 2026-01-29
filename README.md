@@ -1,46 +1,53 @@
 # README
 
-This project develops a machine-learning pipeline for the automated identification, segmentation, and quantification of ovarian follicles in naked mole rat histological images. Utilizing data from the MOTHER repository, the pipeline adapts and evaluates existing follicle-detection algorithms to address the unique morphological characteristics of naked mole rat ovarian tissue.
+This project develops a machine-learning pipeline for automated identification, segmentation, and quantification of ovarian follicles in histological images of naked mole rats. Utilizing data from the MOTHER repository, the pipeline adapts and evaluates existing follicle-detection algorithms to address the unique morphological characteristics of naked mole rat ovarian tissue.
 
 ## Getting Started
 
-Please read the 'Getting Started' guide before starting the project.
+Please read the the following guides before starting the project:
+
+- Getting Started <https://github.com/ReproAnalytics/nmr-ovarian-follicle-ml/blob/main/getting_started.sh>
+
+- Contributing <https://github.com/ReproAnalytics/nmr-ovarian-follicle-ml/blob/main/CONTRIBUTING.md>
 
 ## Repo Structure
 
+```text
 nmr-ovarian-follicle-ml/
 ├── README.md
+├── CONTRIBUTING.md
+├── getting_started.sh
 ├── .gitignore
 │
 ├── environment/
 │   └── requirements.txt
 │
 ├── configs/
-│   ├── dataset.yaml
-│   ├── preprocess.yaml
-│   ├── train.yaml
-│   ├── infer.yaml
-│   └── eval.yaml
+│   ├── dataset.yaml            # dataset paths, species, split ratios
+│   ├── preprocess.yaml         # tiling and normalization parameters
+│   ├── train.yaml              # model architecture and training settings
+│   ├── infer.yaml              # inference thresholds and batching
+│   └── eval.yaml               # evaluation metrics and reporting options
 │
-├── data/                           # gitignored
-│   ├── raw/
-│   ├── interim/
-│   └── processed/
+├── data/                       # gitignored (raw and intermediate data)
+│   ├── raw/                    # OME-TIFF slides and XML metadata
+│   ├── interim/                # tiled/normalized images
+│   └── processed/              # ML-ready tensors and masks
 │
 ├── annotations/
-│   ├── protocol.md
-│   ├── labelmap.json
-│   └── gold_set/
+│   ├── protocol.md             # annotation guidelines (QuPath workflow)
+│   ├── labelmap.json           # follicle class definitions
+│   └── gold_set/               # curated ground-truth annotations
 │
-├── outputs/                        # gitignored
-│   ├── logs/                       # NEW: shell-run logs (Option A)
-│   ├── models/
-│   ├── predictions/
-│   ├── metrics/
-│   ├── figures/
-│   └── reports/
+├── outputs/                    # gitignored (generated artifacts)
+│   ├── logs/                   # shell-run logs
+│   ├── models/                 # trained model checkpoints
+│   ├── predictions/            # segmentation outputs
+│   ├── metrics/                # evaluation metrics (CSV/JSON)
+│   ├── figures/                # plots and visualizations
+│   └── reports/                # tables and final summaries
 │
-├── src/                            # reusable ML code (NO execution)
+├── src/                         # reusable ML code (NO direct execution)
 │   ├── ingest/
 │   │   └── ingest.py
 │   ├── preprocess/
@@ -54,13 +61,13 @@ nmr-ovarian-follicle-ml/
 │   ├── eval/
 │   │   └── evaluate.py
 │   └── utils/
-│       ├── config.py
-│       ├── paths.py
-│       ├── logging.py
-│       ├── seed.py
-│       └── io.py
+│       ├── config.py           # YAML loading and validation
+│       ├── paths.py            # standardized path resolution
+│       ├── logging.py          # logging utilities
+│       ├── seed.py             # reproducibility helpers
+│       └── io.py               # I/O and manifest utilities
 │
-├── run/                            # PRIMARY execution interface (Python)
+├── run/                         # PRIMARY execution interface (Python)
 │   ├── ingest.py
 │   ├── preprocess.py
 │   ├── train.py
@@ -68,7 +75,7 @@ nmr-ovarian-follicle-ml/
 │   ├── postprocess_count.py
 │   └── eval_report.py
 │
-├── explore/                        # exploration (no training/infer as source of truth)
+├── explore/                     # exploration & visualization (non-authoritative)
 │   ├── 00_dataset_sanity.py
 │   ├── 01_view_tiles.py
 │   ├── 02_overlay_masks.py
@@ -76,18 +83,27 @@ nmr-ovarian-follicle-ml/
 │   ├── 04_error_analysis.py
 │   └── 05_make_presentation_figs.py
 │
-├── scripts/                        # OPTIONAL shell orchestration (Option A upgraded)
-│   ├── env.sh                      # NEW: shared helpers (paths, venv, defaults)
-│   ├── doctor.sh                   # NEW: preflight checks
-│   ├── run_stage.sh                # NEW: consistent logging wrapper
-│   ├── setup_env.sh                # one-time environment helper
+├── scripts/                     # OPTIONAL shell orchestration 
+│   ├── env.sh                   # shared helpers (paths, venv, defaults)
+│   ├── doctor.sh                # prelim environment checks
+│   ├── run_stage.sh             # standardized logging wrapper
+│   ├── setup_env.sh             # one-time environment setup
 │   ├── run_ingest.sh
 │   ├── run_preprocess.sh
 │   ├── run_train.sh
 │   ├── run_infer.sh
 │   ├── run_postprocess_count.sh
 │   ├── run_eval_report.sh
-│   └── run_pipeline.sh             # end-to-end (calls doctor + run_stage)
+│   └── run_pipeline.sh          # end-to-end orchestration
 │
 └── tests/
     └── test_config_loading.py
+```
+
+**Note:**
+
+- All official pipeline execution occurs via run/*.py scripts.
+
+- Shell scripts in scripts/ are optional orchestration helpers.
+
+- Notebooks are not used; exploratory analysis is performed using .py scripts in explore/
