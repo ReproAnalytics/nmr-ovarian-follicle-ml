@@ -95,10 +95,12 @@ This project separates execution from exploration.
 
 - never train or infer models.
 
-
-
 ## Work Flow
 
 ![Workflow Diagram](images/workflow.png)
 
-Pull → Branch → Work → Push → Pull Request → Merge → Clean up (Pull)
+Bash: Pull → Branch → Work → Push → Pull Request → Merge → Clean up (Pull)
+See 'Getting_started.sh' for details.
+
+Web: Branch → Work → Upload → Pull Request → Merge → Clean up
+See 'Web GUI Workflow.docx' for details.

@@ -80,7 +80,7 @@ git remote -v
 ####################################################################
 
 
-cd ~/data_sci/MyProjects/nmr-ovarian-follicle-ml
+cd ~/data_sci/MyProjects/nmr-ovarian-follicle-ml  # Enter the path to you cloned repo
 
 # Sync with main repo to ensure you local repo is up to date
 git checkout main
