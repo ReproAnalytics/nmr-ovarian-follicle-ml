@@ -4,7 +4,11 @@ This project develops a machine-learning pipeline for automated identification, 
 
 ## Getting Started
 
-Please read the 'Getting Started' guide before starting the project: <https://github.com/ReproAnalytics/nmr-ovarian-follicle-ml/blob/main/
+Please read the the following guides before starting the project:
+
+- Getting Started <https://github.com/ReproAnalytics/nmr-ovarian-follicle-ml/blob/main/getting_started.sh>
+
+- Contributing <https://github.com/ReproAnalytics/nmr-ovarian-follicle-ml/blob/main/CONTRIBUTING.md>
 
 ## Repo Structure
 
@@ -102,4 +106,4 @@ nmr-ovarian-follicle-ml/
 
 - Shell scripts in scripts/ are optional orchestration helpers.
 
-- Notebooks are not used; exploratory analysis is performed using .py scripts in explore/.
+- Notebooks are not used; exploratory analysis is performed using .py scripts in explore/
