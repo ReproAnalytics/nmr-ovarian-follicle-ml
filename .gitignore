@@ -66,6 +66,7 @@ Thumbs.db
 .vscode/
 *.swp
 *.swo
+Project Methods Documentation.txt
 
 ############################
 # Test artifacts / coverage
