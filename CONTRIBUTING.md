@@ -99,6 +99,8 @@ This project separates execution from exploration.
 
 ![Workflow Diagram](images/workflow.png)
 
+![Workflow Diagram](images/workflow2.png)
+
 Bash: Pull → Branch → Work → Push → Pull Request → Merge → Clean up (Pull)
 See 'Getting_started.sh' for details.
 
