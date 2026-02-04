@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+# Goal: To download naked mole-rat histology data from the MOTHER database
+# Author: Martin Orkuma
+# Source: https://mother-db.org/search/?_sfm_genus_taxon_rank_value=Heterocephalus&_sfm_species_taxon_rank_value=Heterocephalus%20glaber
+
 set -euo pipefail
 
 SEARCH_URL="https://mother-db.org/search/?_sfm_genus_taxon_rank_value=Heterocephalus&_sfm_species_taxon_rank_value=Heterocephalus%20glaber"
