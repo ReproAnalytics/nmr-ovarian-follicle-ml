@@ -81,3 +81,4 @@ htmlcov/
 *.tsv
 *.xlsx
 *.parquet
+*_scaffold.sh
