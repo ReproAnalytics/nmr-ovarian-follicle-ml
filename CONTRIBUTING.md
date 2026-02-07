@@ -97,9 +97,11 @@ This project separates execution from exploration.
 
 ## Work Flow
 
-![Workflow Diagram](images/workflow.png)
 
-![Workflow Diagram](images/workflow2.png)
+<img src="images/workflow.png" alt="Git Workflow" width="600">
+
+
+<img src="images/workflow2.png" alt="Git Workflow Diagram" width="580">
 
 Bash: Pull → Branch → Work → Push → Pull Request → Merge → Clean up (Pull)
 See 'Getting_started.sh' for details.
