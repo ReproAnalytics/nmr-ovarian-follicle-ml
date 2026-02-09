@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # macOS: GitHub connection (SSH) to our repo + clone + commit + push
 # Goal: Connect your Terminal to GitHub via SSH, verify clone, and push to org repo.
-# Instructions: Run top to bottom. Replace placeholder values.
+# Instructions: Run line by line from top to bottom. Replace placeholder values.
 # Authors: Martin Orkuma;
 # Link: https://github.com/ReproAnalytics  
 
