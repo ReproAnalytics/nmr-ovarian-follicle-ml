@@ -7,8 +7,8 @@ set -euo pipefail
 
 SEARCH_URL="https://mother-db.org/search/?_sfm_genus_taxon_rank_value=Heterocephalus&_sfm_species_taxon_rank_value=Heterocephalus%20glaber"
 
-# Where to store downloads (adjust to match your repo layout)
-DEST_ROOT="${1:-/mnt/c/Users/marty/data_sci/MyProjects/nmr-ovarian-follicle-ml/data/raw/H_glaber}"
+# Where to store downloads, run from repo root and adjust to match your repo layout.
+DEST_ROOT="${1:-data/raw/H_glaber}"
 
 mkdir -p "$DEST_ROOT"
 
@@ -21,7 +21,7 @@ mapfile -t accessions < <(printf "%s" "$search_html" \
   | sort -u)
 
 if [[ "${#accessions[@]}" -eq 0 ]]; then
-  echo "❌ No accessions found on the search page. Page structure may have changed."
+  echo "☠️ No accessions found on the search page. Page structure may have changed."
   exit 1
 fi
 
@@ -47,7 +47,7 @@ for acc in "${accessions[@]}"; do
     | sort -u)
 
   if [[ "${#file_urls[@]}" -eq 0 ]]; then
-    echo "  ⚠️ No resource links found for $acc (skipping)."
+    echo "  😖 No resource links found for $acc (skipping)."
     continue
   fi
 
@@ -68,4 +68,4 @@ for acc in "${accessions[@]}"; do
   echo
 done
 
-echo "✅ Done."
+echo "😊 Done."

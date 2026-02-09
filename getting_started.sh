@@ -10,7 +10,6 @@
 ########################## Initial Set Up ##########################
 ####################################################################
 
-
 # One-time set up
 # Ensure you have Git installed
 # Open your Bash terminal, assuming you have Homebrew
@@ -51,7 +50,6 @@ ssh -T git@github.com
 ################## Clone the ReproAnalytics Repo ###################
 ####################################################################
 
-
 # One-time step up
 ## Next, return to the folder where you want to save our Capstone project: 
 # use the path to your own local directory
@@ -69,8 +67,6 @@ git remote -v
 
 
 
-
-
 # Daily Flow
 # Pull → Branch → Work → Push → Pull Request → Merge → Clean up (Pull)
 
@@ -78,7 +74,6 @@ git remote -v
 ####################################################################
 ############################## Pull ################################
 ####################################################################
-
 
 cd ~/data_sci/MyProjects/nmr-ovarian-follicle-ml  # Enter the path to you cloned repo
 
@@ -98,14 +93,11 @@ git branch
 ############################## Work ################################
 ####################################################################
 
-
 # Do your work: Create, run, or modify python script, directories, shell scripts, etc
-
 
 ####################################################################
 ############################## Push ################################
 ####################################################################
-
 
 # Check status of changes you have made
 git status
@@ -136,7 +128,6 @@ git push -u origin feature/martin-docs-started
 ############################## Merge ###############################
 ####################################################################
 
-
 # Only maintainers or reviewers merge into main: But we all are maintainers and reviewers!!!
 # Address any comments
 # Push follow-up commits to the same branch
@@ -147,11 +138,9 @@ git push -u origin feature/martin-docs-started
 ######################## Clean up After Merge ######################
 ####################################################################
 
-
 # Bash
 git checkout main
 git pull origin main
 git branch -d feature/martin-docs-started
-
 
 # Summary: Pull → Branch → Work → Push → Pull Request → Merge → Clean up (Pull)
