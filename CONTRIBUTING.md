@@ -25,22 +25,20 @@ Use Python when you are:
 
 - Working with configs (configs/*.yaml)
 
-Note: Python code is found in the following directories:
+**Note:**  
+Python code is found in the following directories: <br>
 
-run/ → official execution entry points
-(what everyone should run from the terminal)
+run/ → official execution entry points (what everyone should run from the terminal)
 
 src/ → reusable logic (no execution side effects)
 
 explore/ → exploratory / visualization scripts (.py only)
 
-**Example**
-(bash)
-python run/train.py --config configs/train.yaml
+**Example** (bash) <br>
+python run/train.py --config configs/train.yaml <br> 
 python run/infer.py --config configs/infer.yaml
 
 ### Shell Scripts
-
 Shell scripts are an optional but efficient way to run the project.
 
 Use Shell scripts when you want:
@@ -53,15 +51,14 @@ Use Shell scripts when you want:
 
 Note: Shell scripts are found in the Scripts/ directory.
 
-**Note**
-Shell scripts call Python commands, pass config files to Python, and exit if something fails.
+**Use** Shell scripts call Python commands, pass config files to Python, and exit if something fails.
 
 ## DO NOT DO
 
-🚫 Do not put pipeline logic in shell scripts
-🚫 Do not train models inside notebooks
-🚫 Do not run hidden steps only from Jupyter
-🚫 Do not duplicate logic across Python and Bash.
+🚫 Do not put pipeline logic in shell scripts. <br>
+🚫 Do not train models inside notebooks. <br>
+🚫 Do not run hidden steps only from Jupyter. <br>
+🚫 Do not duplicate logic across Python and Bash. 
 
 ## Exploration vs Execution
 
@@ -71,7 +68,7 @@ This project separates execution from exploration.
 
 - Location: run/
 
-- Format: .py scrips
+- Format: .py scripts
 
 - Run via terminal
 
