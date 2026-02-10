@@ -1,0 +1,12 @@
+project:
+  name: nmr-ovarian-follicle-ml
+  species: Heterocephalus glaber
+
+paths:
+  raw_root: data/raw/H-glaber
+  raw_manifest: data/raw/H_glaber_manifest.csv
+
+ingest:
+  downloader_script: scripts/download_mother_nmr.sh
+  # If true, ingest only rebuilds manifest and does not run the downloader
+  skip_download: True
