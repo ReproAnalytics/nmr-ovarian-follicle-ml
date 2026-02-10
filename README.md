@@ -4,7 +4,7 @@ This project develops a machine-learning pipeline for automated identification, 
 
 ## Getting Started
 
-Please read the the following guides before starting the project:
+Please read the following guides before starting the project:
 
 - Getting Started <https://github.com/ReproAnalytics/nmr-ovarian-follicle-ml/blob/main/getting_started.sh>
 
@@ -17,35 +17,36 @@ nmr-ovarian-follicle-ml/
 ├── README.md
 ├── CONTRIBUTING.md
 ├── getting_started.sh
+├── scaffold_project.sh
 ├── .gitignore
 │
 ├── environment/
 │   └── requirements.txt
 │
 ├── configs/
-│   ├── dataset.yaml            # dataset paths, species, split ratios
-│   ├── preprocess.yaml         # tiling and normalization parameters
-│   ├── train.yaml              # model architecture and training settings
-│   ├── infer.yaml              # inference thresholds and batching
-│   └── eval.yaml               # evaluation metrics and reporting options
+│   ├── dataset.yaml             # dataset paths, species, split ratios
+│   ├── preprocess.yaml          # tiling and normalization parameters
+│   ├── train.yaml               # model architecture and training settings
+│   ├── infer.yaml               # inference thresholds and batching
+│   └── eval.yaml                # evaluation metrics and reporting options
 │
-├── data/                       # gitignored (raw and intermediate data)
-│   ├── raw/                    # OME-TIFF slides and XML metadata
-│   ├── interim/                # tiled/normalized images
-│   └── processed/              # ML-ready tensors and masks
+├── data/                        # gitignored (raw and intermediate data)
+│   ├── raw/                     # OME-TIFF slides and XML metadata
+│   ├── interim/                 # tiled/normalized images
+│   └── processed/               # ML-ready tensors and masks
 │
 ├── annotations/
-│   ├── protocol.md             # annotation guidelines (QuPath workflow)
-│   ├── labelmap.json           # follicle class definitions
-│   └── gold_set/               # curated ground-truth annotations
+│   ├── protocol.md              # annotation guidelines (QuPath workflow)
+│   ├── labelmap.json            # follicle class definitions
+│   └── gold_set/                # curated ground-truth annotations
 │
-├── outputs/                    # gitignored (generated artifacts)
-│   ├── logs/                   # shell-run logs
-│   ├── models/                 # trained model checkpoints
-│   ├── predictions/            # segmentation outputs
-│   ├── metrics/                # evaluation metrics (CSV/JSON)
-│   ├── figures/                # plots and visualizations
-│   └── reports/                # tables and final summaries
+├── outputs/                     # gitignored (generated artifacts)
+│   ├── logs/                    # shell-run logs
+│   ├── models/                  # trained model checkpoints
+│   ├── predictions/             # segmentation outputs
+│   ├── metrics/                 # evaluation metrics (CSV/JSON)
+│   ├── figures/                 # plots and visualizations
+│   └── reports/                 # tables and final summaries
 │
 ├── src/                         # reusable ML code (NO direct execution)
 │   ├── ingest/
@@ -61,19 +62,19 @@ nmr-ovarian-follicle-ml/
 │   ├── eval/
 │   │   └── evaluate.py
 │   └── utils/
-│       ├── config.py           # YAML loading and validation
-│       ├── paths.py            # standardized path resolution
-│       ├── logging.py          # logging utilities
-│       ├── seed.py             # reproducibility helpers
-│       └── io.py               # I/O and manifest utilities
+│       ├── config.py            # YAML loading and validation
+│       ├── paths.py             # standardized path resolution
+│       ├── logging.py           # logging utilities
+│       ├── seed.py              # reproducibility helpers
+│       └── io.py                # I/O and manifest utilities
 │
 ├── run/                         # PRIMARY execution interface (Python)
-│   ├── ingest.py
-│   ├── preprocess.py
-│   ├── train.py
-│   ├── infer.py
-│   ├── postprocess_count.py
-│   └── eval_report.py
+│   ├── ingest.py                # calls src/ingest/*
+│   ├── preprocess.py            # calls src/preprocess/*
+│   ├── train.py                 # calls src/preprocess/*
+│   ├── infer.py                 # calls src/infer/*
+│   ├── postprocess_count.py     # calls src/postprocess/*
+│   └── eval_report.py           # calls src/eval/*
 │
 ├── explore/                     # exploration & visualization (non-authoritative)
 │   ├── 00_dataset_sanity.py
@@ -85,16 +86,16 @@ nmr-ovarian-follicle-ml/
 │
 ├── scripts/                     # OPTIONAL shell orchestration 
 │   ├── env.sh                   # shared helpers (paths, venv, defaults)
-│   ├── doctor.sh                # prelim environment checks
-│   ├── run_stage.sh             # standardized logging wrapper
+│   ├── doctor.sh                # environment + file sanity checks
+│   ├── run_stage.sh             # standardized logging wrapper → outputs/logs/
 │   ├── setup_env.sh             # one-time environment setup
-│   ├── run_ingest.sh
-│   ├── run_preprocess.sh
-│   ├── run_train.sh
-│   ├── run_infer.sh
-│   ├── run_postprocess_count.sh
-│   ├── run_eval_report.sh
-│   └── run_pipeline.sh          # end-to-end orchestration
+│   ├── run_ingest.sh            # calls run/ingest.py with configs/dataset.yaml
+│   ├── run_preprocess.sh        # calls run/preprocess.py with configs/preprocess.yaml
+│   ├── run_train.sh             # calls run/train.py with configs/train.yaml
+│   ├── run_infer.sh             # calls run/infer.py with configs/infer.yaml
+│   ├── run_postprocess_count.sh # calls run/postprocess_count.py
+│   ├── run_eval_report.sh       # calls run/eval_report.py with configs/eval.yaml
+│   └── run_pipeline.sh          # runs stages in order (end-to-end orchestration)
 │
 └── tests/
     └── test_config_loading.py
