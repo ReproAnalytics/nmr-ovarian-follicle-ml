@@ -1,0 +1,22 @@
+paths:
+  raw_root: data/raw/H-glaber
+  raw_manifest: data/raw/H_glaber_manifest.csv
+
+  tiles_root: data/interim/tiles/H-glaber
+  tiles_manifest: data/interim/tiles/H_glaber_tiles_manifest.csv
+
+tiling:
+  # openslide pyramid level index (0 = highest resolution)
+  level: 0
+  tile_size: 512
+  stride: 512
+  # skip mostly-empty background tiles
+  background_threshold:
+    enabled: true
+    # fraction of pixels that can be "near-white" before we skip the tile
+    max_white_fraction: 0.80
+    # pixel intensity threshold for "white"
+    white_pixel_threshold: 235
+
+output:
+  image_format: png
