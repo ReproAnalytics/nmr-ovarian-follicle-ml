@@ -2,7 +2,7 @@
 # macOS: GitHub connection (SSH) to our repo + clone + commit + push
 # Goal: Connect your Terminal to GitHub via SSH, verify clone, and push to org repo.
 # Instructions: Run line by line from top to bottom. Replace placeholder values.
-# Authors: Martin Orkuma;
+# Authors: Julian Coles, Martin Orkuma, Pamela Styborski, and Silvia Tenempaguay-Nunez
 # Link: https://github.com/ReproAnalytics  
 
 
