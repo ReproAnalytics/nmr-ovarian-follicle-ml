@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+# ------------------------------------------------------------
+# scaffold_project.sh
+# Purpose: To create the repo project scaffold.
+# Author: Martin Orkuma
+# ------------------------------------------------------------
+
 set -e
 
 # Be sure to run script from your local home repo 'nmr-ovarian-follicle-ml'
@@ -21,25 +27,25 @@ touch \
   "$PROJECT_ROOT/configs/infer.yaml" \
   "$PROJECT_ROOT/configs/eval.yaml"
 
-# -------------------------
+# -------------------------------------------------
 # Data (gitignored)
-# -------------------------
+# -------------------------------------------------
 mkdir -p \
   "$PROJECT_ROOT/data/raw" \
   "$PROJECT_ROOT/data/interim" \
   "$PROJECT_ROOT/data/processed"
 
-# -------------------------
+# ------------------------------------------------
 # Annotations
-# -------------------------
+# ------------------------------------------------
 mkdir -p "$PROJECT_ROOT/annotations/gold_set"
 touch \
   "$PROJECT_ROOT/annotations/protocol.md" \
   "$PROJECT_ROOT/annotations/labelmap.json"
 
-# -------------------------
+# -----------------------------------------------
 # Outputs (gitignored)
-# -------------------------
+# -----------------------------------------------
 mkdir -p \
   "$PROJECT_ROOT/outputs/logs" \
   "$PROJECT_ROOT/outputs/models" \
