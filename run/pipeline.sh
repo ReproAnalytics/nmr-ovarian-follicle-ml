@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
-# Goal: Script to run entire pipeline, from download, ingest to infer
-# Author: Martin Orkuma
+# ------------------------------------------------------------------------------------
+# Purpose: Script to run the entire pipeline, from download, ingest, to infer
+# Authors: Julian Coles, Martin Orkuma, Pamela Styborski, and Silvia Tenempaguay-Nunez
+# ------------------------------------------------------------------------------------
 
 set -euo pipefail
 
-# Resolve repo root as directory containing this script's parent
+# Resolve repo root as the directory containing this script's parent
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$REPO_ROOT"
 
