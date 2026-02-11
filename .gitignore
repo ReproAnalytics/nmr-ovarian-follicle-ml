@@ -84,3 +84,4 @@ htmlcov/
 *.xlsx
 *.parquet
 
+silvia_scaffold.sh
