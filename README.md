@@ -1,7 +1,7 @@
 # README
 
 This project develops a machine-learning pipeline for automated identification, segmentation, and quantification of ovarian follicles in histological images of naked mole rats.
-Utilizing data from the MOTHER repository <https://mother-db.org/>, the pipeline utilizes and evaluates follicle-detection algorithms to address the unique morphological characteristics of naked mole rat ovarian tissue.
+The pipeline uses data from the MOTHER repository <https://mother-db.org/> and evaluates follicle-detection algorithms to address the unique morphological characteristics of naked mole rat ovarian tissue.
 
 The repository is designed for **reproducible, team-based research**, with a clear separation between reusable library code, executable pipeline stages, configuration files, and generated outputs.
 
@@ -13,47 +13,38 @@ You do **not** need to call Python files directly.
 ### Prerequisites
 
 - Python 3.10+ available as `python`
-- macOS or Linux (WSL supported)
+- WSL/Linux/macOS
 
 ### One-time setup (or when environment breaks)
 
 ```bash
+# Clone the ReproAnalytics repo
+git clone git@github.com:ReproAnalytics/nmr-ovarian-follicle-ml.git
+cd nmr-ovarian-follicle-ml
+
+# Run setup (creates venv, installs dependencies, verifies environment)
 bash getting_started.sh
+
+# Check environment health
+bash scripts/doctor.sh
 ```
 
 This will:
 
+- clone the nmr-ovarian-follicle-ml repo
 - create a local virtual environment (.venv)
 - install all Python dependencies
 - verify your setup
 - print the next recommended steps
 
-**Note:** Run doctor.sh to ensure python and pip are working and required config files exist.
+
+## Run Pipeline
 
 ```bash
-bash scripts/doctor.sh
-```
-
-## Run the full Pipeline
-
-```bash
+# Run the full pipeline
 bash scripts/run_pipeline.sh
-```
 
-This runs all stages in order:
-
-1. Ingest
-2. Preprocess
-3. Train
-4. Infer
-5. Post-process and count
-6. Evaluate and report
-
-Logs for each stage are written to: outputs/logs/
-
-## Running Individual Stages
-
-```bash
+# Or run individual stages
 bash scripts/run_ingest.sh
 bash scripts/run_preprocess.sh
 bash scripts/run_train.sh
@@ -83,7 +74,7 @@ nmr-ovarian-follicle-ml/
 │   └── eval.yaml               # evaluation metrics and reporting options
 │
 ├── data/                       # gitignored (raw and intermediate data)
-│   ├── raw/H-glaber                    # OME-TIFF slides and XML metadata
+│   ├── raw/H-glaber            # OME-TIFF slides and XML metadata
 │   ├── interim/                # tiled/normalized images
 │   └── processed/              # ML-ready tensors and masks
 │
@@ -148,9 +139,8 @@ nmr-ovarian-follicle-ml/
 │   ├── run_postprocess_count.sh
 │   ├── run_eval_report.sh
 │   └── run_pipeline.sh          # end-to-end orchestration
-│
-└── tests/
-    └── test_config_loading.py
+└── 
+   
 ```
 
 ## Execution Model
