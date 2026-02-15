@@ -4,9 +4,9 @@ project:
 
 paths:
   raw_root: data/raw/H-glaber
-  raw_manifest: data/raw/H_glaber_manifest.csv
+  raw_manifest: data/raw/H-glaber_manifest.csv
 
 ingest:
   downloader_script: scripts/download_mother_nmr.sh
-  # If true, ingest only rebuilds manifest and does not run the downloader
+  # If true, ingest only rebuilds the manifest and does not run the downloader
   skip_download: True
