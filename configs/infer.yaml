@@ -1,0 +1,12 @@
+paths:
+  tiles_manifest: data/interim/tiles/H_glaber_tiles_manifest.csv
+  labelmap: annotations/labelmap.json
+
+  checkpoint_path: outputs/models/latest.pt
+  predictions_csv: outputs/predictions/tiles_predictions.csv
+
+infer:
+  batch_size: 64
+  num_workers: 2
+  image_size: 224
+  device: auto

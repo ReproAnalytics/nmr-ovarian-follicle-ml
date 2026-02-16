@@ -1,0 +1,17 @@
+# Creating attributes for lfs
+*.csv filter=lfs diff=lfs merge=lfs -text
+
+# Default: text files normalized
+* text=auto
+
+# Enforce LF for shell scripts and common config formats
+*.sh text eol=lf
+*.py text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+
+# Keep Windows scripts Windows-friendly (if you ever add them)
+*.bat text eol=crlf
+*.ps1 text eol=crlf
