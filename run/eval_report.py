@@ -1,56 +1,95 @@
 #!/usr/bin/env python3
-"""Evaluation stage: compute metrics from predictions vs ground truth."""
+"""
+Evaluation stage: compute per-class precision/recall/F1 + macro averages.
+
+Input:
+- outputs/predictions/tiles_predictions.csv with columns:
+  tile_path,true_label,predicted_label,confidence
+
+Output:
+- outputs/metrics/tiles_metrics.json
+"""
+
 from __future__ import annotations
 
 import argparse
+import csv
 import json
-import sys
 from pathlib import Path
+from typing import Dict, List
 
+from sklearn.metrics import classification_report, confusion_matrix
+
+# repo-local
+import sys
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
-from src.utils.paths import find_repo_root
 from src.utils.config import load_config
-from src.utils.io import read_csv_rows
-from src.utils.logging import make_logger, now_stamp
+
+
+def read_csv_rows(path: Path) -> List[Dict[str, str]]:
+    if not path.exists():
+        raise FileNotFoundError(f"CSV not found: {path}")
+    with path.open("r", newline="", encoding="utf-8") as fp:
+        reader = csv.DictReader(fp)
+        return [dict(r) for r in reader]
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Evaluate predictions and generate report.")
-    parser.add_argument("--config", default="configs/eval.yaml")
-    args = parser.parse_args()
+    ap = argparse.ArgumentParser(description="Evaluate tile predictions.")
+    ap.add_argument("--config", default="configs/eval.yaml")
+    args = ap.parse_args()
 
-    repo = find_repo_root(Path.cwd())
+    repo = Path(__file__).resolve().parent.parent
     cfg = load_config(repo / args.config)
-    log = make_logger(repo / f"outputs/logs/eval_{now_stamp()}.log")
 
-    log("EVAL STAGE", prefix="eval")
-
-    predictions_csv = repo / cfg["paths"]["predictions_csv"]
+    preds_csv = repo / cfg["paths"]["predictions_csv"]
     metrics_json = repo / cfg["paths"]["metrics_json"]
+    avg = str(cfg["eval"].get("average", "macro"))
 
-    if not predictions_csv.exists():
-        log(f"ERROR: predictions not found: {predictions_csv}", prefix="eval")
-        return 1
+    rows = read_csv_rows(preds_csv)
+    if not rows:
+        raise ValueError("Predictions CSV is empty.")
 
-    rows = read_csv_rows(predictions_csv)
-    log(f"Loaded {len(rows)} prediction rows", prefix="eval")
+    required = {"true_label", "predicted_label"}
+    if not required.issubset(rows[0].keys()):
+        raise ValueError(f"Predictions CSV must contain columns {sorted(required)}")
 
-    # TODO: Compare predicted_label to ground-truth label column,
-    #       compute precision/recall/F1 via sklearn, write metrics JSON.
-    log("WARNING: evaluation logic not yet implemented — writing stub metrics", prefix="eval")
+    y_true = []
+    y_pred = []
+    for r in rows:
+        tl = (r.get("true_label") or "").strip()
+        pl = (r.get("predicted_label") or "").strip()
+        if not tl:
+            continue
+        if not pl:
+            continue
+        y_true.append(tl)
+        y_pred.append(pl)
 
-    metrics = {
-        "status": "stub",
-        "n_predictions": len(rows),
-        "average": cfg.get("eval", {}).get("average", "macro"),
-        "note": "Implement with sklearn.metrics when labels are available.",
+    if not y_true:
+        raise ValueError(
+            "No rows with non-empty true_label found. "
+            "You need labels in the tiles manifest (or a joined gold-set) before eval."
+        )
+
+    labels = sorted(set(y_true) | set(y_pred))
+    report = classification_report(y_true, y_pred, labels=labels, output_dict=True, zero_division=0)
+    cm = confusion_matrix(y_true, y_pred, labels=labels)
+
+    out = {
+        "n_evaluated": len(y_true),
+        "labels": labels,
+        "classification_report": report,
+        "confusion_matrix": {
+            "labels": labels,
+            "matrix": cm.tolist(),
+        },
+        "average": avg,
     }
 
     metrics_json.parent.mkdir(parents=True, exist_ok=True)
-    metrics_json.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
-    log(f"Wrote metrics: {metrics_json}", prefix="eval")
-
-    log("EVAL STAGE COMPLETE", prefix="eval")
+    metrics_json.write_text(json.dumps(out, indent=2), encoding="utf-8")
+    print(f"[eval] wrote metrics to {metrics_json}")
     return 0
 
 

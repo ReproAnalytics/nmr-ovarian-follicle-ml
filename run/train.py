@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """
-Training stage entry point.
+Train a tile-level follicle classifier (torchvision resnet18).
 
-Inputs:
-- tiles manifest CSV (expected columns include: slide_path, tile_path, ... and ideally label)
+Expected inputs:
+- configs/train.yaml
+- tiles manifest CSV with columns: tile_path, label
+- annotations/labelmap.json where keys match label values in tiles manifest
 
 Outputs:
-- split manifests in data/processed/
-- a run directory in outputs/models/<run_name>/ (or configured path)
-- logs in outputs/logs/
-
-NB: Adjust code when QuPath output format is established.
+- data/processed/{train,val,test}_manifest.csv
+- outputs/models/<run_name>/model.pt
+- outputs/models/latest.pt
+- outputs/logs/train_<run_name>.log
 """
 
 from __future__ import annotations
@@ -18,18 +19,49 @@ from __future__ import annotations
 import argparse
 import csv
 import json
+import os
 import random
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Sequence, Tuple
+from typing import Dict, List, Tuple, Optional
+
+import torch
+import torch.nn as nn
+from torch.utils.data import Dataset, DataLoader
+from PIL import Image
+
+import torchvision
+from torchvision import transforms
+
+# repo-local
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from src.utils.config import load_config
 
 
 # -----------------------------
-# Logging (simple, file-backed)
+# Utilities
 # -----------------------------
 def now_stamp() -> str:
     return datetime.now().strftime("%Y%m%d_%H%M%S")
+
+
+def pick_device(device_cfg: str) -> torch.device:
+    dc = (device_cfg or "auto").lower()
+    if dc == "cpu":
+        return torch.device("cpu")
+    if dc == "cuda":
+        return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if dc == "mps":
+        return torch.device("mps" if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available() else "cpu")
+
+    # auto
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
+        return torch.device("mps")
+    return torch.device("cpu")
 
 
 def make_logger(log_path: Path):
@@ -44,49 +76,39 @@ def make_logger(log_path: Path):
     return log
 
 
-# -----------------------------
-# Manifest I/O
-# -----------------------------
 def read_csv_rows(path: Path) -> List[Dict[str, str]]:
     if not path.exists():
-        raise FileNotFoundError(f"Tiles manifest not found: {path}")
-
+        raise FileNotFoundError(f"CSV not found: {path}")
     with path.open("r", newline="", encoding="utf-8") as fp:
         reader = csv.DictReader(fp)
-        rows = [dict(r) for r in reader]
-    return rows
+        return [dict(r) for r in reader]
 
 
-def write_csv_rows(path: Path, rows: List[Dict[str, str]], fieldnames: Sequence[str]) -> None:
+def write_csv_rows(path: Path, rows: List[Dict[str, str]], fieldnames: List[str]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", newline="", encoding="utf-8") as fp:
-        writer = csv.DictWriter(fp, fieldnames=list(fieldnames))
+        writer = csv.DictWriter(fp, fieldnames=fieldnames)
         writer.writeheader()
         for r in rows:
             writer.writerow({k: r.get(k, "") for k in fieldnames})
 
 
-# -----------------------------
-# Splitting
-# -----------------------------
 def split_rows(
     rows: List[Dict[str, str]],
     ratios: Tuple[float, float, float],
     seed: int,
 ) -> Dict[str, List[Dict[str, str]]]:
-    train_r, val_r, test_r = ratios
-    if abs((train_r + val_r + test_r) - 1.0) > 1e-6:
-        raise ValueError(f"Split ratios must sum to 1.0. Got {ratios}")
+    tr, vr, te = ratios
+    if abs((tr + vr + te) - 1.0) > 1e-6:
+        raise ValueError(f"Split ratios must sum to 1.0, got {ratios}")
 
     rng = random.Random(seed)
     idx = list(range(len(rows)))
     rng.shuffle(idx)
 
     n = len(rows)
-    n_train = int(n * train_r)
-    n_val = int(n * val_r)
-    n_test = n - n_train - n_val
-
+    n_train = int(n * tr)
+    n_val = int(n * vr)
     train_idx = idx[:n_train]
     val_idx = idx[n_train:n_train + n_val]
     test_idx = idx[n_train + n_val:]
@@ -98,164 +120,266 @@ def split_rows(
     }
 
 
-def validate_tiles_manifest(rows: List[Dict[str, str]]) -> None:
+def validate_rows(rows: List[Dict[str, str]], tile_col: str, label_col: str) -> None:
     if not rows:
-        raise ValueError("Tiles manifest is empty. Did preprocess produce any rows?")
+        raise ValueError("Tiles manifest is empty.")
 
-    # Require tile_path for actual training
-    if "tile_path" not in rows[0]:
-        raise ValueError("Tiles manifest must include a 'tile_path' column.")
+    if tile_col not in rows[0]:
+        raise ValueError(f"Tiles manifest missing required column '{tile_col}'")
+    if label_col not in rows[0]:
+        raise ValueError(f"Tiles manifest missing required column '{label_col}'")
 
-    nonempty = sum(1 for r in rows if (r.get("tile_path") or "").strip())
-    if nonempty == 0:
+    nonempty_tiles = sum(1 for r in rows if (r.get(tile_col) or "").strip())
+    if nonempty_tiles == 0:
         raise ValueError(
-            "Tiles manifest has no tile_path values. "
-            "Your preprocess stage likely ran in stub mode and did not write tiles yet."
+            f"No non-empty '{tile_col}' values found. "
+            f"Preprocess is likely still in stub mode (no tiles written)."
         )
 
 
 # -----------------------------
-# Optional: placeholder "training"
+# Dataset
 # -----------------------------
-def dummy_train_summary(splits: Dict[str, List[Dict[str, str]]]) -> Dict[str, object]:
-    """Produces a JSON-able summary in lieu of real model training."""
-    return {
-        "status": "no_training_backend_configured",
-        "counts": {k: len(v) for k, v in splits.items()},
-        "note": "Wire in src/train when your tiler produces real tiles + labels.",
-    }
+class TileDataset(Dataset):
+    def __init__(
+        self,
+        rows: List[Dict[str, str]],
+        tile_col: str,
+        label_col: str,
+        label_to_id: Dict[str, int],
+        transform,
+    ):
+        self.rows = rows
+        self.tile_col = tile_col
+        self.label_col = label_col
+        self.label_to_id = label_to_id
+        self.transform = transform
+
+    def __len__(self) -> int:
+        return len(self.rows)
+
+    def __getitem__(self, idx: int):
+        r = self.rows[idx]
+        tile_path = (r.get(self.tile_col) or "").strip()
+        label = (r.get(self.label_col) or "").strip()
+
+        if not tile_path:
+            raise ValueError(f"Empty tile_path at row {idx}")
+        if label not in self.label_to_id:
+            raise ValueError(f"Unknown label '{label}' at row {idx}")
+
+        p = Path(tile_path)
+        if not p.exists():
+            raise FileNotFoundError(f"Tile image not found: {p}")
+
+        img = Image.open(p).convert("RGB")
+        img = self.transform(img)
+        y = self.label_to_id[label]
+        return img, y
+
+
+def build_transforms(image_size: int):
+    # Standard ImageNet normalization (works well for resnet backbones)
+    return transforms.Compose([
+        transforms.Resize((image_size, image_size)),
+        transforms.ToTensor(),
+        transforms.Normalize(
+            mean=[0.485, 0.456, 0.406],
+            std=[0.229, 0.224, 0.225],
+        ),
+    ])
+
+
+def build_model(backbone: str, num_classes: int) -> nn.Module:
+    bb = (backbone or "resnet18").lower()
+    if bb != "resnet18":
+        raise ValueError(f"Only 'resnet18' is implemented right now, got '{backbone}'")
+
+    model = torchvision.models.resnet18(weights=None)  # avoid internet downloads
+    model.fc = nn.Linear(model.fc.in_features, num_classes)
+    return model
 
 
 # -----------------------------
-# Main
+# Train loop
 # -----------------------------
+def train_one_epoch(model, loader, optimizer, loss_fn, device) -> float:
+    model.train()
+    total_loss = 0.0
+    n = 0
+    for x, y in loader:
+        x = x.to(device, non_blocking=True)
+        y = y.to(device, non_blocking=True)
+
+        optimizer.zero_grad(set_to_none=True)
+        logits = model(x)
+        loss = loss_fn(logits, y)
+        loss.backward()
+        optimizer.step()
+
+        bs = x.shape[0]
+        total_loss += loss.item() * bs
+        n += bs
+    return total_loss / max(n, 1)
+
+
+@torch.no_grad()
+def eval_one_epoch(model, loader, loss_fn, device) -> Tuple[float, float]:
+    model.eval()
+    total_loss = 0.0
+    correct = 0
+    n = 0
+    for x, y in loader:
+        x = x.to(device, non_blocking=True)
+        y = y.to(device, non_blocking=True)
+        logits = model(x)
+        loss = loss_fn(logits, y)
+
+        preds = torch.argmax(logits, dim=1)
+        correct += (preds == y).sum().item()
+
+        bs = x.shape[0]
+        total_loss += loss.item() * bs
+        n += bs
+
+    avg_loss = total_loss / max(n, 1)
+    acc = correct / max(n, 1)
+    return avg_loss, acc
+
+
 def main() -> int:
-    parser = argparse.ArgumentParser(
-        description="Train stage aligned with manifest-driven ingest/preprocess."
-    )
+    ap = argparse.ArgumentParser(description="Train follicle tile classifier.")
+    ap.add_argument("--config", default="configs/train.yaml", help="Path to train config YAML.")
+    ap.add_argument("--tile-col", default="tile_path", help="Column name for tile image path.")
+    ap.add_argument("--label-col", default="label", help="Column name for class label.")
+    args = ap.parse_args()
 
-    parser.add_argument(
-        "--tiles-manifest",
-        default="data/interim/tiles/H_glaber_tiles_manifest.csv",
-        help="CSV manifest produced by preprocess (tile_path required).",
-    )
-    parser.add_argument(
-        "--splits-outdir",
-        default="data/processed",
-        help="Where to write train/val/test split manifests.",
-    )
-    parser.add_argument(
-        "--models-outdir",
-        default="outputs/models",
-        help="Where to write model artifacts per run.",
-    )
-    parser.add_argument("--seed", type=int, default=42, help="Random seed for splitting.")
-    parser.add_argument("--train-ratio", type=float, default=0.70)
-    parser.add_argument("--val-ratio", type=float, default=0.15)
-    parser.add_argument("--test-ratio", type=float, default=0.15)
+    repo = Path(__file__).resolve().parent.parent
+    cfg = load_config(repo / args.config)
 
-    # Optional label wiring
-    parser.add_argument(
-        "--label-column",
-        default="label",
-        help="Column name containing class label (if present).",
-    )
-    parser.add_argument(
-        "--require-labels",
-        action="store_true",
-        help="If set, fail if label column is missing/empty.",
-    )
+    # Paths
+    tiles_manifest = repo / cfg["paths"]["tiles_manifest"]
+    labelmap_path = repo / cfg["paths"]["labelmap"]
 
-    # Logging
-    parser.add_argument(
-        "--log",
-        default=f"outputs/logs/train_{now_stamp()}.log",
-        help="Log file path.",
-    )
+    output_dir = repo / cfg["paths"].get("output_dir", "outputs")
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    args = parser.parse_args()
+    run_name = cfg["paths"].get("run_name") or f"run_{now_stamp()}"
+    models_dir = output_dir / "models" / run_name
+    models_dir.mkdir(parents=True, exist_ok=True)
 
-    log = make_logger(Path(args.log))
+    latest_ckpt = output_dir / "models" / "latest.pt"
+    log_path = output_dir / "logs" / f"train_{run_name}.log"
+    log = make_logger(log_path)
 
-    tiles_manifest = Path(args.tiles_manifest)
-    splits_outdir = Path(args.splits_outdir)
-    models_outdir = Path(args.models_outdir)
+    # Load labelmap (keys are labels)
+    labelmap = json.loads(labelmap_path.read_text(encoding="utf-8"))
+    label_to_id = {k: int(v) for k, v in labelmap.items()}
+    id_to_label = {int(v): k for k, v in labelmap.items()}
 
-    log("=" * 60)
-    log("TRAIN STAGE")
-    log(f"tiles_manifest: {tiles_manifest}")
-    log(f"splits_outdir:  {splits_outdir}")
-    log(f"models_outdir:  {models_outdir}")
-    log(f"seed: {args.seed}")
-    log(f"ratios: train={args.train_ratio}, val={args.val_ratio}, test={args.test_ratio}")
-
-    # Load tiles manifest
+    # Load manifest
     rows = read_csv_rows(tiles_manifest)
-    log(f"tiles manifest rows: {len(rows)}")
+    log(f"tiles_manifest: {tiles_manifest}")
+    log(f"rows: {len(rows)}")
 
-    # Validate
-    validate_tiles_manifest(rows)
+    validate_rows(rows, args.tile_col, args.label_col)
 
-    # Optional: labels check
-    if args.require_labels:
-        if args.label_column not in rows[0]:
-            raise ValueError(f"Label column '{args.label_column}' not found in tiles manifest.")
-        labeled = sum(1 for r in rows if (r.get(args.label_column) or "").strip() != "")
-        if labeled == 0:
-            raise ValueError(
-                f"Label column '{args.label_column}' is present but empty for all rows."
-            )
-        log(f"labeled rows: {labeled}/{len(rows)}")
+    # Filter to rows with valid labels + existing tiles
+    filtered = []
+    missing_tiles = 0
+    bad_labels = 0
+    for r in rows:
+        tile = (r.get(args.tile_col) or "").strip()
+        lab = (r.get(args.label_col) or "").strip()
+        if not tile:
+            continue
+        if lab not in label_to_id:
+            bad_labels += 1
+            continue
+        if not Path(tile).exists():
+            missing_tiles += 1
+            continue
+        filtered.append(r)
+
+    if not filtered:
+        raise ValueError("After filtering, no usable (tile_path,label) rows remain.")
+
+    if bad_labels:
+        log(f"WARNING: dropped {bad_labels} rows with labels not in labelmap.json")
+    if missing_tiles:
+        log(f"WARNING: dropped {missing_tiles} rows whose tile files do not exist")
 
     # Split
-    splits = split_rows(
-        rows,
-        ratios=(args.train_ratio, args.val_ratio, args.test_ratio),
-        seed=args.seed,
+    seed = int(cfg["data"]["split"]["seed"])
+    ratios = (
+        float(cfg["data"]["split"]["train"]),
+        float(cfg["data"]["split"]["val"]),
+        float(cfg["data"]["split"]["test"]),
     )
-    log(f"split counts: " + ", ".join(f"{k}={len(v)}" for k, v in splits.items()))
+    splits = split_rows(filtered, ratios, seed)
+    log(f"splits: train={len(splits['train'])}, val={len(splits['val'])}, test={len(splits['test'])}")
 
     # Write split manifests
-    # Keep fieldnames stable: use original columns + add split name
-    fieldnames = list(rows[0].keys())
-    if "split" not in fieldnames:
-        fieldnames = fieldnames + ["split"]
+    processed_dir = repo / "data" / "processed"
+    processed_dir.mkdir(parents=True, exist_ok=True)
+    fieldnames = sorted(set().union(*(r.keys() for r in filtered)))
+    write_csv_rows(processed_dir / "train_manifest.csv", splits["train"], fieldnames)
+    write_csv_rows(processed_dir / "val_manifest.csv", splits["val"], fieldnames)
+    write_csv_rows(processed_dir / "test_manifest.csv", splits["test"], fieldnames)
+    log(f"wrote split manifests to {processed_dir}")
 
-    for split_name, split_rows_list in splits.items():
-        for r in split_rows_list:
-            r["split"] = split_name
+    # Training cfg
+    tcfg = cfg["train"]
+    epochs = int(tcfg["epochs"])
+    batch_size = int(tcfg["batch_size"])
+    lr = float(tcfg["lr"])
+    wd = float(tcfg["weight_decay"])
+    num_workers = int(tcfg["num_workers"])
+    image_size = int(tcfg["image_size"])
+    backbone = str(tcfg["backbone"])
+    device = pick_device(str(tcfg.get("device", "auto")))
 
-        out_path = splits_outdir / f"{split_name}_tiles_manifest.csv"
-        write_csv_rows(out_path, split_rows_list, fieldnames=fieldnames)
-        log(f"wrote split manifest: {out_path}")
+    log(f"device: {device}")
+    log(f"backbone: {backbone} | image_size={image_size} | epochs={epochs} | bs={batch_size} | lr={lr} | wd={wd}")
 
-    # Create run dir for artifacts
-    run_name = f"run_{now_stamp()}"
-    run_dir = models_outdir / run_name
-    run_dir.mkdir(parents=True, exist_ok=True)
+    transform = build_transforms(image_size)
 
-    # Save run metadata
-    meta = {
-        "run_name": run_name,
-        "tiles_manifest": str(tiles_manifest),
-        "splits": {k: len(v) for k, v in splits.items()},
-        "seed": args.seed,
-        "ratios": {"train": args.train_ratio, "val": args.val_ratio, "test": args.test_ratio},
-        "label_column": args.label_column,
-        "require_labels": args.require_labels,
-        "note": "This entrypoint is aligned to manifest-driven ingest/preprocess. "
-                "Wire in src/train to perform actual model training.",
-    }
-    (run_dir / "run_meta.json").write_text(json.dumps(meta, indent=2), encoding="utf-8")
-    log(f"wrote run metadata: {run_dir / 'run_meta.json'}")
+    train_ds = TileDataset(splits["train"], args.tile_col, args.label_col, label_to_id, transform)
+    val_ds = TileDataset(splits["val"], args.tile_col, args.label_col, label_to_id, transform)
 
-    # Placeholder training artifact (until src/train is implemented)
-    summary = dummy_train_summary(splits)
-    (run_dir / "training_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
-    log(f"wrote training summary: {run_dir / 'training_summary.json'}")
+    train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True, num_workers=num_workers, pin_memory=(device.type != "cpu"))
+    val_loader = DataLoader(val_ds, batch_size=batch_size, shuffle=False, num_workers=num_workers, pin_memory=(device.type != "cpu"))
 
-    log("TRAIN STAGE COMPLETE")
-    log("=" * 60)
+    model = build_model(backbone, num_classes=len(label_to_id)).to(device)
+
+    loss_fn = nn.CrossEntropyLoss()
+    optimizer = torch.optim.AdamW(model.parameters(), lr=lr, weight_decay=wd)
+
+    best_val_loss = float("inf")
+    best_path = models_dir / "model.pt"
+
+    for epoch in range(1, epochs + 1):
+        tr_loss = train_one_epoch(model, train_loader, optimizer, loss_fn, device)
+        va_loss, va_acc = eval_one_epoch(model, val_loader, loss_fn, device)
+
+        log(f"epoch {epoch}/{epochs} | train_loss={tr_loss:.4f} | val_loss={va_loss:.4f} | val_acc={va_acc:.4f}")
+
+        # Save best
+        if va_loss < best_val_loss:
+            best_val_loss = va_loss
+            ckpt = {
+                "run_name": run_name,
+                "backbone": backbone,
+                "image_size": image_size,
+                "label_to_id": label_to_id,
+                "id_to_label": id_to_label,
+                "model_state": model.state_dict(),
+            }
+            torch.save(ckpt, best_path)
+            torch.save(ckpt, latest_ckpt)
+            log(f"saved best checkpoint: {best_path} (and updated latest.pt)")
+
+    log("training complete")
     return 0
 
 
