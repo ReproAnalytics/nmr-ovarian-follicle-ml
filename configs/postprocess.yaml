@@ -1,0 +1,7 @@
+paths:
+  predictions_csv: outputs/predictions/tiles_predictions.csv
+  slide_predictions_csv: outputs/predictions/slide_level_predictions.csv
+
+postprocess:
+  confidence_threshold: 0.5
+  min_tiles_per_slide: 1
