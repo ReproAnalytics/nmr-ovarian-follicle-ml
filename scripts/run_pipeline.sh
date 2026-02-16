@@ -21,16 +21,19 @@ bash scripts/run_ingest.sh
 # 2) Preprocess (stub example - implement later)
 bash scripts/run_preprocess.sh
 
-# 3) Train
+# 3) Annotate
+bash scripts/run_annotate.sh
+
+# 4) Train
 bash scripts/run_train.sh
 
-# 4) Infer
-# bash scripts/run_infer.sh
+# 5) Infer
+bash scripts/run_infer.sh
 
-# 5) Post-process
-# bash scripts/run_postprocess_count.sh
+# 6) Post-process
+bash scripts/run_postprocess_count.sh
 
-# 6) Eval/report
-# bash scripts/run_eval_report.sh
+# 7) Eval/report
+bash scripts/run_eval_report.sh
 
 echo "[pipeline] done."
