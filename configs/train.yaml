@@ -10,9 +10,9 @@ data:
   # label values must match labelmap keys
   split:
     seed: 42
-    train: 0.75
+    train: 0.70
     val: 0.15
-    test: 0.10
+    test: 0.15
 
 train:
   epochs: 10

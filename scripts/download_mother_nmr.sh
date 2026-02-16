@@ -22,6 +22,7 @@ mapfile -t accessions < <(printf "%s" "$search_html" \
 
 if [[ "${#accessions[@]}" -eq 0 ]]; then
   echo "X - No accessions found on the search page. Page structure may have changed."
+
   exit 1
 fi
 

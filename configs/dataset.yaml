@@ -3,8 +3,8 @@ project:
   species: Heterocephalus glaber
 
 paths:
-  raw_root: data/raw/H-glaber
-  raw_manifest: data/raw/H-glaber_manifest.csv
+  raw_root: data/raw/H_glaber
+  raw_manifest: data/raw/H_glaber_manifest.csv
 
 ingest:
   downloader_script: scripts/download_mother_nmr.sh

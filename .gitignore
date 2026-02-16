@@ -81,8 +81,6 @@ htmlcov/
 ############################
 # Safety: block accidental dumps
 ############################
-*.csv
-*.tsv
 *.xlsx
 *.parquet
-*_scaffold.sh
+

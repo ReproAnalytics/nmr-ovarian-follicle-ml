@@ -1,8 +1,8 @@
 paths:
-  raw_root: data/raw/H-glaber
+  raw_root: data/raw/H_glaber
   raw_manifest: data/raw/H_glaber_manifest.csv
 
-  tiles_root: data/interim/tiles/H-glaber
+  tiles_root: data/interim/tiles/H_glaber
   tiles_manifest: data/interim/tiles/H_glaber_tiles_manifest.csv
 
 tiling:
