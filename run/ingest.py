@@ -99,8 +99,16 @@ def main() -> int:
 
     if not args.skip_download:
         run_downloader(downloader, dest_dir)
-
+    else:
+        print("[ingest] Skipping download (--skip-download)")
+    
+    # Build manifest
     build_manifest(dest_dir, manifest_path)
+    
+    print("="*30)
+    print("INGEST COMPLETE")
+    print("="*30)
+    
     return 0
 
 

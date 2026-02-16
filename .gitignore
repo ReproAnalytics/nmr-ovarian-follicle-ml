@@ -1,5 +1,7 @@
+# Files Not to Commit to GitHub
+
 ############################
-# Data (NEVER version)
+# Data 
 ############################
 data/
 data/**
@@ -22,6 +24,7 @@ outputs/**
 *.hdf5
 *.pt
 *.pth
+*.pkl
 *.ckpt
 *.onnx
 *.npz
