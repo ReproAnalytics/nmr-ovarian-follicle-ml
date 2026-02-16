@@ -23,7 +23,7 @@ git clone git@github.com:ReproAnalytics/nmr-ovarian-follicle-ml.git
 cd nmr-ovarian-follicle-ml
 
 # Run setup (creates venv, installs dependencies, verifies environment)
-bash getting_started.sh
+bash scripts/setup_env.sh
 
 # Check environment health
 bash scripts/doctor.sh
@@ -57,69 +57,120 @@ bash scripts/run_eval_report.sh
 
 ```text
 nmr-ovarian-follicle-ml/
+│
 ├── README.md
+├── LICENSE
 ├── CONTRIBUTING.md
-├── getting_started.sh
-├── git_setup.sh
 ├── .gitignore
+├── .gitattributes
 │
-├── environment/
-│   └── requirements.txt
+├── environment/                         # environment reproducibility
+│   ├── requirements.txt
+│   ├── requirements-dev.txt
+│   └── setup_env.sh
 │
-├── configs/
-│   ├── dataset.yaml            # dataset paths, species, split ratios
-│   ├── preprocess.yaml         # tiling and normalization parameters
-│   ├── train.yaml              # model architecture and training settings
-│   ├── infer.yaml              # inference thresholds and batching
-│   └── eval.yaml               # evaluation metrics and reporting options
+├── configs/                             # ALL experiment control lives here
+│   ├── dataset.yaml                     # ingest + raw data config
+│   ├── preprocess.yaml                  # tiling + normalization settings
+│   ├── annotate.yaml                    # label joining rules
+│   ├── train.yaml                       # model + hyperparameters
+│   ├── infer.yaml                       # inference configuration
+│   ├── postprocess.yaml                 # follicle counting logic
+│   └── eval.yaml                        # evaluation metrics configuration
 │
-├── data/                       # gitignored (raw and intermediate data)
-│   ├── raw/H-glaber            # OME-TIFF slides and XML metadata
-│   ├── interim/                # tiled/normalized images
-│   └── processed/              # ML-ready tensors and masks
+├── data/                                # NEVER committed (gitignored)
+│   ├── raw/
+│   │   └── H_glaber/
+│   │       ├── <accession_id>/
+│   │       │   ├── *.ome.tif(f)
+│   │       │   ├── *.xml
+│   │       │   └── ...
+│   │       └── manifest_raw.csv
+│   │
+│   ├── interim/
+│   │   ├── tiles/
+│   │   │   └── H_glaber/
+│   │   │       └── <accession_id>/
+│   │   │           ├── tile_x_y.png
+│   │   │           └── ...
+│   │   └── tiles_manifest.csv
+│   │
+│   └── processed/
+│       ├── train_split.csv
+│       ├── val_split.csv
+│       └── test_split.csv
 │
-├── annotations/
-│   ├── protocol.md             # annotation guidelines (QuPath workflow)
-│   ├── labelmap.json           # follicle class definitions
-│   └── gold_set/               # curated ground-truth annotations
+├── annotations/                         # human supervision layer
+│   ├── protocol.md                      # follicle definitions
+│   ├── labelmap.json                    # class_name -> int
+│   ├── gold_set/
+│   │   └── labeled_tiles.csv
+│   └── raw_exports/                     # QuPath/CVAT exports
 │
-├── outputs/                    # gitignored (generated artifacts)
-│   ├── logs/                   # shell-run logs
-│   ├── models/                 # trained model checkpoints
-│   ├── predictions/            # segmentation outputs
-│   ├── metrics/                # evaluation metrics (CSV/JSON)
-│   ├── figures/                # plots and visualizations
-│   └── reports/                # tables and final summaries
+├── outputs/                             # all model artifacts (gitignored)
+│   ├── models/
+│   │   ├── run_YYYYMMDD_HHMM/
+│   │   │   ├── model.pt
+│   │   │   └── config_snapshot.yaml
+│   │   └── latest.pt
+│   │
+│   ├── predictions/
+│   │   ├── tiles_predictions.csv
+│   │   └── slide_level_predictions.csv
+│   │
+│   ├── metrics/
+│   │   ├── run_YYYYMMDD_HHMM.json
+│   │   └── tiles_metrics.json
+│   │
+│   ├── figures/
+│   │   ├── confusion_matrix.png
+│   │   ├── class_distribution.png
+│   │   └── error_examples/
+│   │
+│   └── reports/
+│       └── evaluation_report.md
 │
-├── src/                         # reusable ML code (NO direct execution)
+├── src/                                 # PURE ML ENGINE (no side effects)
 │   ├── ingest/
 │   │   └── ingest.py
+│   │
 │   ├── preprocess/
 │   │   └── preprocess.py
+│   │
+│   ├── annotate/
+│   │   └── join_labels.py
+│   │
 │   ├── train/
+│   │   ├── dataset.py
+│   │   ├── model.py
 │   │   └── train.py
+│   │
 │   ├── infer/
 │   │   └── infer.py
+│   │
 │   ├── postprocess/
 │   │   └── count.py
+│   │
 │   ├── eval/
 │   │   └── evaluate.py
+│   │
 │   └── utils/
-│       ├── config.py           # YAML loading and validation
-│       ├── paths.py            # standardized path resolution
-│       ├── logging.py          # logging utilities
-│       ├── seed.py             # reproducibility helpers
-│       └── io.py               # I/O and manifest utilities
+│       ├── config.py                    # YAML loading + validation
+│       ├── paths.py                     # repo root resolution
+│       ├── logging.py                   # structured logging
+│       ├── seed.py                      # reproducibility helpers
+│       └── io.py                        # manifest + file utilities
 │
-├── run/                         # PRIMARY Python execution entrypoints
+├── run/                                 # AUTHORITATIVE PYTHON ENTRYPOINTS
 │   ├── ingest.py
 │   ├── preprocess.py
+│   ├── annotate.py
 │   ├── train.py
 │   ├── infer.py
 │   ├── postprocess_count.py
 │   └── eval_report.py
 │
-├── explore/                     # exploration & visualization (non-authoritative)
+├── explore/                             # non-authoritative research tools
 │   ├── 00_dataset_sanity.py
 │   ├── 01_view_tiles.py
 │   ├── 02_overlay_masks.py
@@ -127,19 +178,20 @@ nmr-ovarian-follicle-ml/
 │   ├── 04_error_analysis.py
 │   └── 05_make_presentation_figs.py
 │
-├── scripts/                     # OPTIONAL shell orchestration 
-│   ├── env.sh                   # shared helpers (paths, venv, defaults)
-│   ├── doctor.sh                # prelim environment checks
-│   ├── run_stage.sh             # standardized logging wrapper
-│   ├── setup_env.sh             # one-time environment setup
-│   ├── run_ingest.sh
-│   ├── run_preprocess.sh
-│   ├── run_train.sh
-│   ├── run_infer.sh
-│   ├── run_postprocess_count.sh
-│   ├── run_eval_report.sh
-│   └── run_pipeline.sh          # end-to-end orchestration
-└── 
+└── scripts/                             # OPTIONAL orchestration layer
+    ├── env.sh                           # shared path + venv helpers
+    ├── doctor.sh                        # environment checks
+    ├── run_stage.sh                     # logging wrapper
+    ├── setup_env.sh                     # first-time setup
+    ├── run_ingest.sh
+    ├── run_preprocess.sh
+    ├── run_annotate.sh
+    ├── run_train.sh
+    ├── run_infer.sh
+    ├── run_postprocess.sh
+    ├── run_eval_report.sh
+    └── run_pipeline.sh                  # full end-to-end execution
+
    
 ```
 

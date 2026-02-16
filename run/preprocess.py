@@ -9,10 +9,15 @@ import argparse
 import csv
 import json
 import os
+import sys
 from dataclasses import dataclass
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Tuple
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from src.utils.config import load_config
+
 
 # -----------------------------
 # Helpers
@@ -139,54 +144,72 @@ def main() -> int:
     )
     parser.add_argument(
         "--raw-root",
-        default="data/raw/H_glaber",
+        default=None,
         help="Root directory that contains accession subfolders downloaded by ingest.",
     )
     parser.add_argument(
         "--ingest-manifest",
-        default="data/raw/H_glaber_manifest.csv",
+        default=None,
         help="CSV manifest produced by run/ingest.py.",
     )
     parser.add_argument(
         "--tiles-dir",
-        default="data/interim/tiles/H_glaber",
+        default=None,
         help="Directory where tiles will be written.",
     )
     parser.add_argument(
         "--tiles-manifest",
-        default="data/interim/tiles/H_glaber_tiles_manifest.csv",
+        default=None,
         help="Output CSV manifest listing tiles.",
     )
 
-    # Tiling params (mirrors what you were previously building from YAML)
-    parser.add_argument("--tile-size", type=int, default=512, help="Tile width/height in pixels.")
-    parser.add_argument("--stride", type=int, default=512, help="Stride in pixels (default=tile-size).")
-    parser.add_argument("--level", type=int, default=0, help="Pyramid level to read from (0 = highest resolution).")
-    parser.add_argument("--min-tissue-ratio", type=float, default=0.05, help="Skip tiles with tissue ratio below this.")
-    parser.add_argument("--normalize", default="none", help="Normalization method label (e.g., none, macenko, reinhard).")
+    # Tiling params — defaults are None so YAML config provides the real defaults
+    parser.add_argument("--tile-size", type=int, default=None, help="Tile width/height in pixels.")
+    parser.add_argument("--stride", type=int, default=None, help="Stride in pixels (default=tile-size).")
+    parser.add_argument("--level", type=int, default=None, help="Pyramid level to read from (0 = highest resolution).")
+    parser.add_argument("--min-tissue-ratio", type=float, default=None, help="Skip tiles with tissue ratio below this.")
+    parser.add_argument("--normalize", default=None, help="Normalization method label (e.g., none, macenko, reinhard).")
 
     # Slide file types
     parser.add_argument(
         "--slide-exts",
-        default=".ome.tif,.ome.tiff,.tif,.tiff",
+        default=None,
         help="Comma-separated slide extensions to include.",
     )
 
     # Logging
     parser.add_argument(
         "--log",
-        default="outputs/logs/preprocess_" + now_stamp() + ".log",
+        default=None,
         help="Log file path.",
     )
 
     args = parser.parse_args()
 
-    # Prep paths
-    raw_root = Path(args.raw_root)
-    ingest_manifest = Path(args.ingest_manifest)
-    tiles_dir = Path(args.tiles_dir)
-    tiles_manifest = Path(args.tiles_manifest)
-    log_path = Path(args.log)
+    # ---- Load config defaults, let CLI args override ----
+    repo = Path(__file__).resolve().parent.parent
+    cfg = load_config(repo / "configs" / "preprocess.yaml")
+
+    # Paths: CLI wins if provided, otherwise fall back to YAML config
+    raw_root        = Path(args.raw_root or cfg["paths"]["raw_root"])
+    ingest_manifest = Path(args.ingest_manifest or cfg["paths"]["raw_manifest"])
+    tiles_dir       = Path(args.tiles_dir or cfg["paths"]["tiles_root"])
+    tiles_manifest  = Path(args.tiles_manifest or cfg["paths"]["tiles_manifest"])
+    log_path        = Path(args.log or f"outputs/logs/preprocess_{now_stamp()}.log")
+
+    # Tiling params: use `is not None` for numeric fields where 0 is a valid value
+    tile_size       = args.tile_size if args.tile_size is not None else cfg["tiling"].get("tile_size", 512)
+    stride          = args.stride if args.stride is not None else cfg["tiling"].get("stride", tile_size)
+    level           = args.level if args.level is not None else cfg["tiling"].get("level", 0)
+    min_tissue      = args.min_tissue_ratio if args.min_tissue_ratio is not None else cfg["tiling"].get("min_tissue_ratio", 0.05)
+    normalize       = args.normalize or cfg["tiling"].get("normalize", "none")
+
+    slide_exts_str  = args.slide_exts or cfg.get("slide_exts", ".ome.tif,.ome.tiff,.tif,.tiff")
+    allowed_exts    = tuple(e.strip().lower() for e in slide_exts_str.split(",") if e.strip())
+
+    # Ensure stride is valid
+    if stride <= 0:
+        stride = tile_size
 
     log_path.parent.mkdir(parents=True, exist_ok=True)
 
@@ -198,15 +221,15 @@ def main() -> int:
 
     log("=" * 60)
     log("PREPROCESS STAGE")
-    log(f"raw_root: {raw_root}")
+    log(f"raw_root:        {raw_root}")
     log(f"ingest_manifest: {ingest_manifest}")
-    log(f"tiles_dir: {tiles_dir}")
-    log(f"tiles_manifest: {tiles_manifest}")
+    log(f"tiles_dir:       {tiles_dir}")
+    log(f"tiles_manifest:  {tiles_manifest}")
+    log(f"tile_size={tile_size}  stride={stride}  level={level}  "
+        f"min_tissue={min_tissue}  normalize={normalize}")
 
     # Read manifest from ingest
     records = read_ingest_manifest(ingest_manifest)
-
-    allowed_exts = tuple(e.strip().lower() for e in args.slide_exts.split(",") if e.strip())
     slide_records = filter_slide_files(records, allowed_exts=allowed_exts)
 
     log(f"Manifest rows: {len(records)}")
@@ -214,10 +237,6 @@ def main() -> int:
 
     # Build tiles
     all_tile_rows: List[Dict[str, object]] = []
-
-    stride = args.stride if args.stride else args.tile_size
-    if stride <= 0:
-        stride = args.tile_size
 
     for r in slide_records:
         slide_path = (raw_root / r.relpath).resolve()
@@ -231,11 +250,11 @@ def main() -> int:
         tile_rows = generate_tiles_for_slide(
             slide_path=slide_path,
             out_dir=slide_out_dir,
-            tile_size=args.tile_size,
+            tile_size=tile_size,
             stride=stride,
-            level=args.level,
-            min_tissue_ratio=args.min_tissue_ratio,
-            normalize=args.normalize,
+            level=level,
+            min_tissue_ratio=min_tissue,
+            normalize=normalize,
         )
 
         all_tile_rows.extend(tile_rows)
