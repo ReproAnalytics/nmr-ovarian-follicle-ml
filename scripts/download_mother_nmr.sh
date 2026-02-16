@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Goal: To download naked mole-rat histology data from the MOTHER database
+# Goal: To download nmr histology data from the MOTHER database.
 # Author: Martin Orkuma
 # Source: https://mother-db.org/search/?_sfm_genus_taxon_rank_value=Heterocephalus&_sfm_species_taxon_rank_value=Heterocephalus%20glaber
 
@@ -21,7 +21,8 @@ mapfile -t accessions < <(printf "%s" "$search_html" \
   | sort -u)
 
 if [[ "${#accessions[@]}" -eq 0 ]]; then
-  echo "☠️ No accessions found on the search page. Page structure may have changed."
+  echo "X - No accessions found on the search page. Page structure may have changed."
+
   exit 1
 fi
 
@@ -47,7 +48,7 @@ for acc in "${accessions[@]}"; do
     | sort -u)
 
   if [[ "${#file_urls[@]}" -eq 0 ]]; then
-    echo "  😖 No resource links found for $acc (skipping)."
+    echo "X - No resource links found for $acc (skipping)."
     continue
   fi
 
@@ -68,4 +69,4 @@ for acc in "${accessions[@]}"; do
   echo
 done
 
-echo "😊 Done."
+echo "Done!"
