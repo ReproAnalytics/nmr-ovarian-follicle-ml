@@ -14,7 +14,7 @@ Expected layout:
 Outputs (two manifests, one JSON):
   - data/raw/H_glaber/manifest_raw.csv               # canonical, pipeline-facing
   - outputs/reports/dataset_inventory.csv            # EDA/report-facing copy
-  - outputs/metrics/dataset_sanity.json              # summary + completeness + issue counts
+  - outputs/metrics/dataset_sanity.json              # summary + completeness + issue/warning counts
 
 Run from repo root:
   python explore/00_dataset_sanity.py
@@ -150,7 +150,7 @@ def parse_mother_xml(xml_path: Path) -> Dict[str, Optional[str]]:
             if lm_kids:
                 out["stain_type"] = _tag_local(lm_kids[0].tag)
 
-    # Magnification: FIXED
+    # Magnification:
     # Prefer text: <mdb:magnification>40</mdb:magnification>
     # Fallback to attribute-based magnification (some XML variants)
     mag_el = mother.find("mdb:magnification", NS)
@@ -158,7 +158,6 @@ def parse_mother_xml(xml_path: Path) -> Dict[str, Optional[str]]:
     if mag_txt:
         out["magnification"] = mag_txt
     elif mag_el is not None:
-        # common attribute names we’ve seen in similar XML ecosystems
         for attr_key in ("value", "magnification", "mag"):
             if attr_key in mag_el.attrib and mag_el.attrib[attr_key].strip():
                 out["magnification"] = mag_el.attrib[attr_key].strip()
@@ -193,6 +192,7 @@ class DonorRow:
 
     ok: bool
     issues: List[str]
+    warnings: List[str]
 
     # Debug: list any extra TIFF/XML candidates (helps fix bad folders quickly)
     tiff_candidates: str = ""
@@ -280,6 +280,7 @@ def normalize_for_match(s: str) -> str:
 
 
 def scan_donor_folder(donor_dir: Path) -> DonorRow:
+    warnings: List[str] = []
     accession_id = donor_dir.name
     issues: List[str] = []
 
@@ -306,6 +307,7 @@ def scan_donor_folder(donor_dir: Path) -> DonorRow:
         thumbnail_png_path=str(thumbnail_png.as_posix()) if thumbnail_png else "",
         ok=len(issues) == 0,
         issues=issues,
+        warnings=warnings,
         tiff_candidates=";".join([p.name for p in tiff_hits]),
         xml_candidates=";".join([p.name for p in xml_hits]),
     )
@@ -335,19 +337,26 @@ def scan_donor_folder(donor_dir: Path) -> DonorRow:
         if row.donorID is None and row.slideID is None:
             row.issues.append("xml_missing_mdb_mother_block")
 
-        # Filename consistency checks using slideID / donorID if present
+        # Derive donorAge if donorAge missing but donorYears/donorDays present
+        if not row.donorAge:
+            if row.donorYears and row.donorYears.strip():
+                row.donorAge = f"{row.donorYears.strip()} years"
+            elif row.donorDays and row.donorDays.strip():
+                row.donorAge = f"{row.donorDays.strip()} days"
+
+        # Filename consistency checks using slideID / donorID if present (warnings only)
         fnames = " ".join([p.name for p in donor_dir.iterdir() if p.is_file()]).lower()
         fn_norm = normalize_for_match(fnames)
 
         if row.slideID:
             slide_norm = normalize_for_match(row.slideID)
             if slide_norm and slide_norm not in fn_norm:
-                row.issues.append("slideID_not_in_filenames")
+                row.warnings.append("slideID_not_in_filenames")
 
         if row.donorID:
             donor_norm = normalize_for_match(row.donorID)
             if donor_norm and donor_norm not in fn_norm:
-                row.issues.append("donorID_not_in_filenames")
+                row.warnings.append("donorID_not_in_filenames")
 
     if reduced_png and reduced_png.exists():
         row.reduced_png_size = reduced_png.stat().st_size
@@ -375,6 +384,11 @@ def summarize(rows: List[DonorRow]) -> Dict[str, object]:
         for issue in r.issues:
             issue_counts[issue] = issue_counts.get(issue, 0) + 1
 
+    warning_counts: Dict[str, int] = {}
+    for r in rows:
+        for w in r.warnings:
+            warning_counts[w] = warning_counts.get(w, 0) + 1
+
     def completeness(field: str) -> Dict[str, int]:
         present = sum(1 for r in rows if getattr(r, field) not in (None, ""))
         return {"present": present, "missing": total - present}
@@ -386,6 +400,7 @@ def summarize(rows: List[DonorRow]) -> Dict[str, object]:
         "bad_accessions": bad,
         "tifffile_available": tifffile is not None,
         "issue_counts": dict(sorted(issue_counts.items(), key=lambda kv: (-kv[1], kv[0]))),
+        "warning_counts": dict(sorted(warning_counts.items(), key=lambda kv: (-kv[1], kv[0]))),
         "xml_field_completeness": {
             "donorID": completeness("donorID"),
             "slideID": completeness("slideID"),
@@ -445,7 +460,7 @@ def main() -> int:
     df = pd.DataFrame([asdict(r) for r in rows])
 
     # 1) Canonical manifest (pipeline)
-    manifest_path = (repo_root / args.manifest-out if False else repo_root / args.manifest_out).resolve()  # noqa
+    manifest_path = (repo_root / args.manifest_out).resolve()
     ensure_parent_dir(manifest_path)
     df.to_csv(manifest_path, index=False)
 
@@ -471,6 +486,11 @@ def main() -> int:
     if metrics["issue_counts"]:
         print("\nTop issues:")
         for k, v in metrics["issue_counts"].items():
+            print(f"  {k}: {v}")
+
+    if metrics.get("warning_counts"):
+        print("\nTop warnings:")
+        for k, v in metrics["warning_counts"].items():
             print(f"  {k}: {v}")
 
     print("\nXML field completeness:")

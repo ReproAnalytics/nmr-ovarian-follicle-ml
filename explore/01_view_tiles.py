@@ -6,8 +6,13 @@ Purpose (EDA):
   Fast visual QC using the *_reduced.png images (no huge TIFF reads).
   - Samples N accessions from the raw manifest
   - Creates a montage grid of reduced images
-  - Generates a few quick, data-driven plots from the manifest (file sizes, life stage, stain, magnification, etc.)
-  - Writes outputs to outputs/figures/
+  - Produces ML-relevant EDA outputs:
+      * TIFF file size distribution
+      * Reduced PNG resolution distribution (proxy for scan variability)
+      * Reduced PNG brightness distribution (proxy for exposure / staining variability)
+      * Metadata profile (counts, unique values, missingness) -> JSON
+      * Cross-tab checks for confounding: life stage x stain_type -> CSV
+      * Donor-level slide counts (imbalance / leakage risk) -> CSV
 
 Inputs:
   - data/raw/H_glaber/manifest_raw.csv  (produced by explore/00_dataset_sanity.py)
@@ -16,13 +21,14 @@ Outputs (default):
   outputs/figures/
     - reduced_montage.png
     - file_sizes_mb.png
-    - magnification_distribution.png
-    - life_stage_counts.png
-    - stain_type_counts.png
+
+  outputs/reports/
+    - metadata_profile.json
+    - crosstab_lifestage_by_stain.csv
+    - donor_slide_counts.csv
 
 Run (from repo root):
   python explore/01_view_tiles.py
-  python explore/01_view_tiles.py --n 25 --cols 5
 """
 
 from __future__ import annotations
@@ -30,17 +36,19 @@ from __future__ import annotations
 import argparse
 import math
 import random
+import json
 from pathlib import Path
-from typing import List, Optional, Tuple
+from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
-
 import matplotlib.pyplot as plt
 
 # Pillow for reading PNGs
 from PIL import Image, ImageOps
 
+
+# ------------------------------ utilities ------------------------------------
 
 def repo_root() -> Path:
     return Path(__file__).resolve().parents[1]
@@ -57,8 +65,9 @@ def safe_read_image(path: Path, max_side: int = 512) -> Optional[Image.Image]:
     """
     try:
         img = Image.open(path)
-        img = ImageOps.exif_transpose(img)  # handle any orientation tags
+        img = ImageOps.exif_transpose(img)
         img = img.convert("RGB")
+
         # downscale to max_side while preserving aspect ratio
         w, h = img.size
         scale = max(w, h) / float(max_side)
@@ -76,7 +85,6 @@ def make_montage(
     cols: int = 5,
     tile_pad: int = 8,
     label_height: int = 18,
-    font_size: int = 10,
 ) -> Image.Image:
     """
     Create a montage with simple labels (accession id).
@@ -85,13 +93,11 @@ def make_montage(
     if not images:
         raise ValueError("No images to montage.")
 
-    # Determine tile size
     max_w = max(img.size[0] for _, img in images)
     max_h = max(img.size[1] for _, img in images)
 
     rows = int(math.ceil(len(images) / cols))
 
-    # Canvas size
     tile_w = max_w
     tile_h = max_h + label_height
     canvas_w = cols * tile_w + (cols + 1) * tile_pad
@@ -99,10 +105,8 @@ def make_montage(
 
     canvas = Image.new("RGB", (canvas_w, canvas_h), (20, 20, 20))
 
-    # Optional: use PIL's basic text (no external font dependency)
     try:
         from PIL import ImageDraw, ImageFont
-
         draw = ImageDraw.Draw(canvas)
         font = ImageFont.load_default()
     except Exception:
@@ -116,41 +120,16 @@ def make_montage(
         x0 = tile_pad + c * (tile_w + tile_pad)
         y0 = tile_pad + r * (tile_h + tile_pad)
 
-        # center image within tile area (excluding label strip)
         img_w, img_h = img.size
         x_img = x0 + (tile_w - img_w) // 2
         y_img = y0 + (max_h - img_h) // 2
         canvas.paste(img, (x_img, y_img))
 
-        # label strip
         if draw is not None and font is not None:
             label_y = y0 + max_h + 2
             draw.text((x0 + 2, label_y), label, fill=(235, 235, 235), font=font)
 
     return canvas
-
-
-def plot_value_counts(
-    s: pd.Series,
-    title: str,
-    outpath: Path,
-    top_k: int = 12,
-) -> None:
-    s = s.dropna().astype(str).str.strip()
-    s = s[s != ""]
-    if s.empty:
-        return
-
-    vc = s.value_counts().head(top_k)
-    fig = plt.figure(figsize=(10, 5))
-    ax = fig.add_subplot(111)
-    ax.bar(vc.index.astype(str), vc.values)
-    ax.set_title(title)
-    ax.set_ylabel("Count")
-    ax.tick_params(axis="x", rotation=45, labelsize=9)
-    fig.tight_layout()
-    fig.savefig(outpath, dpi=200)
-    plt.close(fig)
 
 
 def plot_hist_numeric(
@@ -173,162 +152,149 @@ def plot_hist_numeric(
     fig.savefig(outpath, dpi=200)
     plt.close(fig)
 
+
+def normalize_series(s: pd.Series) -> pd.Series:
+    # Standardize strings: strip, empty->NaN
+    s2 = s.copy()
+    s2 = s2.astype("string")
+    s2 = s2.str.strip()
+    s2 = s2.replace({"": pd.NA, "nan": pd.NA, "None": pd.NA})
+    return s2
+
+
+def metadata_profile(df: pd.DataFrame, cols: List[str], top_k: int = 10) -> Dict[str, object]:
+    """
+    Build a JSON-serializable profile for categorical metadata:
+      - missing count
+      - unique count
+      - top values with counts (good replacement for bar charts)
+    """
+    prof: Dict[str, object] = {}
+    n = len(df)
+
+    for col in cols:
+        if col not in df.columns:
+            continue
+        s = normalize_series(df[col])
+        missing = int(s.isna().sum())
+        present = int(n - missing)
+        vc = s.dropna().astype(str).value_counts().head(top_k)
+
+        prof[col] = {
+            "n_rows": n,
+            "present": present,
+            "missing": missing,
+            "n_unique": int(s.dropna().nunique()),
+            "top_values": {k: int(v) for k, v in vc.items()},
+        }
+
+    return prof
+
+
+# ------------------------------ main -----------------------------------------
+
 def main() -> int:
     ap = argparse.ArgumentParser(description="EDA visual QC for reduced images + manifest summaries.")
-    ap.add_argument(
-        "--manifest",
-        type=str,
-        default="data/raw/H_glaber/manifest_raw.csv",
-        help="Path to manifest_raw.csv (default: data/raw/H_glaber/manifest_raw.csv)",
-    )
-    ap.add_argument(
-        "--outdir",
-        type=str,
-        default="outputs/figures",
-        help="Directory to write figures (default: outputs/figures)",
-    )
-    ap.add_argument("--n", type=int, default=25, help="Number of accessions to sample for montage")
-    ap.add_argument("--cols", type=int, default=5, help="Columns in montage grid")
-    ap.add_argument("--seed", type=int, default=7, help="Random seed for sampling")
-    ap.add_argument(
-        "--max-side",
-        type=int,
-        default=512,
-        help="Max side length for montage tiles (downscaled) (default: 512)",
-    )
-    ap.add_argument(
-        "--only-ok",
-        action="store_true",
-        help="If set, only sample rows where ok==True",
-    )
-    args = ap.parse_args()
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--manifest", default="data/raw/H_glaber/manifest_raw.csv")
+    ap.add_argument("--figdir", default="outputs/figures")
+    ap.add_argument("--reportdir", default="outputs/reports")
+    ap.add_argument("--n", type=int, default=25)
+    ap.add_argument("--cols", type=int, default=5)
+    ap.add_argument("--seed", type=int, default=7)
+    ap.add_argument("--max-side", type=int, default=512)
+    ap.add_argument("--only-ok", action="store_true")
+    args = ap.parse_args()   
 
     root = repo_root()
     manifest_path = (root / args.manifest).resolve()
-    outdir = (root / args.outdir).resolve()
-    ensure_dir(outdir)
-
-    if not manifest_path.exists():
-        print(f"[ERROR] manifest not found: {manifest_path}")
-        print("Run: python explore/00_dataset_sanity.py")
-        return 2
+    figdir = (root / args.figdir).resolve()
+    reportdir = (root / args.reportdir).resolve()
+    ensure_dir(figdir)
+    ensure_dir(reportdir)
 
     df = pd.read_csv(manifest_path)
 
-    # Basic filtering
     if args.only_ok and "ok" in df.columns:
-        df = df[df["ok"] == True]  # noqa: E712
+        df = df[df["ok"] == True] 
 
-    if df.empty:
-        print("[ERROR] No rows available for montage after filtering.")
-        return 2
-
-    # Prefer reduced PNGs
-    if "reduced_png_path" not in df.columns:
-        print("[ERROR] manifest is missing 'reduced_png_path' column.")
-        return 2
-
-    # Sample rows that actually have an existing reduced PNG
+    # Sample reduced PNGs
     candidates = []
-    for _, row in df.iterrows():
-        p = str(row.get("reduced_png_path", "")).strip()
+    for _, r in df.iterrows():
+        p = str(r.get("reduced_png_path", "")).strip()
         if not p:
             continue
         img_path = Path(p)
         if not img_path.is_absolute():
-            # Manifest likely stores absolute paths; but handle relative just in case
             img_path = (root / img_path).resolve()
         if img_path.exists():
-            candidates.append((row, img_path))
-
-    if not candidates:
-        print("[ERROR] No existing reduced PNG files found from manifest.")
-        return 2
+            candidates.append((r, img_path))
 
     random.seed(args.seed)
     sample = candidates if len(candidates) <= args.n else random.sample(candidates, args.n)
 
-    # Load images
     loaded: List[Tuple[str, Image.Image]] = []
-    for row, img_path in sample:
-        accession = str(row.get("accession_id", img_path.parent.name))
+    for r, img_path in sample:
+        accession = str(r.get("accession_id", img_path.parent.name))
         img = safe_read_image(img_path, max_side=args.max_side)
-        if img is None:
-            continue
-        loaded.append((accession, img))
+        if img:
+            loaded.append((accession, img))
 
-    if not loaded:
-        print("[ERROR] Failed to read any sampled reduced PNGs.")
-        return 2
-
-    # Montage
     montage = make_montage(loaded, cols=max(1, args.cols))
-    montage_path = outdir / "reduced_montage.png"
-    montage.save(montage_path)
+    montage.save(figdir / "reduced_montage.png")
 
-    # --- Manifest-driven plots (quick EDA) -----------------------------------
-    # File sizes in MB (TIFF is usually large-ish; still useful distribution)
+    # TIFF file size histogram
     if "tiff_size" in df.columns:
         mb = pd.to_numeric(df["tiff_size"], errors="coerce") / (1024 * 1024)
         plot_hist_numeric(
             mb,
             title="TIFF file size distribution (MB)",
             xlabel="Size (MB)",
-            outpath=outdir / "file_sizes_mb.png",
-            bins=20,
+            outpath=figdir / "file_sizes_mb.png",
         )
 
-    # Magnification distribution (if present)
-    if "magnification" in df.columns:
-        # Extract numeric portion if values like "40x"
-        mag = df["magnification"].astype(str).str.extract(r"(\d+\.?\d*)")[0]
-        plot_hist_numeric(
-            mag,
-            title="Magnification distribution",
-            xlabel="Magnification (x)",
-            outpath=outdir / "magnification_distribution.png",
-            bins=15,
-        )
+    # Metadata profile
+    meta_cols = ["donorLifeStage", "stain_type", "magnification"]
+    prof = metadata_profile(df, meta_cols)
+    (reportdir / "metadata_profile.json").write_text(json.dumps(prof, indent=2))
 
-    # Life stage counts
-    if "donorLifeStage" in df.columns:
-        plot_value_counts(
-            df["donorLifeStage"],
-            title="Donor life stage counts",
-            outpath=outdir / "life_stage_counts.png",
-            top_k=15,
-        )
+    # Cross-tab
+    if "donorLifeStage" in df.columns and "stain_type" in df.columns:
+        a = normalize_series(df["donorLifeStage"])
+        b = normalize_series(df["stain_type"])
+        xtab = pd.crosstab(a.fillna("MISSING"), b.fillna("MISSING"))
+        xtab.to_csv(reportdir / "crosstab_lifestage_by_stain.csv")
 
-    # Stain type counts
-    if "stain_type" in df.columns:
-        plot_value_counts(
-            df["stain_type"],
-            title="Stain type counts",
-            outpath=outdir / "stain_type_counts.png",
-            top_k=15,
-        )
+    # Donor slide counts
+    if "donorID" in df.columns:
+        d = normalize_series(df["donorID"])
+        donor_counts = d.value_counts().rename_axis("donorID").reset_index(name="n_slides")
+        donor_counts.to_csv(reportdir / "donor_slide_counts.csv", index=False)
 
-    # Sex counts
-    if "donorSex" in df.columns:
-        plot_value_counts(
-            df["donorSex"],
-            title="Donor sex counts",
-            outpath=outdir / "sex_counts.png",
-            top_k=10,
-        )
+# -------------------- console summary ------------------------------------
 
-    # Console summary
-    print("\nEDA: View Tiles (reduced) Summary")
+    print("\nEDA: View Tiles Summary")
     print("================================")
-    print(f"Manifest: {manifest_path}")
-    print(f"Outdir:   {outdir}")
-    print(f"Candidates with reduced PNG: {len(candidates)}")
-    print(f"Montage images loaded:       {len(loaded)}")
-    print("\nWrote:")
-    print(f"  - {montage_path}")
-    for p in sorted(outdir.glob("*.png")):
-        if p.name != "reduced_montage.png":
-            print(f"  - {p}")
+    print(f"Manifest used: {manifest_path}")
+    print(f"Total rows in manifest: {len(df)}")
+    print(f"Slides sampled for montage: {len(loaded)}")
+
+    print("\nFigures written:")
+    print(f"  - {figdir / 'reduced_montage.png'}")
+
+    if "tiff_size" in df.columns:
+        print(f"  - {figdir / 'file_sizes_mb.png'}")
+
+    print("\nReports written:")
+    print(f"  - {reportdir / 'metadata_profile.json'}")
+
+    if "donorLifeStage" in df.columns and "stain_type" in df.columns:
+        print(f"  - {reportdir / 'crosstab_lifestage_by_stain.csv'}")
+
+    if "donorID" in df.columns:
+        print(f"  - {reportdir / 'donor_slide_counts.csv'}")
+
+    print("\nEDA completed successfully.\n")
 
     return 0
 

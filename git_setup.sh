@@ -144,3 +144,21 @@ git pull origin main
 git branch -d feature/martin-docs-started
 
 # Summary: Pull → Branch → Work → Push → Pull Request → Merge → Clean up (Pull)
+
+
+####################################################################
+######################## Running EDA Script ########################
+####################################################################
+
+# from your home repo run the environment set up
+bash scripts/setup_env.sh
+
+# Open the virtual environment
+source .venv/bin/activate
+
+# Run EDA 00
+python explore/00_dataset_sanity.py --raw-root data/raw/H_glaber
+
+# Run EDA 01
+python explore/01_view_tiles.py
+
