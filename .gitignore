@@ -10,8 +10,8 @@ annotations/gold_set/**
 ############################
 # Outputs / Artifacts
 ############################
-outputs/
-outputs/**
+
+
 
 ############################
 # ML / Imaging binaries

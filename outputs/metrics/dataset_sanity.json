@@ -1,0 +1,62 @@
+{
+  "created_at": "2026-02-22T17:26:47",
+  "total_accessions": 9,
+  "ok_accessions": 9,
+  "bad_accessions": 0,
+  "tifffile_available": true,
+  "issue_counts": {},
+  "warning_counts": {
+    "donorID_not_in_filenames": 9,
+    "slideID_not_in_filenames": 8
+  },
+  "xml_field_completeness": {
+    "donorID": {
+      "present": 9,
+      "missing": 0
+    },
+    "slideID": {
+      "present": 9,
+      "missing": 0
+    },
+    "donorSex": {
+      "present": 9,
+      "missing": 0
+    },
+    "donorLifeStage": {
+      "present": 9,
+      "missing": 0
+    },
+    "donorAge": {
+      "present": 9,
+      "missing": 0
+    },
+    "donorYears": {
+      "present": 9,
+      "missing": 0
+    },
+    "donorDays": {
+      "present": 9,
+      "missing": 0
+    },
+    "specimenTissue": {
+      "present": 9,
+      "missing": 0
+    },
+    "ovaryPosition": {
+      "present": 9,
+      "missing": 0
+    },
+    "stain_type": {
+      "present": 9,
+      "missing": 0
+    },
+    "magnification": {
+      "present": 9,
+      "missing": 0
+    },
+    "sectionThickness": {
+      "present": 9,
+      "missing": 0
+    }
+  }
+}
