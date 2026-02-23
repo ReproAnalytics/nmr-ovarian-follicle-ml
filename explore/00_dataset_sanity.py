@@ -12,10 +12,10 @@ Expected layout:
     - one *_thumbnail.png
 
 Outputs:
-  - data/raw/H_glaber/manifest_raw.csv               # pipeline-facing 
-  - outputs/reports/dataset_inventory.csv            # EDA/report-facing 
-  - outputs/reports/dataset_inventory_with_paths.csv # debug copy with paths, for troubleshooting
-  - outputs/metrics/dataset_sanity.json              # summary + completeness + issue/warning counts
+  - data/raw/H_glaber/manifest_raw.csv                  # pipeline-facing 
+  - outputs/reports/dataset_inventory.csv               # EDA/report-facing 
+  - outputs/reports/dataset_inventory_with_paths.csv    # debug copy with paths, for troubleshooting
+  - outputs/metrics/dataset_sanity.json                 # summary + completeness + issue/warning counts
 
 Run from repo root:
   python explore/00_dataset_sanity.py
@@ -36,7 +36,7 @@ from typing import Dict, List, Optional, Tuple
 
 import pandas as pd
 
-# Optional TIFF header introspection (non-fatal if missing)
+# Optional TIFF header 
 try:
     import tifffile  # type: ignore
 except Exception:
@@ -47,7 +47,7 @@ TIFF_EXTS = (".tif", ".tiff")
 XML_EXT = ".xml"
 EXPECTED_PNG_SUFFIXES = ("_reduced.png", "_thumbnail.png")
 
-# Columns to remove from exported CSVs (per user request)
+# Columns to remove from exported CSVs
 DROP_FROM_EXPORT = [
     "donor_dir",
     "tiff_path",
@@ -56,7 +56,7 @@ DROP_FROM_EXPORT = [
     "thumbnail_png_path",
 ]
 
-# ---- XML parsing (MOTHER EML + mdb namespace) --------------------------------
+# ---- XML parsing (MOTHER) --------------------------------
 
 NS = {
     "eml": "https://eml.ecoinformatics.org/eml-2.2.0",
