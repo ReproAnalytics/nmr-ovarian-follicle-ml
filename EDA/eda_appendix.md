@@ -136,7 +136,7 @@ echo "Done!"
 
 Supplemental Table I: Source information for .xml data pulled from MOTHER  
 
-
+<img src="images/des_v_inf.png" width="700">
 
 
 
