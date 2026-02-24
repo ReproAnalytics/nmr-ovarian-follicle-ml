@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
-# Goal: Script to ingest histoloy and XML data from MOTHER db
+# Goal: Script to ingest histology and XML data from MOTHER db
+# Debugging and code assistance were provided by ChatGPT (GPT 5.2 Thinking)
 
 from __future__ import annotations
 import argparse
