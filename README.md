@@ -210,7 +210,7 @@ nmr-ovarian-follicle-ml/
 - **run/*.py** files are the canonical Python entrypoints, but are not run directly unless while developing
 - **src/** contains reusable library code and should never be executed directly
 - All parameters are controlled through **configs/*.yaml**
-- Notebooks are not used; exploratory analysis is performed using .py scripts in explore/
+- Notebooks are not used; exploratory analysis is performed using .py scripts in EDA/
 
 ### Additional Resources
 
