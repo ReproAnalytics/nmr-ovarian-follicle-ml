@@ -12,6 +12,8 @@ Outputs:
 - outputs/models/<run_name>/model.pt
 - outputs/models/latest.pt
 - outputs/logs/train_<run_name>.log
+
+Debugging and code assistance for image analysis and model training were provided by ChatGPT (GPT 5.2 Thinking)
 """
 
 from __future__ import annotations
