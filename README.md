@@ -7,7 +7,7 @@ The repository is designed for **reproducible, team-based research**, with a cle
 
 ## Quickstart
 
-This project is designed so **everyone runs the same commands**.  
+This project is designed so that **everyone runs the same commands**.  
 You do **not** need to call Python files directly.
 
 ### Prerequisites
@@ -218,3 +218,6 @@ Please review CONTRIBUTING.md before making changes.
 
 - Contributing <https://github.com/ReproAnalytics/nmr-ovarian-follicle-ml/blob/main/CONTRIBUTING.md>
 - Git Setup <https://github.com/ReproAnalytics/nmr-ovarian-follicle-ml/blob/main/git_setup.sh>
+
+### Acknowledgement
+- Debugging and code assistance for the data parsing and image analysis were provided by ChatGPT (GPT 5.2 Thinking).
