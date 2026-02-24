@@ -51,6 +51,11 @@ bash scripts/run_train.sh
 bash scripts/run_infer.sh
 bash scripts/run_postprocess_count.sh
 bash scripts/run_eval_report.sh
+
+# EDA
+source .venv/bin/activate
+python explore/00_dataset_sanity.py --raw-root data/raw/H_glaber
+python explore/01_view_tiles.py
 ```
 
 ## Repository Structure
@@ -77,6 +82,17 @@ nmr-ovarian-follicle-ml/
 │   ├── infer.yaml                       # inference configuration
 │   ├── postprocess.yaml                 # follicle counting logic
 │   └── eval.yaml                        # evaluation metrics configuration
+│
+│
+├── EDA/                                 # non-authoritative research tools
+│   ├── 00_dataset_sanity.py
+│   ├── 01_view_tiles.py
+│   ├── 02_overlay_masks.py
+│   ├── 03_annotation_audit.py
+│   ├── 04_error_analysis.py
+│   ├── 05_make_presentation_figs.py
+│   └── eda_appendix.md
+│
 │
 ├── data/                                # NEVER committed (gitignored)
 │   ├── raw/
@@ -170,13 +186,6 @@ nmr-ovarian-follicle-ml/
 │   ├── postprocess_count.py
 │   └── eval_report.py
 │
-├── explore/                             # non-authoritative research tools
-│   ├── 00_dataset_sanity.py
-│   ├── 01_view_tiles.py
-│   ├── 02_overlay_masks.py
-│   ├── 03_annotation_audit.py
-│   ├── 04_error_analysis.py
-│   └── 05_make_presentation_figs.py
 │
 └── scripts/                             # OPTIONAL orchestration layer
     ├── env.sh                           # shared path + venv helpers
