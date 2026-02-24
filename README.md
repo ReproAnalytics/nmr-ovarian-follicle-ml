@@ -207,7 +207,7 @@ nmr-ovarian-follicle-ml/
 ## Execution Model
 
 - All official pipeline execution should be done via **scripts/*.sh**
-- **run/*.py** files are the canonical Python entrypoints, but are not run directly unless while developing
+- **run/*.py** files are the canonical Python entrypoints, but are not run directly while developing
 - **src/** contains reusable library code and should never be executed directly
 - All parameters are controlled through **configs/*.yaml**
 - Notebooks are not used; exploratory analysis is performed using .py scripts in EDA/
@@ -219,5 +219,7 @@ Please review CONTRIBUTING.md before making changes.
 - Contributing <https://github.com/ReproAnalytics/nmr-ovarian-follicle-ml/blob/main/CONTRIBUTING.md>
 - Git Setup <https://github.com/ReproAnalytics/nmr-ovarian-follicle-ml/blob/main/git_setup.sh>
 
-### Acknowledgement
-- Debugging and code assistance for the data parsing and image analysis were provided by ChatGPT (GPT 5.2 Thinking).
+### AI Disclosure and Acknowledgments
+
+- Code Development: Debugging support and logic optimization for the data parsing, image analysis, and model training pipelines were facilitated by ChatGPT (GPT 5.2 Thinking).
+- Project Architecture: The repository structure and high-level project workflow diagrams were refined and structured using Claude 4.6 Sonnet (Extended).
