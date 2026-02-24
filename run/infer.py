@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Inference stage: run trained model on tiles and write predictions CSV.
+Inference stage: run the trained model on tiles and write the predictions to a CSV.
 
 Inputs:
 - configs/infer.yaml
@@ -9,6 +9,8 @@ Inputs:
 
 Output:
 - outputs/predictions/tiles_predictions.csv
+
+Debugging and code assistance for image analysis and model training were provided by ChatGPT (GPT 5.2 Thinking)
 """
 
 from __future__ import annotations
