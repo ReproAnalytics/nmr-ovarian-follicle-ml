@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 # Goal: One-time environment setup for nmr-ovarian-follicle-ml
+# Author: Martin Orkuma
 # Works on WSL (Ubuntu) + macOS
 
 set -euo pipefail
