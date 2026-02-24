@@ -1,6 +1,8 @@
 # Machine-Learning Histology Analysis of Heterogeneous glaber
 
-Julian Coles, Martin Orkuma, Pamela Styborski, and Silvia Tenempaguay-Nunez
+Title: Machine-Learning Histology Analysis of Heterogeneous glaber
+
+Authors: Julian Coles, Martin Orkuma, Pamela Styborski, and Silvia Tenempaguay-Nunez
 
 Use # for major section headers
 
@@ -14,3 +16,8 @@ For code use: `
 ```Python
 import pandas as pd
  ``` 
+
+## Introduction
+
+
+## Methodology
