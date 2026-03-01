@@ -41,3 +41,14 @@ Example:
 
 
 ## Methodology
+
+
+## References
+
+Barreñada, O., & Brieño-Enriquez, M. (2026). Multispecies Ovary Tissue Histology Electronic Repository. <https://mother-db.org>
+
+IBM. (n.d.). Exploratory Data Analysis. Ibm.com. <https://www.ibm.com/think/topics/exploratory-data-analysis> 
+
+MOTHER (2024). MOTHER Resources on GitHub. Available at <https://github.com/mother-db>
+
+Watanabe, K. H., Dietrich, S. W., Ding, Y., Ma, W., Sluka, J. P., & Zelinski, M. B. (2024). Overview of the Multispecies Ovary Tissue Histology Electronic Repository (MOTHER). Biology of Reproduction, 111(3), 512–515. <https://doi.org/10.1093/biolre/ioae101>
