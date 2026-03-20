@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Goal: One-time environment setup for nmr-ovarian-follicle-ml
 # Author: Martin Orkuma
-# Works on WSL (Ubuntu) + macOS
+# Works on WSL (Ubuntu), macOS, or Linux
 
 set -euo pipefail
 
@@ -39,8 +39,9 @@ source .venv/bin/activate
 # ---- Upgrade pip ----
 echo "Upgrading pip..."
 python -m pip install --upgrade pip
+
 # If python=python3: 
-# python3 -m pip install --upgrade pip
+python3 -m pip install --upgrade pip
 
 # ---- Install requirements ----
 if [[ ! -f "environment/requirements.txt" ]]; then
