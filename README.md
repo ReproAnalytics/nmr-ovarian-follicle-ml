@@ -71,7 +71,6 @@ nmr-ovarian-follicle-ml/
 │
 ├── environment/                         # environment reproducibility
 │   ├── requirements.txt
-│   ├── requirements-dev.txt
 │   └── setup_env.sh
 │
 ├── configs/                             # ALL experiment control lives here

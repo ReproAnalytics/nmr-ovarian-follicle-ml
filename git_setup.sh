@@ -142,6 +142,7 @@ git push -u origin feature/martin-docs-started
 git checkout main
 git pull origin main
 git branch -d feature/martin-docs-started
+git fetch --prune origin
 
 # Summary: Pull → Branch → Work → Push → Pull Request → Merge → Clean up (Pull)
 
