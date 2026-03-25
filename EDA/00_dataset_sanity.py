@@ -2,19 +2,20 @@
 """
 explore/00_dataset_sanity.py
 
-Begin EDA by validating raw dataset layout AND extracting metadata from the MOTHER XML (EML + mdb namespace).
+Purpose: Validate raw dataset layout and extract metadata from MOTHER XML.
 
 Expected layout:
   data/raw/H_glaber/<accession_id>/
-    - one *.tif / *.tiff  (often *ome.tif or *ome.tiff)
-    - one *.xml           (EML file containing <mdb:mother> metadata)
+    - one *.tif / *.tiff  
+    - one *.xml           
     - one *_reduced.png
     - one *_thumbnail.png
 
-Outputs (two manifests, one JSON):
-  - data/raw/H_glaber/manifest_raw.csv               # canonical, pipeline-facing
-  - outputs/reports/dataset_inventory.csv            # EDA/report-facing copy
-  - outputs/metrics/dataset_sanity.json              # summary + completeness + issue/warning counts
+Outputs:
+  - data/raw/H_glaber/manifest_raw.csv                  # pipeline-facing 
+  - outputs/reports/dataset_inventory.csv               # EDA/report-facing 
+  - outputs/reports/dataset_inventory_with_paths.csv    # debug copy with paths, for troubleshooting
+  - outputs/metrics/dataset_sanity.json                 # summary + completeness + issue/warning counts
 
 Run from repo root:
   python explore/00_dataset_sanity.py
@@ -35,7 +36,7 @@ from typing import Dict, List, Optional, Tuple
 
 import pandas as pd
 
-# Optional TIFF header introspection (non-fatal if missing)
+# Optional TIFF header 
 try:
     import tifffile  # type: ignore
 except Exception:
@@ -46,7 +47,16 @@ TIFF_EXTS = (".tif", ".tiff")
 XML_EXT = ".xml"
 EXPECTED_PNG_SUFFIXES = ("_reduced.png", "_thumbnail.png")
 
-# ---- XML parsing (MOTHER EML + mdb namespace) --------------------------------
+# Columns to remove from exported CSVs
+DROP_FROM_EXPORT = [
+    "donor_dir",
+    "tiff_path",
+    "xml_path",
+    "reduced_png_path",
+    "thumbnail_png_path",
+]
+
+# ---- XML parsing (MOTHER) --------------------------------
 
 NS = {
     "eml": "https://eml.ecoinformatics.org/eml-2.2.0",
@@ -66,10 +76,21 @@ def _text_or_none(el: Optional[ET.Element]) -> Optional[str]:
     return s if s else None
 
 
+def _to_int_or_none(x: Optional[str]) -> Optional[int]:
+    if x is None:
+        return None
+    s = str(x).strip()
+    if not s:
+        return None
+    try:
+        return int(float(s))
+    except Exception:
+        return None
+
+
 def parse_mother_xml(xml_path: Path) -> Dict[str, Optional[str]]:
     """
     Parse the MOTHER XML (EML) and extract metadata under <mdb:mother>.
-    Robust to similar XML formats.
 
     Returns a flat dict. Missing fields are None.
     """
@@ -82,9 +103,9 @@ def parse_mother_xml(xml_path: Path) -> Dict[str, Optional[str]]:
         # donor
         "donorSex": None,
         "donorLifeStage": None,
-        "donorAge": None,
-        "donorDays": None,
-        "donorYears": None,
+        "donorAge": None,     # normalized string
+        "donorDays": None,    # raw string
+        "donorYears": None,   # raw string
         # specimen
         "specimenTissue": None,
         "specimenLocation": None,
@@ -116,15 +137,11 @@ def parse_mother_xml(xml_path: Path) -> Dict[str, Optional[str]]:
     def t(rel_path: str) -> Optional[str]:
         return _text_or_none(mother.find(rel_path, NS))
 
-    # Direct fields
+    # Direct fields under <mdb:mother>
     out["donorID"] = t("mdb:donorID")
     out["slideID"] = t("mdb:slideID")
-
     out["donorSex"] = t("mdb:donorSex")
     out["donorLifeStage"] = t("mdb:donorLifeStage")
-    out["donorAge"] = t("mdb:donorAge")
-    out["donorDays"] = t("mdb:donorDays")
-    out["donorYears"] = t("mdb:donorYears")
 
     out["specimenTissue"] = t("mdb:specimenTissue")
     out["specimenLocation"] = t("mdb:specimenLocation")
@@ -133,6 +150,28 @@ def parse_mother_xml(xml_path: Path) -> Dict[str, Optional[str]]:
     out["specimenCycle"] = t("mdb:specimenCycle")
 
     out["notes"] = t("mdb:notes")
+
+    # donorAge is a container in your XML (nested donorYears/donorDays)
+    donor_age_el = mother.find("mdb:donorAge", NS)
+    if donor_age_el is not None:
+        out["donorYears"] = _text_or_none(donor_age_el.find("mdb:donorYears", NS))
+        out["donorDays"] = _text_or_none(donor_age_el.find("mdb:donorDays", NS))
+    else:
+        # fallback for variants where donorDays/Years appear elsewhere
+        out["donorYears"] = _text_or_none(mother.find(".//mdb:donorYears", NS))
+        out["donorDays"] = _text_or_none(mother.find(".//mdb:donorDays", NS))
+
+    # Normalize donorAge to include total days 
+    yrs_i = _to_int_or_none(out["donorYears"])
+    dys_i = _to_int_or_none(out["donorDays"])
+    if yrs_i is not None or dys_i is not None:
+        yrs_i = yrs_i or 0
+        dys_i = dys_i or 0
+        total_days = yrs_i * 365 + dys_i
+        out["donorAge"] = f"{yrs_i} years {dys_i} days ({total_days} days)"
+    else:
+        # fallback if donorAge is simple text in other variants
+        out["donorAge"] = t("mdb:donorAge")
 
     # Fixation: nested structure, capture first child tag
     fixation_el = mother.find(".//mdb:fixation", NS)
@@ -150,9 +189,7 @@ def parse_mother_xml(xml_path: Path) -> Dict[str, Optional[str]]:
             if lm_kids:
                 out["stain_type"] = _tag_local(lm_kids[0].tag)
 
-    # Magnification:
-    # Prefer text: <mdb:magnification>40</mdb:magnification>
-    # Fallback to attribute-based magnification (some XML variants)
+    # Magnification: prefer text; fallback to attribute
     mag_el = mother.find("mdb:magnification", NS)
     mag_txt = _text_or_none(mag_el)
     if mag_txt:
@@ -163,11 +200,11 @@ def parse_mother_xml(xml_path: Path) -> Dict[str, Optional[str]]:
                 out["magnification"] = mag_el.attrib[attr_key].strip()
                 break
 
-    # Microscope model can be nested; grab what exists
+    # Microscope model (nested)
     mm = mother.find(".//mdb:microscope/mdb:model", NS)
-    out["microscope_model"] = _text_or_none(mm) or t(".//mdb:model")
+    out["microscope_model"] = _text_or_none(mm) or _text_or_none(mother.find(".//mdb:model", NS))
 
-    # Section thickness: <mdb:sectionThickness><mdb:thickness>6</mdb:thickness><mdb:unit>microns</mdb:unit>
+    # Section thickness
     sec = mother.find(".//mdb:sectionThickness", NS)
     if sec is not None:
         thick = sec.findtext(".//mdb:thickness", default="", namespaces=NS).strip()
@@ -194,7 +231,7 @@ class DonorRow:
     issues: List[str]
     warnings: List[str]
 
-    # Debug: list any extra TIFF/XML candidates (helps fix bad folders quickly)
+    # Debug: list any extra TIFF/XML candidates
     tiff_candidates: str = ""
     xml_candidates: str = ""
 
@@ -249,6 +286,7 @@ def find_png_by_suffix(folder: Path, suffix: str) -> Optional[Path]:
         return None
     if len(hits) == 1:
         return hits[0]
+    # choose shortest filename if multiple
     return sorted(hits, key=lambda p: len(p.name))[0]
 
 
@@ -337,13 +375,6 @@ def scan_donor_folder(donor_dir: Path) -> DonorRow:
         if row.donorID is None and row.slideID is None:
             row.issues.append("xml_missing_mdb_mother_block")
 
-        # Derive donorAge if donorAge missing but donorYears/donorDays present
-        if not row.donorAge:
-            if row.donorYears and row.donorYears.strip():
-                row.donorAge = f"{row.donorYears.strip()} years"
-            elif row.donorDays and row.donorDays.strip():
-                row.donorAge = f"{row.donorDays.strip()} days"
-
         # Filename consistency checks using slideID / donorID if present (warnings only)
         fnames = " ".join([p.name for p in donor_dir.iterdir() if p.is_file()]).lower()
         fn_norm = normalize_for_match(fnames)
@@ -380,12 +411,11 @@ def summarize(rows: List[DonorRow]) -> Dict[str, object]:
     bad = total - ok
 
     issue_counts: Dict[str, int] = {}
+    warning_counts: Dict[str, int] = {}
+
     for r in rows:
         for issue in r.issues:
             issue_counts[issue] = issue_counts.get(issue, 0) + 1
-
-    warning_counts: Dict[str, int] = {}
-    for r in rows:
         for w in r.warnings:
             warning_counts[w] = warning_counts.get(w, 0) + 1
 
@@ -407,6 +437,8 @@ def summarize(rows: List[DonorRow]) -> Dict[str, object]:
             "donorSex": completeness("donorSex"),
             "donorLifeStage": completeness("donorLifeStage"),
             "donorAge": completeness("donorAge"),
+            "donorYears": completeness("donorYears"),
+            "donorDays": completeness("donorDays"),
             "specimenTissue": completeness("specimenTissue"),
             "ovaryPosition": completeness("ovaryPosition"),
             "stain_type": completeness("stain_type"),
@@ -428,13 +460,19 @@ def main() -> int:
         "--manifest-out",
         type=str,
         default="data/raw/H_glaber/manifest_raw.csv",
-        help="Canonical manifest output (pipeline-facing)",
+        help="Canonical manifest output (pipeline-facing) [paths removed per request]",
     )
     parser.add_argument(
         "--inventory-out",
         type=str,
         default="outputs/reports/dataset_inventory.csv",
-        help="EDA/reporting inventory copy (human-facing)",
+        help="EDA/reporting inventory copy [paths removed per request]",
+    )
+    parser.add_argument(
+        "--inventory-with-paths-out",
+        type=str,
+        default="outputs/reports/dataset_inventory_with_paths.csv",
+        help="Debug inventory copy WITH file paths (recommended for troubleshooting)",
     )
     parser.add_argument(
         "--metrics-out",
@@ -457,17 +495,38 @@ def main() -> int:
         return 2
 
     rows: List[DonorRow] = [scan_donor_folder(d) for d in donor_dirs]
-    df = pd.DataFrame([asdict(r) for r in rows])
+    df_full = pd.DataFrame([asdict(r) for r in rows])
 
-    # 1) Canonical manifest (pipeline)
+    # Create donorAgeDays column for inventory export
+    donorYears_num = pd.to_numeric(df_full.get("donorYears"), errors="coerce").fillna(0)
+    donorDays_num = pd.to_numeric(df_full.get("donorDays"), errors="coerce").fillna(0)
+
+    donorAgeDays = donorDays_num + donorYears_num * 365
+
+    if "donorAge" in df_full.columns:
+        insert_at = df_full.columns.get_loc("donorAge") + 1
+        df_full.insert(insert_at, "donorAgeDays", donorAgeDays)
+    else:
+        df_full["donorAgeDays"] = donorAgeDays
+
+
+    # Export versions (paths removed)
+    df_export = df_full.drop(columns=[c for c in DROP_FROM_EXPORT if c in df_full.columns])
+
+    # 1) Canonical manifest (pipeline) [paths removed]
     manifest_path = (repo_root / args.manifest_out).resolve()
     ensure_parent_dir(manifest_path)
-    df.to_csv(manifest_path, index=False)
+    df_export.to_csv(manifest_path, index=False)
 
-    # 2) EDA/report inventory copy
+    # 2) EDA/report inventory copy [paths removed]
     inventory_path = (repo_root / args.inventory_out).resolve()
     ensure_parent_dir(inventory_path)
-    df.to_csv(inventory_path, index=False)
+    df_export.to_csv(inventory_path, index=False)
+
+    # 2b) Debug inventory with paths (helps if something breaks later)
+    inventory_with_paths_path = (repo_root / args.inventory_with_paths_out).resolve()
+    ensure_parent_dir(inventory_with_paths_path)
+    df_full.to_csv(inventory_with_paths_path, index=False)
 
     # 3) Metrics summary JSON
     metrics = summarize(rows)
@@ -488,7 +547,7 @@ def main() -> int:
         for k, v in metrics["issue_counts"].items():
             print(f"  {k}: {v}")
 
-    if metrics.get("warning_counts"):
+    if metrics["warning_counts"]:
         print("\nTop warnings:")
         for k, v in metrics["warning_counts"].items():
             print(f"  {k}: {v}")
@@ -498,10 +557,12 @@ def main() -> int:
         print(f"  {field}: present={stats['present']} missing={stats['missing']}")
 
     print("\nWrote:")
-    print(f"  - {manifest_path}")
-    print(f"  - {inventory_path}")
+    print(f"  - {manifest_path} ")
+    print(f"  - {inventory_path} ")
+    print(f"  - {inventory_with_paths_path} (debug, includes paths)")
     print(f"  - {metrics_path}")
 
+    # Exit non-zero if any bad accessions (useful for CI)
     return 0 if metrics["bad_accessions"] == 0 else 1
 
 

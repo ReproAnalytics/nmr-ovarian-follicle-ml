@@ -10,8 +10,8 @@ annotations/gold_set/**
 ############################
 # Outputs / Artifacts
 ############################
-outputs/
-outputs/**
+
+
 
 ############################
 # ML / Imaging binaries
@@ -84,3 +84,4 @@ htmlcov/
 *.xlsx
 *.parquet
 
+silvia_scaffold.sh

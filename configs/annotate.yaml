@@ -7,3 +7,4 @@ paths:
 annotate:
   min_agreement: 2
   strategy: majority_vote   # majority_vote | expert_override
+  

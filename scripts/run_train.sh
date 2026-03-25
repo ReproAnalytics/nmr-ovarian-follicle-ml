@@ -3,8 +3,8 @@
 # Usage examples:
 #   bash scripts/run_train.sh
 #   bash scripts/run_train.sh --dataset H_glaber
-#   bash scripts/run_train.sh --tiles-manifest data/interim/tiles/H_glaber_tiles_manifest.csv --require-labels
 
+#   Note: Debugging and code assistance for the model training were provided by ChatGPT (GPT 5.2 Thinking)
 set -euo pipefail
 
 # -----------------------------

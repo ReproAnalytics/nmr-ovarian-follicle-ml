@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
-"""Post-processing: aggregate tile predictions into slide-level follicle counts."""
+"""
+Post-processing: Aggregate tile predictions into slide-level follicle counts.
+Debugging and code assistance for the data parsing and image analysis were provided by ChatGPT (GPT 5.2 Thinking)
+"""
 from __future__ import annotations
 
 import argparse

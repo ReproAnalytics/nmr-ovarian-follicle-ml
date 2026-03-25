@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Preprocess stage entry point aligned with run/ingest.py (filesystem-derived CSV manifest).
+Debugging and code assistance were provided by ChatGPT (GPT 5.2 Thinking)
 """
 
 from __future__ import annotations
