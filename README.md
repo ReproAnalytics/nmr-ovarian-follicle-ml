@@ -224,13 +224,15 @@ nmr-ovarian-follicle-ml/
 
 ```
 
-## Execution Model
+## What Lives Where?
 
-- All official pipeline execution should be done via **scripts/*.sh**
-- **run/*.py** files are the canonical Python entrypoints, but are not run directly while developing
-- **src/** contains reusable library code and should never be executed directly
-- All parameters are controlled through **configs/*.yaml**
-- Notebooks are not used; exploratory analysis is performed using .py scripts in EDA/
+- configs/ = source of truth for stage parameters and paths (train/infer/eval/preprocess/etc.). 
+- run/ = the actual Python stage entrypoints with end-to-end logic (ingest, preprocess, train, infer, postprocess, eval, validate exports). 
+- src/utils/ = shared helpers (config loading, repo path resolution, CSV I/O, logging, seeds). 
+- scripts/ = orchestration wrappers for reproducible stage execution and logging. 
+- annotations/ + QuPath/ = human annotation protocol, label map, raw exports, and QuPath automation scripts. 
+- data/ and outputs/ = pipeline state and generated artifacts (mostly gitignored). 
+- tests/ = currently lightweight smoke checks around config loading/path resolution and split ratios.
 
 ### Additional Resources
 

@@ -16,10 +16,6 @@ annotations/gold_set/**
 ############################
 # ML / Imaging binaries
 ############################
-*.tif
-*.tiff
-*.ome.tif
-*.ome.tiff
 *.h5
 *.hdf5
 *.pt
