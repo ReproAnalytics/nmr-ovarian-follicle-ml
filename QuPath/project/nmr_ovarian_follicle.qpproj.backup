@@ -3,6 +3,249 @@
   "createTimestamp": 1774421550995,
   "modifyTimestamp": 1774421550995,
   "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/nmr_ovarian_follicle.qpproj",
-  "lastID": 0,
-  "images": []
+  "lastID": 9,
+  "images": [
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000530/MDB0000530-P28-Ova-106_s55.tif",
+        "args": [
+          "--series",
+          "0"
+        ],
+        "metadata": {
+          "name": "MDB0000530-P28-Ova-106_s55.tif",
+          "width": 8747,
+          "height": 11158,
+          "sizeZ": 1,
+          "sizeT": 1,
+          "channelType": "DEFAULT",
+          "isRGB": true,
+          "pixelType": "UINT8",
+          "levels": [
+            {
+              "downsample": 1.0,
+              "width": 8747,
+              "height": 11158
+            }
+          ],
+          "channels": [
+            {
+              "name": "Red",
+              "color": -65536
+            },
+            {
+              "name": "Green",
+              "color": -16711936
+            },
+            {
+              "name": "Blue",
+              "color": -16776961
+            }
+          ],
+          "pixelCalibration": {
+            "pixelWidth": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "pixelHeight": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "zSpacing": {
+              "value": 1.0,
+              "unit": "z-slice"
+            },
+            "timeUnit": "SECONDS",
+            "timepoints": []
+          },
+          "preferredTileWidth": 8747,
+          "preferredTileHeight": 36
+        }
+      },
+      "entryID": 1,
+      "randomizedName": "36124b9a-76b5-468b-87d0-d67fae59578b",
+      "imageName": "MDB0000530-P28-Ova-106_s55.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000531/MDB0000531-P1-11-s40.tif",
+        "args": [
+          "--series",
+          "0"
+        ],
+        "metadata": {
+          "name": "MDB0000531-P1-11-s40.tif",
+          "width": 11359,
+          "height": 19203,
+          "sizeZ": 1,
+          "sizeT": 1,
+          "channelType": "DEFAULT",
+          "isRGB": true,
+          "pixelType": "UINT8",
+          "levels": [
+            {
+              "downsample": 1.0,
+              "width": 11359,
+              "height": 19203
+            }
+          ],
+          "channels": [
+            {
+              "name": "Red",
+              "color": -65536
+            },
+            {
+              "name": "Green",
+              "color": -16711936
+            },
+            {
+              "name": "Blue",
+              "color": -16776961
+            }
+          ],
+          "pixelCalibration": {
+            "pixelWidth": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "pixelHeight": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "zSpacing": {
+              "value": 1.0,
+              "unit": "z-slice"
+            },
+            "timeUnit": "SECONDS",
+            "timepoints": []
+          },
+          "preferredTileWidth": 11359,
+          "preferredTileHeight": 35
+        }
+      },
+      "entryID": 2,
+      "randomizedName": "7b30bbce-67ab-43cd-8bd9-7bb2c4e2f7e3",
+      "imageName": "MDB0000531-P1-11-s40.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000532/MDB0000532-P15_F09OV-s83.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 3,
+      "randomizedName": "bd8c6128-4b39-455f-84a3-d763ede30dd9",
+      "imageName": "MDB0000532-P15_F09OV-s83.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000533/MDB0000533-P180_6Mon-6b-s86.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 4,
+      "randomizedName": "45398e5b-37cd-4ec7-850e-e92094dddd76",
+      "imageName": "MDB0000533-P180_6Mon-6b-s86.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000534/MDB0000534-P5-23-s13.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 5,
+      "randomizedName": "b0d5535e-4b2d-4c70-ad81-27431621325f",
+      "imageName": "MDB0000534-P5-23-s13.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000535/MDB0000535-P8-F02-OV-s135.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 6,
+      "randomizedName": "6e41d38c-b9ac-4bca-9b21-db31d9239cf1",
+      "imageName": "MDB0000535-P8-F02-OV-s135.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000536/MDB0000536-P90-NMR_3Mo-3B-s96.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 7,
+      "randomizedName": "2567f0ff-4734-44cb-86e5-0dc72114b5c4",
+      "imageName": "MDB0000536-P90-NMR_3Mo-3B-s96.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000537/MDB0000537-2653-3y-Exsub-s19.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 8,
+      "randomizedName": "9b830f18-0c7b-455f-b390-635e33dbd6f9",
+      "imageName": "MDB0000537-2653-3y-Exsub-s19.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000538/MDB0000538-2659-3y-Sub-s109.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 9,
+      "randomizedName": "25c7e6e7-8d1a-4428-93b8-7aec59f3e1ff",
+      "imageName": "MDB0000538-2659-3y-Sub-s109.tif",
+      "metadata": {},
+      "tags": []
+    }
+  ]
 }

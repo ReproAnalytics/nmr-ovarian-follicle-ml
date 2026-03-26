@@ -1,50 +1,112 @@
-import qupath.lib.gui.scripting.QPEx
+// ============================================================
+// import_images.groovy
+// Purpose: Import H. glaber ovarian histology images (.tif)
+//          into a QuPath project.
+//
+// Usage:
+//   GUI  — Run via Automate > Script Editor (no args needed)
+//   CLI  — Pass raw dir as --args (headless mode, QuPath 0.5+)
+//
+// Notes:
+//   - Files are plain .tif (not .ome.tif) from the MOTHER database
+// ============================================================
+
+import qupath.lib.images.servers.ImageServerProvider
+import java.awt.image.BufferedImage
 import java.nio.file.Files
 import java.io.File
 
 println "=== import_images.groovy starting ==="
-println "args.length = " + args.length
-args.eachWithIndex { a, i -> println "args[$i] = $a" }
 
-if (args.length < 1) {
-    throw new IllegalArgumentException("Expected 1 argument: raw image directory")
+// ------------------------------------------------------------------
+// 1. Resolve raw image directory
+// ------------------------------------------------------------------
+def rawDir
+
+if (args.length >= 1) {
+    rawDir = new File(args[0])
+    println "rawDir (from args): ${rawDir.getAbsolutePath()}"
+} else {
+    rawDir = new File(buildFilePath(PROJECT_BASE_DIR, "..", "..", "data", "raw", "H_glaber"))
+    println "rawDir (fallback):  ${rawDir.getAbsolutePath()}"
 }
 
-def rawDir = new File(args[0])
-println "rawDir = " + rawDir.getAbsolutePath()
-println "rawDir exists? " + rawDir.exists()
+println "rawDir exists?      " + rawDir.exists()
 println "rawDir isDirectory? " + rawDir.isDirectory()
 
-def project = QPEx.getProject()
-println "project is null? " + (project == null)
+if (!rawDir.exists() || !rawDir.isDirectory()) {
+    throw new IllegalArgumentException(
+        "Raw image directory not found: " + rawDir.getAbsolutePath()
+    )
+}
+
+// ------------------------------------------------------------------
+// 2. Get open project
+// ------------------------------------------------------------------
+def project = getProject()
+println "project is null?    " + (project == null)
 
 if (project == null) {
-    throw new IllegalStateException("No QuPath project is open. Use --project when calling this script.")
+    throw new IllegalStateException(
+        "No QuPath project is open. Load the project before running this script."
+    )
 }
 
-def exts = [".ome.tif", ".ome.tiff", ".tif", ".tiff"]
+// ------------------------------------------------------------------
+// 3. Collect .tif files (recursive — walks accession subfolders)
+//    NOTE: MOTHER database files are plain .tif, NOT .ome.tif
+// ------------------------------------------------------------------
+def exts = [".tif", ".tiff"]
 
-def imageFiles = Files.walk(rawDir.toPath())
-    .filter { Files.isRegularFile(it) }
-    .map { it.toFile() }
-    .filter { f ->
-        def name = f.getName().toLowerCase()
-        exts.any { name.endsWith(it) }
-    }
-    .toList()
+def imageFiles = []
+Files.walk(rawDir.toPath()).withCloseable { stream ->
+    imageFiles = stream
+        .filter  { Files.isRegularFile(it) }
+        .map     { it.toFile() }
+        .filter  { f ->
+            def name = f.getName().toLowerCase()
+            exts.any { ext -> name.endsWith(ext) }
+        }
+        .sorted  { a, b -> a.getAbsolutePath() <=> b.getAbsolutePath() }
+        .toList()
+}
 
-println "Found ${imageFiles.size()} candidate image files"
+println "Found ${imageFiles.size()} .tif candidate file(s)"
+
+// ------------------------------------------------------------------
+// 4. Import via ImageServerProvider builder (QuPath 0.5+ API)
+// ------------------------------------------------------------------
+int importedCount = 0
+int skippedCount  = 0
 
 for (file in imageFiles) {
+    def uriString = file.toURI().toString()
+    println "Trying: ${file.getName()}"
     try {
-        println "Trying import: ${file.getAbsolutePath()}"
-        project.addImage(file.toURI())
-        println "Imported: ${file.getAbsolutePath()}"
+        def support = ImageServerProvider.getPreferredUriImageSupport(
+            BufferedImage.class, uriString
+        )
+        if (support == null || support.builders.isEmpty()) {
+            println "  WARN: No compatible server — skipping ${file.getName()}"
+            skippedCount++
+            continue
+        }
+        def entry = project.addImage(support.builders.get(0))
+        entry.setImageName(file.getName())
+        importedCount++
+        println "  OK: ${file.getName()}"
     } catch (Exception e) {
-        println "Skipped ${file.getName()} -> ${e.getClass().getName()}: ${e.getMessage()}"
+        println "  SKIP: ${file.getName()} → ${e.getClass().getName()}: ${e.getMessage()}"
+        skippedCount++
     }
 }
 
+// ------------------------------------------------------------------
+// 5. Persist to .qpproj
+// ------------------------------------------------------------------
 project.syncChanges()
-println "QuPath project sync complete"
+
+println ""
 println "=== import_images.groovy finished ==="
+println "  Imported : $importedCount"
+println "  Skipped  : $skippedCount"
