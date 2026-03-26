@@ -1,3 +1,5 @@
+// In progress: Not working just yet. Will need to add some code to export the annotations as geojson and then save the measurements as tsv.
+
 import qupath.lib.gui.scripting.QPEx
 import java.io.File
 

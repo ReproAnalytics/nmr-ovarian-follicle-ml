@@ -3,6 +3,151 @@
   "createTimestamp": 1774421550995,
   "modifyTimestamp": 1774421550995,
   "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/nmr_ovarian_follicle.qpproj",
-  "lastID": 0,
-  "images": []
+  "lastID": 9,
+  "images": [
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000530/MDB0000530-P28-Ova-106_s55.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 1,
+      "randomizedName": "68a3723a-b456-4a44-b4fb-97fdca65965b",
+      "imageName": "MDB0000530-P28-Ova-106_s55.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000531/MDB0000531-P1-11-s40.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 2,
+      "randomizedName": "25b9f6dc-d961-4935-bddd-4cd5f37091a6",
+      "imageName": "MDB0000531-P1-11-s40.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000532/MDB0000532-P15_F09OV-s83.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 3,
+      "randomizedName": "168b8228-eae3-4904-9034-6b4d2a9ebef0",
+      "imageName": "MDB0000532-P15_F09OV-s83.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000533/MDB0000533-P180_6Mon-6b-s86.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 4,
+      "randomizedName": "c3fc4f30-57df-419e-9e64-af61d5d4df0d",
+      "imageName": "MDB0000533-P180_6Mon-6b-s86.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000534/MDB0000534-P5-23-s13.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 5,
+      "randomizedName": "d20d1dfd-d47a-4cd6-87b8-5bb49f1bc33a",
+      "imageName": "MDB0000534-P5-23-s13.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000535/MDB0000535-P8-F02-OV-s135.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 6,
+      "randomizedName": "fc27c5f7-7b3b-4c05-b7b8-875524489f4d",
+      "imageName": "MDB0000535-P8-F02-OV-s135.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000536/MDB0000536-P90-NMR_3Mo-3B-s96.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 7,
+      "randomizedName": "a2fe086d-c6dd-4910-9e48-74db44930092",
+      "imageName": "MDB0000536-P90-NMR_3Mo-3B-s96.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000537/MDB0000537-2653-3y-Exsub-s19.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 8,
+      "randomizedName": "6520e0d8-6ac3-4bef-98c7-465ca4319806",
+      "imageName": "MDB0000537-2653-3y-Exsub-s19.tif",
+      "metadata": {},
+      "tags": []
+    },
+    {
+      "serverBuilder": {
+        "builderType": "uri",
+        "providerClassName": "qupath.lib.images.servers.bioformats.BioFormatsServerBuilder",
+        "uri": "file:/home/orkuma/MyProjects/nmr-ovarian-follicle-ml/QuPath/project/../../data/raw/H_glaber/MDB0000538/MDB0000538-2659-3y-Sub-s109.tif",
+        "args": [
+          "--series",
+          "0"
+        ]
+      },
+      "entryID": 9,
+      "randomizedName": "a1c31db5-20c7-4711-b83f-09682216e840",
+      "imageName": "MDB0000538-2659-3y-Sub-s109.tif",
+      "metadata": {},
+      "tags": []
+    }
+  ]
 }
