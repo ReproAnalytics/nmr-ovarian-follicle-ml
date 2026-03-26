@@ -65,7 +65,7 @@
         }
       },
       "entryID": 1,
-      "randomizedName": "975dd0b2-16d0-4ec0-89be-aa327c976a0a",
+      "randomizedName": "f6079216-cf4d-4b66-9fb2-448aa2136ed1",
       "imageName": "MDB0000530-P28-Ova-106_s55.tif",
       "metadata": {},
       "tags": []
@@ -78,10 +78,59 @@
         "args": [
           "--series",
           "0"
-        ]
+        ],
+        "metadata": {
+          "name": "MDB0000531-P1-11-s40.tif",
+          "width": 11359,
+          "height": 19203,
+          "sizeZ": 1,
+          "sizeT": 1,
+          "channelType": "DEFAULT",
+          "isRGB": true,
+          "pixelType": "UINT8",
+          "levels": [
+            {
+              "downsample": 1.0,
+              "width": 11359,
+              "height": 19203
+            }
+          ],
+          "channels": [
+            {
+              "name": "Red",
+              "color": -65536
+            },
+            {
+              "name": "Green",
+              "color": -16711936
+            },
+            {
+              "name": "Blue",
+              "color": -16776961
+            }
+          ],
+          "pixelCalibration": {
+            "pixelWidth": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "pixelHeight": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "zSpacing": {
+              "value": 1.0,
+              "unit": "z-slice"
+            },
+            "timeUnit": "SECONDS",
+            "timepoints": []
+          },
+          "preferredTileWidth": 11359,
+          "preferredTileHeight": 35
+        }
       },
       "entryID": 2,
-      "randomizedName": "46bd6a29-10ed-47dc-93d1-d550f10232c0",
+      "randomizedName": "486d9a6b-1489-4beb-a133-8d97db66fd3d",
       "imageName": "MDB0000531-P1-11-s40.tif",
       "metadata": {},
       "tags": []
@@ -94,10 +143,59 @@
         "args": [
           "--series",
           "0"
-        ]
+        ],
+        "metadata": {
+          "name": "MDB0000532-P15_F09OV-s83.tif",
+          "width": 18028,
+          "height": 8734,
+          "sizeZ": 1,
+          "sizeT": 1,
+          "channelType": "DEFAULT",
+          "isRGB": true,
+          "pixelType": "UINT8",
+          "levels": [
+            {
+              "downsample": 1.0,
+              "width": 18028,
+              "height": 8734
+            }
+          ],
+          "channels": [
+            {
+              "name": "Red",
+              "color": -65536
+            },
+            {
+              "name": "Green",
+              "color": -16711936
+            },
+            {
+              "name": "Blue",
+              "color": -16776961
+            }
+          ],
+          "pixelCalibration": {
+            "pixelWidth": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "pixelHeight": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "zSpacing": {
+              "value": 1.0,
+              "unit": "z-slice"
+            },
+            "timeUnit": "SECONDS",
+            "timepoints": []
+          },
+          "preferredTileWidth": 18028,
+          "preferredTileHeight": 32
+        }
       },
       "entryID": 3,
-      "randomizedName": "76c62369-37d3-4f2b-80f0-d8dd36f17257",
+      "randomizedName": "484cd542-9056-413a-bba7-87f617c63b43",
       "imageName": "MDB0000532-P15_F09OV-s83.tif",
       "metadata": {},
       "tags": []
@@ -110,10 +208,59 @@
         "args": [
           "--series",
           "0"
-        ]
+        ],
+        "metadata": {
+          "name": "MDB0000533-P180_6Mon-6b-s86.tif",
+          "width": 8845,
+          "height": 14980,
+          "sizeZ": 1,
+          "sizeT": 1,
+          "channelType": "DEFAULT",
+          "isRGB": true,
+          "pixelType": "UINT8",
+          "levels": [
+            {
+              "downsample": 1.0,
+              "width": 8845,
+              "height": 14980
+            }
+          ],
+          "channels": [
+            {
+              "name": "Red",
+              "color": -65536
+            },
+            {
+              "name": "Green",
+              "color": -16711936
+            },
+            {
+              "name": "Blue",
+              "color": -16776961
+            }
+          ],
+          "pixelCalibration": {
+            "pixelWidth": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "pixelHeight": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "zSpacing": {
+              "value": 1.0,
+              "unit": "z-slice"
+            },
+            "timeUnit": "SECONDS",
+            "timepoints": []
+          },
+          "preferredTileWidth": 8845,
+          "preferredTileHeight": 36
+        }
       },
       "entryID": 4,
-      "randomizedName": "138a7d2d-ba6c-4727-bd55-188c1ede54f2",
+      "randomizedName": "ea375fbe-2d17-4c2e-867e-b103d4a30df8",
       "imageName": "MDB0000533-P180_6Mon-6b-s86.tif",
       "metadata": {},
       "tags": []
@@ -126,10 +273,59 @@
         "args": [
           "--series",
           "0"
-        ]
+        ],
+        "metadata": {
+          "name": "MDB0000534-P5-23-s13.tif",
+          "width": 21825,
+          "height": 16624,
+          "sizeZ": 1,
+          "sizeT": 1,
+          "channelType": "DEFAULT",
+          "isRGB": true,
+          "pixelType": "UINT8",
+          "levels": [
+            {
+              "downsample": 1.0,
+              "width": 21825,
+              "height": 16624
+            }
+          ],
+          "channels": [
+            {
+              "name": "Red",
+              "color": -65536
+            },
+            {
+              "name": "Green",
+              "color": -16711936
+            },
+            {
+              "name": "Blue",
+              "color": -16776961
+            }
+          ],
+          "pixelCalibration": {
+            "pixelWidth": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "pixelHeight": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "zSpacing": {
+              "value": 1.0,
+              "unit": "z-slice"
+            },
+            "timeUnit": "SECONDS",
+            "timepoints": []
+          },
+          "preferredTileWidth": 21825,
+          "preferredTileHeight": 32
+        }
       },
       "entryID": 5,
-      "randomizedName": "7185d5d6-3359-4b9f-bb93-e0e08a08672b",
+      "randomizedName": "9a15eaa7-92c9-4623-9444-e9fd1339cbf8",
       "imageName": "MDB0000534-P5-23-s13.tif",
       "metadata": {},
       "tags": []
@@ -142,10 +338,59 @@
         "args": [
           "--series",
           "0"
-        ]
+        ],
+        "metadata": {
+          "name": "MDB0000535-P8-F02-OV-s135.tif",
+          "width": 11121,
+          "height": 19755,
+          "sizeZ": 1,
+          "sizeT": 1,
+          "channelType": "DEFAULT",
+          "isRGB": true,
+          "pixelType": "UINT8",
+          "levels": [
+            {
+              "downsample": 1.0,
+              "width": 11121,
+              "height": 19755
+            }
+          ],
+          "channels": [
+            {
+              "name": "Red",
+              "color": -65536
+            },
+            {
+              "name": "Green",
+              "color": -16711936
+            },
+            {
+              "name": "Blue",
+              "color": -16776961
+            }
+          ],
+          "pixelCalibration": {
+            "pixelWidth": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "pixelHeight": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "zSpacing": {
+              "value": 1.0,
+              "unit": "z-slice"
+            },
+            "timeUnit": "SECONDS",
+            "timepoints": []
+          },
+          "preferredTileWidth": 11121,
+          "preferredTileHeight": 35
+        }
       },
       "entryID": 6,
-      "randomizedName": "00420e9d-e7e9-4e1b-974e-b3dff4d08118",
+      "randomizedName": "1a0d313e-f9b7-487a-bcbd-b98c34474c46",
       "imageName": "MDB0000535-P8-F02-OV-s135.tif",
       "metadata": {},
       "tags": []
@@ -158,10 +403,59 @@
         "args": [
           "--series",
           "0"
-        ]
+        ],
+        "metadata": {
+          "name": "MDB0000536-P90-NMR_3Mo-3B-s96.tif",
+          "width": 9675,
+          "height": 10298,
+          "sizeZ": 1,
+          "sizeT": 1,
+          "channelType": "DEFAULT",
+          "isRGB": true,
+          "pixelType": "UINT8",
+          "levels": [
+            {
+              "downsample": 1.0,
+              "width": 9675,
+              "height": 10298
+            }
+          ],
+          "channels": [
+            {
+              "name": "Red",
+              "color": -65536
+            },
+            {
+              "name": "Green",
+              "color": -16711936
+            },
+            {
+              "name": "Blue",
+              "color": -16776961
+            }
+          ],
+          "pixelCalibration": {
+            "pixelWidth": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "pixelHeight": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "zSpacing": {
+              "value": 1.0,
+              "unit": "z-slice"
+            },
+            "timeUnit": "SECONDS",
+            "timepoints": []
+          },
+          "preferredTileWidth": 9675,
+          "preferredTileHeight": 36
+        }
       },
       "entryID": 7,
-      "randomizedName": "0c5e64db-1862-456a-91d2-51ed678074b6",
+      "randomizedName": "938294e0-a377-4ec5-9c88-ba5b3b18212e",
       "imageName": "MDB0000536-P90-NMR_3Mo-3B-s96.tif",
       "metadata": {},
       "tags": []
@@ -174,10 +468,59 @@
         "args": [
           "--series",
           "0"
-        ]
+        ],
+        "metadata": {
+          "name": "MDB0000537-2653-3y-Exsub-s19.tif",
+          "width": 36510,
+          "height": 23948,
+          "sizeZ": 1,
+          "sizeT": 1,
+          "channelType": "DEFAULT",
+          "isRGB": true,
+          "pixelType": "UINT8",
+          "levels": [
+            {
+              "downsample": 1.0,
+              "width": 36510,
+              "height": 23948
+            }
+          ],
+          "channels": [
+            {
+              "name": "Red",
+              "color": -65536
+            },
+            {
+              "name": "Green",
+              "color": -16711936
+            },
+            {
+              "name": "Blue",
+              "color": -16776961
+            }
+          ],
+          "pixelCalibration": {
+            "pixelWidth": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "pixelHeight": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "zSpacing": {
+              "value": 1.0,
+              "unit": "z-slice"
+            },
+            "timeUnit": "SECONDS",
+            "timepoints": []
+          },
+          "preferredTileWidth": 36510,
+          "preferredTileHeight": 32
+        }
       },
       "entryID": 8,
-      "randomizedName": "1404aa2f-5ea5-42bc-b970-c638854e5a76",
+      "randomizedName": "419b454b-1df7-453c-82ac-e2ede9b0b0c1",
       "imageName": "MDB0000537-2653-3y-Exsub-s19.tif",
       "metadata": {},
       "tags": []
@@ -190,10 +533,59 @@
         "args": [
           "--series",
           "0"
-        ]
+        ],
+        "metadata": {
+          "name": "MDB0000538-2659-3y-Sub-s109.tif",
+          "width": 43453,
+          "height": 27423,
+          "sizeZ": 1,
+          "sizeT": 1,
+          "channelType": "DEFAULT",
+          "isRGB": true,
+          "pixelType": "UINT8",
+          "levels": [
+            {
+              "downsample": 1.0,
+              "width": 43453,
+              "height": 27423
+            }
+          ],
+          "channels": [
+            {
+              "name": "Red",
+              "color": -65536
+            },
+            {
+              "name": "Green",
+              "color": -16711936
+            },
+            {
+              "name": "Blue",
+              "color": -16776961
+            }
+          ],
+          "pixelCalibration": {
+            "pixelWidth": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "pixelHeight": {
+              "value": 352.77777777777777,
+              "unit": "µm"
+            },
+            "zSpacing": {
+              "value": 1.0,
+              "unit": "z-slice"
+            },
+            "timeUnit": "SECONDS",
+            "timepoints": []
+          },
+          "preferredTileWidth": 43453,
+          "preferredTileHeight": 32
+        }
       },
       "entryID": 9,
-      "randomizedName": "e0c225e6-9c19-462b-aee9-2ccae5956fc7",
+      "randomizedName": "eb949787-7c97-491f-b851-190bc3799521",
       "imageName": "MDB0000538-2659-3y-Sub-s109.tif",
       "metadata": {},
       "tags": []
