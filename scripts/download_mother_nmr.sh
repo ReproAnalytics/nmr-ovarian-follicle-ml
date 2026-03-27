@@ -9,8 +9,10 @@ SEARCH_URL="https://mother-db.org/search/?_sfm_genus_taxon_rank_value=Heteroceph
 
 # Where to store downloads, run from repo root and adjust to match your repo layout.
 DEST_ROOT="${1:-data/raw/H_glaber}"
+MANIFEST_PATH="${2:-data/raw/H_glaber_manifest.csv}"
 
 mkdir -p "$DEST_ROOT"
+mkdir -p "$(dirname "$MANIFEST_PATH")"
 
 echo "Fetching search page..."
 search_html="$(curl -fsSL "$SEARCH_URL")"
@@ -48,7 +50,7 @@ for acc in "${accessions[@]}"; do
     | sort -u)
 
   if [[ "${#file_urls[@]}" -eq 0 ]]; then
-    echo "X - No resource links found for $acc (skipping)."
+    echo " - No resource links found for $acc (skipping)."
     continue
   fi
 
@@ -69,4 +71,43 @@ for acc in "${accessions[@]}"; do
   echo
 done
 
+echo "Building manifest: $MANIFEST_PATH"
+
+{
+  echo "accession_id,file_name,file_path,file_type,extension,size_bytes"
+
+  find "$DEST_ROOT" -type f | sort | while IFS= read -r filepath; do
+    relpath="${filepath#"$DEST_ROOT"/}"
+    accession_id="${relpath%%/*}"
+    file_name="$(basename "$filepath")"
+    extension="${file_name##*.}"
+    size_bytes="$(stat -c%s "$filepath")"
+
+    case "${file_name,,}" in
+      *.ome.tif|*.ome.tiff|*.tif|*.tiff)
+        file_type="image"
+        ;;
+      *.xml)
+        file_type="xml"
+        ;;
+      *.png|*.jpg|*.jpeg)
+        file_type="preview"
+        ;;
+      *)
+        file_type="other"
+        ;;
+    esac
+
+    printf '%s,%s,%s,%s,%s,%s\n' \
+      "$accession_id" \
+      "$file_name" \
+      "$filepath" \
+      "$file_type" \
+      "$extension" \
+      "$size_bytes"
+  done
+} > "$MANIFEST_PATH"
+
+echo
 echo "Done!"
+echo "Manifest written to: $MANIFEST_PATH"
