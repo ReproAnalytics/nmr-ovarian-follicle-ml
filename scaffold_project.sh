@@ -3,6 +3,7 @@
 # scaffold_project.sh
 # Purpose: To create the repo project scaffold.
 # Author: Martin Orkuma
+# Updated: 2026-03-26 — synced with current repo structure
 # ------------------------------------------------------------
 
 set -e
@@ -23,22 +24,37 @@ mkdir -p "$PROJECT_ROOT/configs"
 touch \
   "$PROJECT_ROOT/configs/dataset.yaml" \
   "$PROJECT_ROOT/configs/preprocess.yaml" \
+  "$PROJECT_ROOT/configs/annotate.yaml" \
   "$PROJECT_ROOT/configs/train.yaml" \
   "$PROJECT_ROOT/configs/infer.yaml" \
+  "$PROJECT_ROOT/configs/postprocess.yaml" \
   "$PROJECT_ROOT/configs/eval.yaml"
 
 # -------------------------------------------------
 # Data (gitignored)
 # -------------------------------------------------
 mkdir -p \
-  "$PROJECT_ROOT/data/raw" \
-  "$PROJECT_ROOT/data/interim" \
+  "$PROJECT_ROOT/data/raw/H_glaber" \
+  "$PROJECT_ROOT/data/interim/tiles/H_glaber" \
   "$PROJECT_ROOT/data/processed"
+
+# ------------------------------------------------
+# QuPath (annotation stage)
+# ------------------------------------------------
+mkdir -p \
+  "$PROJECT_ROOT/QuPath/project" \
+  "$PROJECT_ROOT/QuPath/scripts"
+touch \
+  "$PROJECT_ROOT/QuPath/scripts/import_images.groovy" \
+  "$PROJECT_ROOT/QuPath/scripts/export_annotations.groovy" \
+  "$PROJECT_ROOT/QuPath/scripts/export_measurements.groovy"
 
 # ------------------------------------------------
 # Annotations
 # ------------------------------------------------
-mkdir -p "$PROJECT_ROOT/annotations/gold_set"
+mkdir -p \
+  "$PROJECT_ROOT/annotations/gold_set" \
+  "$PROJECT_ROOT/annotations/raw_exports"
 touch \
   "$PROJECT_ROOT/annotations/protocol.md" \
   "$PROJECT_ROOT/annotations/labelmap.json"
@@ -60,6 +76,7 @@ mkdir -p \
 mkdir -p \
   "$PROJECT_ROOT/src/ingest" \
   "$PROJECT_ROOT/src/preprocess" \
+  "$PROJECT_ROOT/src/annotate" \
   "$PROJECT_ROOT/src/train" \
   "$PROJECT_ROOT/src/infer" \
   "$PROJECT_ROOT/src/postprocess" \
@@ -69,6 +86,9 @@ mkdir -p \
 touch \
   "$PROJECT_ROOT/src/ingest/ingest.py" \
   "$PROJECT_ROOT/src/preprocess/preprocess.py" \
+  "$PROJECT_ROOT/src/annotate/join_labels.py" \
+  "$PROJECT_ROOT/src/train/dataset.py" \
+  "$PROJECT_ROOT/src/train/model.py" \
   "$PROJECT_ROOT/src/train/train.py" \
   "$PROJECT_ROOT/src/infer/infer.py" \
   "$PROJECT_ROOT/src/postprocess/count.py" \
@@ -92,16 +112,32 @@ touch \
   "$PROJECT_ROOT/run/eval_report.py"
 
 # -------------------------
-# explore
+# EDA (exploratory analysis)
 # -------------------------
-mkdir -p "$PROJECT_ROOT/explore"
+mkdir -p "$PROJECT_ROOT/EDA"
 touch \
-  "$PROJECT_ROOT/explore/00_dataset_sanity.py" \
-  "$PROJECT_ROOT/explore/01_view_tiles.py" \
-  "$PROJECT_ROOT/explore/02_overlay_masks.py" \
-  "$PROJECT_ROOT/explore/03_annotation_audit.py" \
-  "$PROJECT_ROOT/explore/04_error_analysis.py" \
-  "$PROJECT_ROOT/explore/05_make_presentation_figs.py"
+  "$PROJECT_ROOT/EDA/00_dataset_sanity.py" \
+  "$PROJECT_ROOT/EDA/01_view_tiles.py" \
+  "$PROJECT_ROOT/EDA/02_overlay_masks.py" \
+  "$PROJECT_ROOT/EDA/03_annotation_audit.py" \
+  "$PROJECT_ROOT/EDA/04_error_analysis.py" \
+  "$PROJECT_ROOT/EDA/05_make_presentation_figs.py" \
+  "$PROJECT_ROOT/EDA/eda_appendix.md"
+
+# -------------------------
+# CNN (model development)
+# -------------------------
+mkdir -p "$PROJECT_ROOT/CNN"
+
+# -------------------------
+# images (diagrams, figures)
+# -------------------------
+mkdir -p "$PROJECT_ROOT/images"
+
+# -------------------------
+# manuscript
+# -------------------------
+mkdir -p "$PROJECT_ROOT/manuscript"
 
 # -------------------------
 # scripts (shell orchestration)
@@ -114,11 +150,18 @@ touch \
   "$PROJECT_ROOT/scripts/setup_env.sh" \
   "$PROJECT_ROOT/scripts/run_ingest.sh" \
   "$PROJECT_ROOT/scripts/run_preprocess.sh" \
+  "$PROJECT_ROOT/scripts/run_qupath_project.sh" \
+  "$PROJECT_ROOT/scripts/run_qupath_export.sh" \
   "$PROJECT_ROOT/scripts/run_train.sh" \
   "$PROJECT_ROOT/scripts/run_infer.sh" \
-  "$PROJECT_ROOT/scripts/run_postprocess_count.sh" \
+  "$PROJECT_ROOT/scripts/run_postprocess.sh" \
   "$PROJECT_ROOT/scripts/run_eval_report.sh" \
   "$PROJECT_ROOT/scripts/run_pipeline.sh"
+
+# -------------------------
+# CI / CD
+# -------------------------
+mkdir -p "$PROJECT_ROOT/.github/workflows"
 
 # -------------------------
 # tests
@@ -126,4 +169,4 @@ touch \
 mkdir -p "$PROJECT_ROOT/tests"
 touch "$PROJECT_ROOT/tests/test_config_loading.py"
 
-echo "😊 Project scaffold created successfully."
+echo "Project scaffold created successfully."
