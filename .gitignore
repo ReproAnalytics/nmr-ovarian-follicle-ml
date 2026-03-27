@@ -3,8 +3,6 @@
 ############################
 # Data 
 ############################
-data/
-data/**
 annotations/gold_set/**
 
 ############################
@@ -80,4 +78,3 @@ htmlcov/
 *.xlsx
 *.parquet
 
-silvia_scaffold.sh
