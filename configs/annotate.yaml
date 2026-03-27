@@ -1,0 +1,10 @@
+paths:
+  raw_exports: annotations/raw_exports
+  labelmap: annotations/labelmap.json
+  gold_set: annotations/gold_set/labeled_tiles.csv
+  tiles_manifest: data/interim/tiles/H_glaber_tiles_manifest.csv
+
+annotate:
+  min_agreement: 2
+  strategy: majority_vote   # majority_vote | expert_override
+  

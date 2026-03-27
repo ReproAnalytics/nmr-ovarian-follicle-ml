@@ -1,17 +1,29 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Goal: To run the Preprocess Stage of the ML Pipeline
+set -euo pipefail
 
-set -e
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
+cd "${REPO_ROOT}"
 
-echo "Running preprocess stage..."
+PY="python"
+if command -v python3 >/dev/null 2>&1; then
+  PY="python3"
+fi
 
-python run/preprocess.py \
-  --slide-manifest data/raw/H_glaber_manifest.csv \
-  --raw-dir data/raw/H_glaber \
-  --output-dir data/interim/tiles \
-  --tile-manifest data/interim/tiles_manifest.csv \
+mkdir -p outputs/logs
+TS="$(date +%Y%m%d_%H%M%S)"
+LOG="outputs/logs/preprocess_${TS}.log"
+
+echo "[run_preprocess] Running preprocess stage..."
+
+${PY} run/preprocess.py \
+  --raw-root data/raw/H_glaber \
+  --ingest-manifest data/raw/H_glaber_manifest.csv \
+  --tiles-dir data/interim/tiles/H_glaber \
+  --tiles-manifest data/interim/tiles/H_glaber_tiles_manifest.csv \
   --tile-size 512 \
-  --min-tissue-ratio 0.5 \
-  2>&1 | tee outputs/logs/preprocess_$(date +%Y%m%d_%H%M%S).log
+  --min-tissue-ratio 0.05 \
+  2>&1 | tee "${LOG}"
 
-echo "Preprocess complete."
+echo "[run_preprocess] Preprocess complete."

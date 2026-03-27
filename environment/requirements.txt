@@ -13,6 +13,7 @@ python-dotenv>=1.0
 tqdm>=4.66
 loguru>=0.7
 requests>=2.31
+openslide-python>=1.3.1
 
 # ============================================================
 # Image I/O and bioimage formats
@@ -53,6 +54,8 @@ plotly>=5.16.0
 # Testing
 # ============================================================
 pytest>=8.0
+pytest-cov>=4.0
+
 
 # ============================================================
 # Additional packages (delete the # to enable)

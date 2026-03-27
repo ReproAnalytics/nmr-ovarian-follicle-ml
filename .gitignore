@@ -10,16 +10,12 @@ annotations/gold_set/**
 ############################
 # Outputs / Artifacts
 ############################
-outputs/
-outputs/**
+
+
 
 ############################
 # ML / Imaging binaries
 ############################
-*.tif
-*.tiff
-*.ome.tif
-*.ome.tiff
 *.h5
 *.hdf5
 *.pt
@@ -81,8 +77,7 @@ htmlcov/
 ############################
 # Safety: block accidental dumps
 ############################
-*.csv
-*.tsv
 *.xlsx
 *.parquet
-*_scaffold.sh
+
+silvia_scaffold.sh

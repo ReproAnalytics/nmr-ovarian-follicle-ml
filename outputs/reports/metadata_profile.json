@@ -1,0 +1,31 @@
+{
+  "donorLifeStage": {
+    "n_rows": 9,
+    "present": 9,
+    "missing": 0,
+    "n_unique": 3,
+    "top_values": {
+      "neonatal": 6,
+      "adult": 2,
+      "prepubertal": 1
+    }
+  },
+  "stain_type": {
+    "n_rows": 9,
+    "present": 9,
+    "missing": 0,
+    "n_unique": 1,
+    "top_values": {
+      "periodicAcidSchiff": 9
+    }
+  },
+  "magnification": {
+    "n_rows": 9,
+    "present": 9,
+    "missing": 0,
+    "n_unique": 1,
+    "top_values": {
+      "40": 9
+    }
+  }
+}
