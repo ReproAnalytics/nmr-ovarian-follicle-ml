@@ -1,10 +1,3 @@
-tiff_candidates,donorYears,donorDays,donorSex,donorLifeStage
-MDB0000530-P28-Ova-106_s55.tif,0,28,female,neonatal
-MDB0000531-P1-11-s40.tif,0,1,female,neonatal
-MDB0000532-P15_F09OV-s83.tif,0,15,female,neonatal
-MDB0000533-P180_6Mon-6b-s86.tif,0,180,female,prepubertal
-MDB0000534-P5-23-s13.tif,0,5,female,neonatal
-MDB0000535-P8-F02-OV-s135.tif,0,8,female,neonatal
-MDB0000536-P90-NMR_3Mo-3B-s96.tif,0,90,female,neonatal
-MDB0000537-2653-3y-Exsub-s19.tif,3,0,female,adult
-MDB0000538-2659-3y-Sub-s109.tif,3,0,female,adult
+version https://git-lfs.github.com/spec/v1
+oid sha256:cdeb406c7b6cbaa2680947d3194597faaea5085ccd7ba0daeb342982bc0dce73
+size 514
