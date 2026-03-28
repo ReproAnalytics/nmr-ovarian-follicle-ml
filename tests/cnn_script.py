@@ -5,22 +5,33 @@ Ovarian Follicle Classification Pipeline
 ResNet34 transfer-learning classifier for histological tile images,
 with whole-slide image (WSI) inference support.
 
+Expected directory layout:
+    <data_dir>/
+        train/          ← one subfolder per class (e.g. Primordial/, Stroma/)
+        valid/          ← same class subfolders
+        test/           ← same class subfolders
+
 Usage:
-    python cnn_pipeline.py --data_dir ./CNN --test_dir ./CNN/test --wsi_dir ./CNN/wsi
+    python cnn_pipeline.py --config configs/train.yaml
+
+Debugging and code assistance for image analysis and model training
+were provided by ChatGPT (GPT 5.2 Thinking) and Claude (Opus 4.6).
 """
+
+from __future__ import annotations
 
 import argparse
 import subprocess
+from datetime import datetime
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
 import matplotlib
-matplotlib.use("Agg")  # non-interactive backend for terminal; switch to "TkAgg" if you want popups
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import torch
 import openslide
-from PIL import Image
 
 from fastai.vision.all import (
     ImageDataLoaders, Resize, Normalize, imagenet_stats,
@@ -29,51 +40,71 @@ from fastai.vision.all import (
 from fastai.callback.tracker import EarlyStoppingCallback, SaveModelCallback
 from sklearn.metrics import roc_curve, auc
 
-
-# ---------------------------------------------------------------------------
-# Argument parsing
-# ---------------------------------------------------------------------------
-def parse_args():
-    parser = argparse.ArgumentParser(description="Ovarian follicle CNN pipeline")
-    parser.add_argument("--data_dir", type=str, default="./CNN",
-                        help="Root directory containing train/ and valid/ subfolders")
-    parser.add_argument("--test_dir", type=str, default="./CNN/test",
-                        help="Directory with test tile PNGs")
-    parser.add_argument("--wsi_dir", type=str, default="./CNN/wsi",
-                        help="Directory with WSI .tif files")
-    parser.add_argument("--download_script", type=str, default="scripts/download_mother_nmr.sh",
-                        help="Bash script to download WSI files from MOTHER database")
-    parser.add_argument("--output_dir", type=str, default="./results",
-                        help="Directory to save all CSV and figure outputs")
-    parser.add_argument("--epochs_head", type=int, default=5,
-                        help="Epochs for frozen fine-tune phase")
-    parser.add_argument("--epochs_full", type=int, default=10,
-                        help="Epochs for unfrozen training phase")
-    parser.add_argument("--bs", type=int, default=16, help="Batch size")
-    parser.add_argument("--tile_size", type=int, default=224, help="Tile dimensions (px)")
-    parser.add_argument("--wsi_level", type=int, default=1,
-                        help="OpenSlide pyramid level for WSI tiling")
-    parser.add_argument("--skip_wsi", action="store_true",
-                        help="Skip the WSI inference stage")
-    return parser.parse_args()
+# repo-local config loader
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from src.utils.config import load_config
 
 
-# ---------------------------------------------------------------------------
+# ======================================================================
+# Utilities
+# ======================================================================
+
+def now_stamp() -> str:
+    """Compact timestamp for run naming."""
+    return datetime.now().strftime("%Y%m%d_%H%M%S")
+
+
+def pick_device(device_cfg: str) -> torch.device:
+    """Resolve 'auto' / 'cuda' / 'mps' / 'cpu' to a torch.device."""
+    dc = (device_cfg or "auto").lower()
+    if dc == "cpu":
+        return torch.device("cpu")
+    if dc == "cuda":
+        return torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    if dc == "mps":
+        has_mps = getattr(torch.backends, "mps", None) and torch.backends.mps.is_available()
+        return torch.device("mps" if has_mps else "cpu")
+    # auto
+    if torch.cuda.is_available():
+        return torch.device("cuda")
+    if getattr(torch.backends, "mps", None) and torch.backends.mps.is_available():
+        return torch.device("mps")
+    return torch.device("cpu")
+
+
+def make_logger(log_path: Path):
+    """Return a simple log(msg) function that prints + appends to file."""
+    log_path.parent.mkdir(parents=True, exist_ok=True)
+
+    def log(msg: str) -> None:
+        line = f"[pipeline] {msg}"
+        print(line)
+        with log_path.open("a", encoding="utf-8") as fp:
+            fp.write(line + "\n")
+
+    return log
+
+
+# ======================================================================
 # Tissue detection & WSI tiling
-# ---------------------------------------------------------------------------
-def is_tissue(tile, threshold=220):
+# ======================================================================
+
+def is_tissue(tile, threshold: int = 220) -> bool:
     """Simple mean-intensity background filter."""
     return np.mean(np.array(tile)) < threshold
 
 
-def tile_wsi(slide, level=0, tile_size=224, stride=224):
+def tile_wsi(slide, level: int = 0, tile_size: int = 224, stride: int = 224):
     """Extract tissue-containing tiles from a whole-slide image."""
     width, height = slide.level_dimensions[level]
     tiles, coords = [], []
 
     for y in range(0, height - tile_size, stride):
         for x in range(0, width - tile_size, stride):
-            tile = slide.read_region((x, y), level, (tile_size, tile_size)).convert("RGB")
+            tile = slide.read_region(
+                (x, y), level, (tile_size, tile_size),
+            ).convert("RGB")
             if is_tissue(tile):
                 tiles.append(tile)
                 coords.append((x, y))
@@ -81,10 +112,11 @@ def tile_wsi(slide, level=0, tile_size=224, stride=224):
     return tiles, coords
 
 
-# ---------------------------------------------------------------------------
+# ======================================================================
 # WSI-level inference
-# ---------------------------------------------------------------------------
-def analyze_wsi(slide_path, learn, level=1):
+# ======================================================================
+
+def analyze_wsi(slide_path: Path, learn, level: int = 1):
     """Run trained model over every tissue tile in a WSI."""
     print(f"\nProcessing: {slide_path}")
     slide = openslide.OpenSlide(str(slide_path))
@@ -110,98 +142,157 @@ def analyze_wsi(slide_path, learn, level=1):
     return counts, spatial_results
 
 
-# ---------------------------------------------------------------------------
+# ======================================================================
 # Main pipeline
-# ---------------------------------------------------------------------------
-def main():
+# ======================================================================
+
+def parse_args():
+    ap = argparse.ArgumentParser(description="Ovarian follicle CNN pipeline")
+    ap.add_argument(
+        "--config", default="configs/train.yaml",
+        help="Path to YAML config (default: configs/train.yaml)",
+    )
+    ap.add_argument(
+        "--skip-wsi", action="store_true",
+        help="Skip the WSI inference stage",
+    )
+    return ap.parse_args()
+
+
+def main() -> int:
     args = parse_args()
 
-    data_path = Path(args.data_dir).expanduser().resolve()
-    test_dir = Path(args.test_dir).expanduser().resolve()
-    wsi_dir = Path(args.wsi_dir).expanduser().resolve()
-    out_dir = Path(args.output_dir).expanduser().resolve()
-    out_dir.mkdir(parents=True, exist_ok=True)
+    # ----- resolve repo root & load config -----
+    repo = Path(__file__).resolve().parent.parent
+    cfg = load_config(repo / args.config)
 
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Using device: {device}")
+    # ----- paths from config -----
+    data_dir = repo / cfg["paths"]["data_dir"]
+    test_dir = repo / cfg["paths"].get("test_dir", str(data_dir / "test"))
+    output_dir = repo / cfg["paths"].get("output_dir", "outputs")
+    output_dir.mkdir(parents=True, exist_ok=True)
 
-    # ------------------------------------------------------------------
-    # 1. Build DataLoaders
-    # ------------------------------------------------------------------
-    print("\n=== Building DataLoaders ===")
+    run_name = cfg["paths"].get("run_name") or f"run_{now_stamp()}"
+    models_dir = output_dir / "models" / run_name
+    models_dir.mkdir(parents=True, exist_ok=True)
+
+    log_path = output_dir / "logs" / f"pipeline_{run_name}.log"
+    log = make_logger(log_path)
+
+    log(f"run_name: {run_name}")
+    log(f"config:   {args.config}")
+    log(f"data_dir: {data_dir}")
+
+    # ----- training config -----
+    tcfg = cfg["train"]
+    epochs_head = int(tcfg.get("epochs_head", 5))
+    epochs_full = int(tcfg.get("epochs_full", 10))
+    batch_size = int(tcfg["batch_size"])
+    lr_head = float(tcfg.get("lr_head", 1e-3))
+    lr_full_min = float(tcfg.get("lr_full_min", 1e-5))
+    lr_full_max = float(tcfg.get("lr_full_max", 1e-3))
+    image_size = int(tcfg["image_size"])
+    patience = int(tcfg.get("patience", 3))
+    device = pick_device(str(tcfg.get("device", "auto")))
+
+    log(f"device: {device}")
+    log(
+        f"image_size={image_size}  bs={batch_size}  "
+        f"epochs_head={epochs_head}  epochs_full={epochs_full}  "
+        f"lr_head={lr_head}  lr_full=[{lr_full_min}, {lr_full_max}]  "
+        f"patience={patience}"
+    )
+
+    # ==================================================================
+    # Build fastai DataLoaders from folder layout
+    # ==================================================================
+    log("building DataLoaders from folder layout")
+
     dls = ImageDataLoaders.from_folder(
-        data_path,
+        data_dir,
         train="train",
         valid="valid",
-        item_tfms=Resize(args.tile_size),
+        item_tfms=Resize(image_size),
         batch_tfms=Normalize.from_stats(*imagenet_stats),
-        bs=args.bs,
+        bs=batch_size,
     )
-    print("Classes:", dls.vocab)
+    log(f"classes: {list(dls.vocab)}")
 
-    # ------------------------------------------------------------------
-    # 2. Create learner
-    # ------------------------------------------------------------------
-    print("\n=== Initialising ResNet34 learner ===")
+    # ==================================================================
+    # Create learner (pretrained ResNet34)
+    # ==================================================================
+    log("initialising ResNet34 learner (ImageNet pretrained)")
     learn = cnn_learner(dls, resnet34, metrics=error_rate)
     learn.model.to(device)
 
-    # ------------------------------------------------------------------
-    # 3. Frozen fine-tune (head only)
-    # ------------------------------------------------------------------
-    print(f"\n=== Fine-tuning head ({args.epochs_head} epochs) ===")
+    # ==================================================================
+    # Phase 1 — frozen fine-tune (head only)
+    # ==================================================================
+    log(f"phase 1: frozen fine-tune ({epochs_head} epochs, lr={lr_head})")
     learn.fine_tune(
-        args.epochs_head,
-        base_lr=1e-3,
+        epochs_head,
+        base_lr=lr_head,
         cbs=[
-            EarlyStoppingCallback(monitor="valid_loss", patience=3),
+            EarlyStoppingCallback(monitor="valid_loss", patience=patience),
             SaveModelCallback(monitor="valid_loss", fname="best_resnet34"),
         ],
     )
 
-    # ------------------------------------------------------------------
-    # 4. Unfrozen full training
-    # ------------------------------------------------------------------
-    print(f"\n=== Unfrozen training ({args.epochs_full} epochs) ===")
+    # ==================================================================
+    # Phase 2 — unfrozen full training
+    # ==================================================================
+    log(f"phase 2: unfrozen training ({epochs_full} epochs, lr=[{lr_full_min}, {lr_full_max}])")
     learn.unfreeze()
     learn.fit_one_cycle(
-        args.epochs_full,
-        lr_max=slice(1e-5, 1e-3),
+        epochs_full,
+        lr_max=slice(lr_full_min, lr_full_max),
         cbs=[
-            EarlyStoppingCallback(monitor="valid_loss", patience=3),
+            EarlyStoppingCallback(monitor="valid_loss", patience=patience),
             SaveModelCallback(monitor="valid_loss", fname="best_resnet34"),
         ],
     )
 
-    # ------------------------------------------------------------------
-    # 5. Load best checkpoint & evaluate
-    # ------------------------------------------------------------------
-    print("\n=== Loading best model & evaluating ===")
+    # ==================================================================
+    # Load best checkpoint
+    # ==================================================================
+    log("loading best checkpoint")
     learn.load("best_resnet34")
     learn.model.eval()
 
+    # Save a portable copy alongside run outputs
+    best_src = learn.path / learn.model_dir / "best_resnet34.pth"
+    best_dst = models_dir / "best_resnet34.pth"
+    if best_src.exists():
+        import shutil
+        shutil.copy2(best_src, best_dst)
+        log(f"copied best model → {best_dst}")
+
+    # ==================================================================
+    # Evaluation — confusion matrix & top losses
+    # ==================================================================
+    log("generating confusion matrix & top-losses plot")
     interp = ClassificationInterpretation.from_learner(learn)
 
-    # Confusion matrix
-    fig_cm = interp.plot_confusion_matrix()
-    plt.savefig(out_dir / "confusion_matrix.png", dpi=150, bbox_inches="tight")
+    interp.plot_confusion_matrix()
+    plt.savefig(output_dir / "confusion_matrix.png", dpi=150, bbox_inches="tight")
     plt.close()
 
-    # Top losses
     interp.plot_top_losses(5)
-    plt.savefig(out_dir / "top_losses.png", dpi=150, bbox_inches="tight")
+    plt.savefig(output_dir / "top_losses.png", dpi=150, bbox_inches="tight")
     plt.close()
+    log(f"saved confusion_matrix.png, top_losses.png → {output_dir}")
 
-    # ------------------------------------------------------------------
-    # 6. Multi-class ROC curve
-    # ------------------------------------------------------------------
-    print("\n=== Generating ROC curves ===")
+    # ==================================================================
+    # Evaluation — multi-class ROC curves
+    # ==================================================================
+    log("generating multi-class ROC curves")
     preds_val, targs_val = learn.get_preds()
-    print(f"Prediction classes: {dls.vocab}")
 
     plt.figure(figsize=(10, 8))
     for i, class_name in enumerate(dls.vocab):
-        fpr, tpr, _ = roc_curve((targs_val == i).numpy(), preds_val[:, i].numpy())
+        fpr, tpr, _ = roc_curve(
+            (targs_val == i).numpy(), preds_val[:, i].numpy(),
+        )
         roc_auc = auc(fpr, tpr)
         plt.plot(fpr, tpr, label=f"{class_name} (AUC = {roc_auc:.2f})")
 
@@ -213,76 +304,101 @@ def main():
     plt.title("Multi-Class ROC Curve: Ovarian Follicle Classification")
     plt.legend(loc="lower right")
     plt.grid(alpha=0.3)
-    plt.savefig(out_dir / "roc_curves.png", dpi=150, bbox_inches="tight")
+    plt.savefig(output_dir / "roc_curves.png", dpi=150, bbox_inches="tight")
     plt.close()
-    print(f"  Saved → {out_dir / 'roc_curves.png'}")
+    log(f"saved roc_curves.png → {output_dir}")
 
-    # ------------------------------------------------------------------
-    # 7. Tile-level test predictions
-    # ------------------------------------------------------------------
-    if test_dir.exists():
-        print("\n=== Running tile-level test predictions ===")
-        counts = {cls: 0 for cls in dls.vocab}
-        results = []
+    # ==================================================================
+    # Tile-level test predictions
+    # ==================================================================
+    test_path = Path(test_dir)
+    if test_path.exists():
+        test_images = sorted(
+            p for p in test_path.rglob("*")
+            if p.suffix.lower() in (".png", ".jpg", ".jpeg", ".tif", ".tiff")
+        )
+        if test_images:
+            log(f"running tile-level test predictions ({len(test_images)} tiles)")
+            counts = {cls: 0 for cls in dls.vocab}
+            results = []
 
-        for img_path in sorted(test_dir.glob("*.png")):
-            pred, pred_idx, probs = learn.predict(img_path)
-            counts[str(pred)] += 1
-            results.append({
-                "tile": str(img_path),
-                "prediction": str(pred),
-                "confidence": float(probs[pred_idx]),
-            })
+            for img_path in test_images:
+                # infer true label from subfolder name (if organized by class)
+                true_label = img_path.parent.name if img_path.parent != test_path else ""
+                pred, pred_idx, probs = learn.predict(img_path)
+                pred_label = str(pred)
+                counts[pred_label] = counts.get(pred_label, 0) + 1
+                results.append({
+                    "tile": str(img_path),
+                    "true_label": true_label,
+                    "prediction": pred_label,
+                    "confidence": float(probs[pred_idx]),
+                })
 
-        pd.DataFrame(results).to_csv(out_dir / "tile_predictions.csv", index=False)
-        pd.DataFrame([counts]).to_csv(out_dir / "tile_counts_summary.csv", index=False)
-        print("Tile counts:", counts)
+            pd.DataFrame(results).to_csv(
+                output_dir / "test_predictions.csv", index=False,
+            )
+            pd.DataFrame([counts]).to_csv(
+                output_dir / "test_counts_summary.csv", index=False,
+            )
+            log(f"test counts: {counts}")
+        else:
+            log(f"no image files found in {test_path} — skipping test inference")
     else:
-        print(f"\n⚠  Test directory not found ({test_dir}); skipping tile-level inference.")
+        log(f"test directory not found ({test_path}) — skipping test inference")
 
-    # ------------------------------------------------------------------
-    # 8. WSI inference (optional)
-    # ------------------------------------------------------------------
+    # ==================================================================
+    # WSI inference (optional)
+    # ==================================================================
+    wsi_cfg = cfg.get("wsi", {})
+    wsi_dir = repo / wsi_cfg.get("wsi_dir", "data/wsi")
+    wsi_level = int(wsi_cfg.get("level", 1))
+    download_script = wsi_cfg.get("download_script", "scripts/download_mother_nmr.sh")
+
     if args.skip_wsi:
-        print("\n=== Skipping WSI inference (--skip_wsi) ===")
+        log("skipping WSI inference (--skip-wsi)")
     else:
-        print("\n=== WSI inference ===")
+        log("starting WSI inference")
         wsi_dir.mkdir(parents=True, exist_ok=True)
-
         tif_files = list(wsi_dir.rglob("*.tif"))
 
-        if len(tif_files) == 0:
-            print("No WSI .tif files found. Running download script...")
+        if not tif_files:
+            log("no .tif files found — attempting download script")
             try:
-                subprocess.run(["bash", args.download_script], check=True)
+                subprocess.run(["bash", download_script], check=True)
             except (subprocess.CalledProcessError, FileNotFoundError) as exc:
-                print(f"  Download script failed: {exc}")
-                print("  Place .tif files manually in", wsi_dir)
+                log(f"download script failed: {exc}")
+                log(f"place .tif files manually in {wsi_dir}")
                 tif_files = []
             else:
                 tif_files = list(wsi_dir.rglob("*.tif"))
 
         all_results = []
         for slide_path in tif_files:
-            output = analyze_wsi(slide_path, learn, level=args.wsi_level)
+            output = analyze_wsi(slide_path, learn, level=wsi_level)
             if output is None:
                 continue
 
             slide_counts, spatial = output
             slide_name = slide_path.stem
+            log(f"  {slide_name}: {slide_counts}")
 
-            print(f"  {slide_name}: {slide_counts}")
-
-            pd.DataFrame([slide_counts]).to_csv(out_dir / f"{slide_name}_counts.csv", index=False)
-            pd.DataFrame(spatial).to_csv(out_dir / f"{slide_name}_spatial.csv", index=False)
-
+            pd.DataFrame([slide_counts]).to_csv(
+                output_dir / f"{slide_name}_counts.csv", index=False,
+            )
+            pd.DataFrame(spatial).to_csv(
+                output_dir / f"{slide_name}_spatial.csv", index=False,
+            )
             all_results.append({"slide": slide_name, **slide_counts})
 
         if all_results:
-            pd.DataFrame(all_results).to_csv(out_dir / "all_slides_summary.csv", index=False)
+            pd.DataFrame(all_results).to_csv(
+                output_dir / "all_slides_summary.csv", index=False,
+            )
 
-    print("\n✓ Pipeline complete.  Outputs saved to:", out_dir)
+    log("pipeline complete")
+    return 0
 
 
 if __name__ == "__main__":
-    main()
+    raise SystemExit(main())
