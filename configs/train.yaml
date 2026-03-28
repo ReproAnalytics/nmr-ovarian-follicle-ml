@@ -7,24 +7,23 @@
 # ============================================================
 
 paths:
-  data_dir:    "CNN"                # contains train/ and valid/ subfolders
-  test_dir:    "CNN/test"           # test tiles, same subfolder layout
-  output_dir:  "outputs"
-  run_name:    ""                   # blank → auto "run_YYYYMMDD_HHMMSS"
-
+  data_dir: data/processed/H_glaber       # folder with train/, valid/, test/ subfolders
+  test_dir: data/processed/H_glaber/test   # test tiles 
+  output_dir: outputs
+  run_name: null                           # null = auto-generated timestamp
 
 train:
-  image_size:   224
-  batch_size:   16
-  epochs_head:  5          # frozen fine-tune (head only)
-  epochs_full:  10         # unfrozen full training
-  lr_head:      1.0e-3     # learning rate for phase 1
-  lr_full_min:  1.0e-5     # discriminative LR range for phase 2
-  lr_full_max:  1.0e-3
-  patience:     3          # early-stopping patience (epochs)
-  device:       "auto"     # auto | cuda | mps | cpu
+  epochs_head: 5          # frozen fine-tune (head only)
+  epochs_full: 10         # unfrozen full training
+  batch_size: 16
+  lr_head: 0.001          # learning rate for head phase
+  lr_full_min: 0.00001    # discriminative LR range (unfrozen)
+  lr_full_max: 0.001
+  image_size: 224
+  patience: 3             # early stopping patience
+  device: auto            # auto | cpu | cuda | mps
 
 wsi:
-  wsi_dir:          "data/wsi"
-  level:            1
-  download_script:  "scripts/download_mother_nmr.sh"
+  wsi_dir: data/wsi
+  level: 1
+  download_script: scripts/download_mother_nmr.sh
