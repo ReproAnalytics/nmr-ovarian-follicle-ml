@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-# Goal: Script to ingest histology and XML data from MOTHER db
-# Debugging and code assistance were provided by ChatGPT (GPT 5.2 Thinking)
+# Goal: Script to ingest histology and XML data from MOTHER db 
+# Debugging and code assistance were provided by ChatGPT (GPT 5.2 Thinking) and Claude (Opus 4.6)
 
 from __future__ import annotations
 import argparse
@@ -42,10 +42,30 @@ def run_downloader(script_path: Path, dest_dir: Path) -> None:
     subprocess.run(cmd, check=True)
 
 
+# ---------- file-type classification (mirrors bash downloader logic) ----------
+IMAGE_EXTS = {".tif", ".tiff"}
+PREVIEW_EXTS = {".png"}
+XML_EXTS = {".xml"}
+ 
+MANIFEST_FIELDS = ["accession_id", "relpath", "filename", "extension", "file_type", "bytes"]
+ 
+ 
+def classify_file_type(ext: str) -> str:
+    """Derive file_type the same way the bash downloader does."""
+    ext_lower = ext.lower()
+    if ext_lower in IMAGE_EXTS:
+        return "image"
+    if ext_lower in XML_EXTS:
+        return "xml"
+    if ext_lower in PREVIEW_EXTS:
+        return "preview"
+    return "other"
+
+
 def build_manifest(dest_dir: Path, manifest_path: Path) -> None:
     """
-    Create a simple manifest of downloaded files:
-    accession_id, relpath, filename, bytes
+    Create a manifest of downloaded files: 
+    accession_id, relpath, filename, extension, file_type, bytes
     """
     rows = []
     for acc_dir in sorted(p for p in dest_dir.iterdir() if p.is_dir()):
@@ -56,12 +76,14 @@ def build_manifest(dest_dir: Path, manifest_path: Path) -> None:
                     "accession_id": accession,
                     "relpath": str(f.relative_to(dest_dir)),
                     "filename": f.name,
+                    "extension": ext,
+                    "file_type": classify_file_type(ext),
                     "bytes": f.stat().st_size,
                 })
 
     manifest_path.parent.mkdir(parents=True, exist_ok=True)
     with manifest_path.open("w", newline="", encoding="utf-8") as fp:
-        writer = csv.DictWriter(fp, fieldnames=["accession_id", "relpath", "filename", "bytes"])
+        writer = csv.DictWriter(fp, fieldnames=MANIFEST_FIELDS)
         writer.writeheader()
         writer.writerows(rows)
 
