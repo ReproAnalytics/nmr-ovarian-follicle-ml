@@ -14,6 +14,9 @@ tqdm>=4.66
 loguru>=0.7
 requests>=2.31
 openslide-python>=1.3.1
+packaging
+fastprogress
+fastcore
 
 # ============================================================
 # Image I/O and bioimage formats
@@ -39,8 +42,8 @@ pillow>=10.0
 scikit-learn>=1.3
 
 # NOTE:
-# PyTorch intentionally NOT pinned here.
-# Install separately based on CUDA / CPU environment.
+# PyTorch 
+# Install separately based on your CUDA / CPU environment.
 # https://pytorch.org/get-started/locally/
 
 # ============================================================
