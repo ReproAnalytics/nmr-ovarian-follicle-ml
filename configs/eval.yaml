@@ -1,7 +1,0 @@
-paths:
-  predictions_csv: outputs/predictions/tiles_predictions.csv
-  metrics_json: outputs/metrics/tiles_metrics.json
-
-eval:
-  # will compute per-class precision/recall/f1 + macro averages
-  average: macro

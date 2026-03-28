@@ -15,25 +15,25 @@ PYTHON="${PYTHON:-python3}"
 echo "[pipeline] repo: $REPO_ROOT"
 echo "[pipeline] python: $PYTHON"
 
-# 1) Ingest (download + manifest)
+# 1) Ingest
 bash scripts/run_ingest.sh
 
-# 2) Preprocess (stub example - implement later)
+# 2) Preprocess (tile WSIs)
 bash scripts/run_preprocess.sh
 
-# 3) Annotate
+# 3) Annotate (validate QuPath exports → labeled_tiles.csv)
 bash scripts/run_annotate.sh
 
-# 4) Train
-bash scripts/run_train.sh
+# 4) Organize splits (labeled tiles → folder layout)
+bash scripts/run_organize_splits.sh
 
-# 5) Infer
-bash scripts/run_infer.sh
+# 5) CNN Pipeline (train + eval + optional WSI inference)
+bash scripts/run_cnn_pipeline.sh
 
-# 6) Post-process
+# 6) (Optional) Re-run inference on new tiles
+# bash scripts/run_infer.sh
+
+# 7) Post-process (aggregate to slide-level counts)
 bash scripts/run_postprocess_count.sh
-
-# 7) Eval/report
-bash scripts/run_eval_report.sh
 
 echo "[pipeline] done."

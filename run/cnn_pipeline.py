@@ -3,7 +3,7 @@
 Ovarian Follicle Classification Pipeline
 -----------------------------------------
 ResNet34 transfer-learning classifier for histological tile images,
-with whole-slide image (WSI) inference support.
+with whole-slide image (WSI) inference support. 
 
 Expected directory layout:
     <data_dir>/
