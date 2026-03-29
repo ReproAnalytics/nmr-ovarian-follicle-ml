@@ -1,0 +1,81 @@
+Image,Object ID,Object type,Name,Classification,Parent,ROI,Centroid X µm,Centroid Y µm,Area µm^2,Perimeter µm
+MDB0000531-P1-11-s40.tif,45d7d1db-31d8-405f-bc68-7322e346c5ec,Annotation,,,Root object (Image),Geometry,2072975.1,3194889.6,16337231089579.2,276566161.5
+MDB0000531-P1-11-s40.tif,410d5035-ed66-4521-8fb3-8292f5ed20cb,Annotation,,Germ Cells,Annotation,Geometry,2110514.2,3171310,4611690018564.6,1703791799.3
+MDB0000531-P1-11-s40.tif,6627808c-1a52-40a3-ac3b-eb08750cfee5,Annotation,,Stroma,Annotation,Geometry,2058207.9,3204164.1,11725540518219.2,1964099298.3
+MDB0000531-P1-11-s40.tif,fce22653-0114-4674-8983-a716f6869ef2,Annotation,,Background,Root object (Image),Geometry,314646,474934.1,647294332689.3,4198068.7
+MDB0000531-P1-11-s40.tif,5bbe149c-d1d0-4dd8-a01c-9a094630319f,Annotation,,Background,Annotation (Background),Geometry,314646,474934.1,647294332689.3,4198068.7
+MDB0000531-P1-11-s40.tif,e098c67a-170d-4030-924c-7aa9af532bd1,Annotation,,Background,Root object (Image),Geometry,477061.4,6114943.9,1325130115532.9,6782808.2
+MDB0000531-P1-11-s40.tif,20b23571-55be-4200-8f13-8c72ca2ecb83,Annotation,,Background,Annotation (Background),Geometry,477061.4,6114943.9,1325130115532.9,6782808.2
+MDB0000531-P1-11-s40.tif,e39679a9-2051-4a56-a7bd-544938e4784b,Annotation,,Germ Cells,Root object (Image),Polygon,684580.4,2761363.6,1244283926.3,126557.9
+MDB0000531-P1-11-s40.tif,775933e6-8bbd-48da-aa37-46018af930b3,Annotation,,Stroma,Annotation (Germ Cells),Geometry,688156.6,2755561.3,248011415.1,309055.1
+MDB0000531-P1-11-s40.tif,4884d1b1-20a9-4b72-8b92-e7d317489cea,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,683690.4,2762807.4,996273760.7,313762.4
+MDB0000531-P1-11-s40.tif,5cfdf154-eceb-4f4c-970e-a8cf6598b212,Annotation,,Germ Cells,Root object (Image),Polygon,792342.2,2781047.1,1153517257,122266.1
+MDB0000531-P1-11-s40.tif,85937505-cefc-4824-8550-ee8a419b76e8,Annotation,,Stroma,Annotation (Germ Cells),Geometry,794342.6,2774512.5,89540838,110258.3
+MDB0000531-P1-11-s40.tif,61c3a6fe-8755-461e-a01f-1b3df905faa4,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,792173.1,2781596.3,1063975876.2,163942
+MDB0000531-P1-11-s40.tif,c9224b98-b1be-43e6-bf35-dae1a78b8968,Annotation,,Germ Cells,Root object (Image),Polygon,791927.6,2748531.3,1150984503.5,121435.2
+MDB0000531-P1-11-s40.tif,20543bc7-cccb-486c-92a1-0756a95a3d61,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,792113.1,2748438.8,1124787323.8,162833.6
+MDB0000531-P1-11-s40.tif,6639d078-4409-4fd2-a7a2-538a2b12375b,Annotation,,Stroma,Annotation (Germ Cells),Geometry,784020.4,2752502.8,26197179.8,49618.3
+MDB0000531-P1-11-s40.tif,f2a77c3d-49e6-43bd-b9fc-399fb795fb4f,Annotation,,Germ Cells,Root object (Image),Polygon,792449.7,2826385.3,1690662327.3,162453
+MDB0000531-P1-11-s40.tif,88577a16-6fd6-4438-9755-ab96add6adbe,Annotation,,Stroma,Annotation (Germ Cells),Geometry,796043.1,2814690.4,302280564.3,257620.2
+MDB0000531-P1-11-s40.tif,90b37c74-ee73-4de4-a6a6-c63eeca23bde,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,791668.6,2828932.1,1388378663.8,344422.2
+MDB0000531-P1-11-s40.tif,96557a5e-4563-4072-b463-21c32e903ea1,Annotation,,Germ Cells,Root object (Image),Polygon,729679,2659149.7,1036486024.4,114714.3
+MDB0000531-P1-11-s40.tif,281adf61-c37d-4f83-afb2-207d3caed559,Annotation,,Stroma,Annotation (Germ Cells),Geometry,733587.3,2657894.8,242052700.9,354218.3
+MDB0000531-P1-11-s40.tif,a925ce40-6e63-4f03-b13b-99accc2a9a4f,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,728489.6,2659531.7,794438137.2,356676.4
+MDB0000531-P1-11-s40.tif,71386734-5d9a-4172-8e39-ae421dd21b20,Annotation,,Germ Cells,Root object (Image),Polygon,614178.5,2637382.7,964553997.3,111599.4
+MDB0000531-P1-11-s40.tif,a2533b46-b7d0-4f6b-b7b2-06ea39f222de,Annotation,,Stroma,Annotation (Germ Cells),Geometry,612454,2635292.4,167833666.3,212792.8
+MDB0000531-P1-11-s40.tif,56f5158f-c024-429b-b42c-601574af0886,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,614542.4,2637821.8,796719700.5,203839.4
+MDB0000531-P1-11-s40.tif,b7b8f5c3-60b9-40c8-9a63-8e77e4e21269,Annotation,,Germ Cells,Root object (Image),Polygon,628298.3,2597707.6,873066102.9,107931.4
+MDB0000531-P1-11-s40.tif,6512a0e8-5fbc-4fb2-8eda-1101d1db790c,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,627362.4,2597005.3,755697749.6,149950.1
+MDB0000531-P1-11-s40.tif,1c68c39b-f3d0-4eb4-8955-f60386124ada,Annotation,,Stroma,Annotation (Germ Cells),Geometry,634329.7,2602219.5,117368960.9,123553.9
+MDB0000531-P1-11-s40.tif,50fe4909-5b29-4b2b-a58d-afec4a9c4fd1,Annotation,,Germ Cells,Root object (Image),Polygon,571835.9,2679506.6,802164414.2,102100.6
+MDB0000531-P1-11-s40.tif,28989188-e10c-4622-9c32-def25a988da2,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,572643,2678733.3,716392705.3,136529.1
+MDB0000531-P1-11-s40.tif,c055a17a-1bc8-4b22-abc0-2713078e5380,Annotation,,Stroma,Annotation (Germ Cells),Geometry,565097.1,2685979.4,85774838.4,107578.7
+MDB0000531-P1-11-s40.tif,c85ebf56-d3db-41bd-a367-68a3fe35dc32,Annotation,,Germ Cells,Root object (Image),Polygon,587549.8,2709994.1,683720502.3,93713.1
+MDB0000531-P1-11-s40.tif,d30a8038-1c87-451d-9fb2-5114eb041e6e,Annotation,,Stroma,Annotation (Germ Cells),Geometry,580880.3,2709615.5,97400640.6,155620
+MDB0000531-P1-11-s40.tif,9a916976-e1a3-4bf5-95ce-647f052eb446,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,588659.1,2710056.5,586304293.1,184948.7
+MDB0000531-P1-11-s40.tif,9efcc4f9-70ea-48ae-9d68-4e4dcc6c469d,Annotation,,Germ Cells,Root object (Image),Polygon,517002.4,2555443.2,492693630.8,79661
+MDB0000531-P1-11-s40.tif,c43f8edc-29c0-49d2-83b2-e236f72807e8,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,515732.9,2553783,305935754.1,164099.2
+MDB0000531-P1-11-s40.tif,6da5ad8a-d9e7-4b39-85ae-d3e7a46159ae,Annotation,,Stroma,Annotation (Germ Cells),Geometry,519084.3,2558164.6,186756638.6,196133.1
+MDB0000531-P1-11-s40.tif,8f2b1ff9-296a-4d09-ac0b-f9beb16a3885,Annotation,,Germ Cells,Root object (Image),Polygon,573031,2542524.9,561391246.2,85493.3
+MDB0000531-P1-11-s40.tif,cdfe9e33-075a-4ed3-9926-fa4cdb37486b,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,572597.1,2542423.6,458201741.9,148294.7
+MDB0000531-P1-11-s40.tif,2f1d1555-68bd-426c-9668-daabc09183a8,Annotation,,Stroma,Annotation (Germ Cells),Geometry,574957.2,2542977.4,103189504.3,161212.4
+MDB0000531-P1-11-s40.tif,7c1a0b95-a5eb-4ea4-86b1-a98522fbea1f,Annotation,,Germ Cells,Root object (Image),Polygon,609805.2,2565341.3,765293684.2,99924.2
+MDB0000531-P1-11-s40.tif,71bdd660-68e2-4fff-bff6-0f03e0d19c11,Annotation,,Stroma,Annotation (Germ Cells),Geometry,611476.8,2559984.8,345539555,222800
+MDB0000531-P1-11-s40.tif,e936f483-2909-49d9-a52b-7bffaee8db62,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,608428.8,2569749.8,419754759.7,203210.8
+MDB0000531-P1-11-s40.tif,72223b06-e0b0-4c9e-992c-43f489eb883b,Annotation,,Germ Cells,Root object (Image),Polygon,398711.8,2307619.2,996646566.5,113343.6
+MDB0000531-P1-11-s40.tif,8ef5210d-25ba-45d9-852e-93366df18ce6,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,398815.3,2306863.3,878779151.3,187524.4
+MDB0000531-P1-11-s40.tif,ac5fa1ed-611c-4274-8d23-d44e263e5bec,Annotation,,Stroma,Annotation (Germ Cells),Geometry,397926.3,2313259.1,117868011.5,169743.9
+MDB0000531-P1-11-s40.tif,62290345-1826-4a67-b7f4-b8ab502ea1b6,Annotation,,Germ Cells,Root object (Image),Polygon,340480.1,2297125.1,1126319010.1,121085.7
+MDB0000531-P1-11-s40.tif,1cf79f84-7b4f-4792-83c8-5bb616a7d13b,Annotation,,Stroma,Annotation (Germ Cells),Geometry,340409.4,2290603.7,290088186.9,245961.5
+MDB0000531-P1-11-s40.tif,d07d1402-7850-4d30-bbf5-0389a0d93966,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,340504.6,2299388,836231117.5,228148.8
+MDB0000531-P1-11-s40.tif,f6a9dc05-350b-4d7a-8463-c90c56ce8839,Annotation,,Germ Cells,Root object (Image),Polygon,441122.2,2404511.5,1940406519.2,171188.9
+MDB0000531-P1-11-s40.tif,5fb3d2fb-ccde-4b00-b462-fd9401434c2e,Annotation,,Stroma,Annotation (Germ Cells),Geometry,452497.5,2397304.8,510848805.5,367130.9
+MDB0000531-P1-11-s40.tif,695a8273-7248-48da-9afd-1201a810767d,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,437056.4,2407087.5,1429557744.1,351463.4
+MDB0000531-P1-11-s40.tif,7919b8df-b898-4ace-bca6-a9404fd5c6aa,Annotation,,Germ Cells,Root object (Image),Polygon,287716.4,2178975.5,836857991.4,104544.9
+MDB0000531-P1-11-s40.tif,c4061085-5358-4228-9721-95239caa033b,Annotation,,Germ Cells,Annotation (Germ Cells),Geometry,287580.9,2177933.6,752754417.3,141824.1
+MDB0000531-P1-11-s40.tif,7e8f6844-97e2-43f9-beb3-e4a29919a058,Annotation,,Stroma,Annotation (Germ Cells),Geometry,288932.1,2188301.7,84104233,103154.6
+MDB0000531-P1-11-s40.tif,ff5d9db0-33a0-4573-9173-86ca54e1a093,Annotation,,Stroma,Root object (Image),Polygon,1929315,4130948.2,1018396299.4,135018.2
+MDB0000531-P1-11-s40.tif,64af821d-6550-47dd-896c-db90a871dd58,Annotation,,Stroma,Annotation (Stroma),Polygon,1929315,4130948.2,1018396299.4,135018.2
+MDB0000531-P1-11-s40.tif,d1ea30b1-1e18-4c05-9c36-68311693a95b,Annotation,,Stroma,Root object (Image),Geometry,1895379.7,4150660,663610032.8,263709.8
+MDB0000531-P1-11-s40.tif,2d4f731b-af76-46cd-ae2e-f4cc23d299b4,Annotation,,Stroma,Annotation (Stroma),Geometry,1895379.7,4150660,663610032.8,263709.8
+MDB0000531-P1-11-s40.tif,29cd9afa-4ef1-4013-9d7c-7949d31b0a49,Annotation,,Stroma,Root object (Image),Geometry,1950116.8,4177361.6,840020970.3,193373.1
+MDB0000531-P1-11-s40.tif,8a39c8ee-9686-4861-8231-9899f607c2b2,Annotation,,Stroma,Annotation (Stroma),Geometry,1950116.8,4177361.6,840020970.3,193373.1
+MDB0000531-P1-11-s40.tif,64aa6f71-401e-4172-a802-ef7b9999f043,Annotation,,Stroma,Root object (Image),Polygon,1917668.1,4085051.3,257304841.8,81162.2
+MDB0000531-P1-11-s40.tif,6fa1f3a6-9093-4199-b4d9-99009e51a248,Annotation,,Stroma,Annotation (Stroma),Polygon,1917668.1,4085051.3,257304841.8,81162.2
+MDB0000531-P1-11-s40.tif,53bf2547-5f61-41d5-941c-797896bf4122,Annotation,,Stroma,Root object (Image),Geometry,1886091.1,4041171.8,1693291781.2,503532.7
+MDB0000531-P1-11-s40.tif,9f44c92d-00e6-4026-ba17-c495f0906ab0,Annotation,,Stroma,Annotation (Stroma),Geometry,1886609.7,4040878.9,1664792236.4,510545.4
+MDB0000531-P1-11-s40.tif,e479bb0c-5a57-4022-b008-733abed21a07,Annotation,,Germ Cells,Annotation (Stroma),Geometry,1855819.2,4058429.6,28499544.8,52959.5
+MDB0000531-P1-11-s40.tif,c6458133-1d15-4fcb-8bf6-a89abc3d292d,Annotation,,Stroma,Root object (Image),Polygon,1888010,4195610.9,3036723156.8,620246.9
+MDB0000531-P1-11-s40.tif,931a41c1-4acf-47f5-bdb3-46fb9dada52f,Annotation,,Stroma,Annotation (Stroma),Polygon,1888010,4195610.9,3036723156.8,620246.9
+MDB0000531-P1-11-s40.tif,f31ea182-221a-4adb-a034-f7e6a9eaf330,Annotation,,Stroma,Root object (Image),Geometry,2377831.6,3760466.4,30887346130.4,1424989.1
+MDB0000531-P1-11-s40.tif,e68a92e9-bcb5-4d74-b7ea-c247a8c25307,Annotation,,Germ Cells,Annotation (Stroma),Geometry,2394831.9,3754663.2,735061129.4,891726.2
+MDB0000531-P1-11-s40.tif,98074ea5-1026-4f0b-8928-674deeb8f4aa,Annotation,,Stroma,Annotation (Stroma),Geometry,2377418.9,3760607.7,30152285001,2272633.7
+MDB0000531-P1-11-s40.tif,69da9626-2b09-45cc-9cbb-2ce96cb6faaa,Annotation,,Stroma,Root object (Image),Polygon,889699.7,1376010.4,3762997750.8,1020834.4
+MDB0000531-P1-11-s40.tif,c5b02f75-6a1f-4c59-b601-c97ba0ef10c5,Annotation,,Stroma,Annotation (Stroma),Geometry,894619.7,1372305.6,2370033242.7,1767539
+MDB0000531-P1-11-s40.tif,464af4ba-f2ad-4050-bc8d-af1e3a79a2bf,Annotation,,Germ Cells,Annotation (Stroma),Geometry,881330.6,1382310.4,1392965751.8,1375557.3
+MDB0000531-P1-11-s40.tif,73676851-faf7-4425-addf-a44a76f45cb7,Annotation,,Stroma,Root object (Image),Geometry,1514122.2,1114933,46640998414.4,2517068.5
+MDB0000531-P1-11-s40.tif,af6ec063-b585-4f47-a7a1-9e9673847217,Annotation,,Germ Cells,Annotation (Stroma),Geometry,1851092,1038337.9,506335346.1,416319.8
+MDB0000531-P1-11-s40.tif,0af1bd36-9bf9-497a-9598-311a7e5a633b,Annotation,,Stroma,Annotation (Stroma),Geometry,1510425.1,1115772.6,46134657294.6,2863115.6
+MDB0000531-P1-11-s40.tif,342f62b8-380a-43c3-bb7f-4520da39f658,Annotation,,Stroma,Root object (Image),Polygon,946630.2,727523.6,229444047781.6,3241484.2
+MDB0000531-P1-11-s40.tif,26e315db-3d1d-4ae2-a298-cb55c55c169d,Annotation,,Germ Cells,Annotation (Stroma),Geometry,962335.4,720622.7,78912810591.7,26130273.2
+MDB0000531-P1-11-s40.tif,363f31ef-9877-4f1f-9c82-ff18d974e6f0,Annotation,,Stroma,Annotation (Stroma),Geometry,938396,731142.5,150531170680.8,27329571.1
