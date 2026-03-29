@@ -20,10 +20,10 @@ Outputs (all written to outputs/figures/results/):
   - fig6_slide_size_vs_tiles.png
 
 Run from repo root:
-  python explore/05_make_presentation_figs.py
+  python EDA/05_make_presentation_figs.py
 
 Override paths:
-  python explore/05_make_presentation_figs.py \
+  python EDA/05_make_presentation_figs.py \
     --log outputs/logs/pipeline_run_20260328_202129.log \
     --test-predictions outputs/test_predictions.csv \
     --wsi-summary outputs/all_slides_summary.csv \
@@ -59,7 +59,21 @@ from src.utils.paths import find_repo_root
 # ======================================================================
 
 def find_latest_log(logs_dir: Path) -> Optional[Path]:
-    """Find the most recent pipeline_*.log file."""
+    """
+    Find the most recent CNN pipeline log file.
+
+    Prefers cnn_pipeline_*.log (written by tee in run_cnn_pipeline.sh,
+    contains both [pipeline] lines AND raw fastai epoch tables).
+    Falls back to pipeline_*.log (written by make_logger inside
+    cnn_pipeline.py, contains only [pipeline] prefixed lines — no
+    epoch data for training curves).
+    """
+    # First choice: the tee-captured log with full output
+    cnn_logs = sorted(logs_dir.glob("cnn_pipeline_*.log"), key=lambda p: p.stat().st_mtime)
+    if cnn_logs:
+        return cnn_logs[-1]
+
+    # Fallback: the make_logger log (won't have epoch tables)
     logs = sorted(logs_dir.glob("pipeline_*.log"), key=lambda p: p.stat().st_mtime)
     return logs[-1] if logs else None
 
@@ -235,7 +249,7 @@ def fig1_class_distribution(
 
     lines1, labels1 = ax1.get_legend_handles_labels()
     lines2, labels2 = ax2.get_legend_handles_labels()
-    ax1.legend(lines1 + lines2, labels1 + labels2, loc="upper right", framealpha=0.9)
+    ax1.legend(lines1 + lines2, labels1 + labels2, loc="upper center", framealpha=0.9)
 
     fig.tight_layout()
     fig.savefig(out_path, dpi=200, bbox_inches="tight")
@@ -588,7 +602,11 @@ def main() -> int:
             figdir / "fig2_training_curves.png",
         )
     else:
-        print("[WARNING] No training metrics found in log — skipping Figure 2")
+        print("[WARNING] No training metrics (epoch tables) found in log — skipping Figure 2")
+        print(f"  Log used: {log_path}")
+        print("  The epoch data only exists in the tee-captured log (cnn_pipeline_*.log),")
+        print("  not in the make_logger log (pipeline_*.log).")
+        print("  Fix: re-run, or pass --log outputs/logs/cnn_pipeline_<timestamp>.log")
 
     # ---- Figure 3: Test predictions ----
     test_csv = repo / args.test_predictions
