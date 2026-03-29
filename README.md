@@ -226,7 +226,7 @@ nmr-ovarian-follicle-ml/
 │   │   └── top_losses.png
 │   └── reports/
 │
-├── explore/                             # exploratory, non-authoritative analysis
+├── EDA/                             # exploratory, non-authoritative analysis
 │   ├── 00_dataset_sanity.py
 │   ├── 01_view_tiles.py
 │   ├── 02_overlay_masks.py
