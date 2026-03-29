@@ -1,0 +1,169 @@
+Image,Object ID,Object type,Name,Classification,Parent,ROI,Centroid X µm,Centroid Y µm,Area µm^2,Perimeter µm
+MDB0000530-P28-Ova-106_s55.tif,3754712e-65cd-41d3-96ee-8625e4d022d5,Annotation,,Primordial,Root object (Image),Polygon,1663302.1,1536168.1,1195879701.2,123758.2
+MDB0000530-P28-Ova-106_s55.tif,2a356b73-e7c0-4d32-ace5-32421d09d8c4,Annotation,,Stroma,Annotation (Primordial),Geometry,1653853.9,1520892,2617901,13179
+MDB0000530-P28-Ova-106_s55.tif,5a686065-256a-4528-b3df-8df441df97ce,Annotation,,Stroma,Annotation (Stroma),Geometry,1653853.9,1520892,2617901,13179
+MDB0000530-P28-Ova-106_s55.tif,7fc22b33-0657-4771-936e-2a9f2b368289,Annotation,,Transitional Primordial,Annotation (Primordial),Geometry,1662334.7,1531849.3,532823659.4,335929.9
+MDB0000530-P28-Ova-106_s55.tif,6ff35929-1611-4e14-a33c-87257c4c9d74,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1662334.7,1531849.3,532823659.4,335929.9
+MDB0000530-P28-Ova-106_s55.tif,3bcdd086-fb39-4476-aae9-bc9887b13619,Annotation,,Primordial,Annotation (Primordial),Geometry,1664553.7,1539342.4,636029074.6,266447.1
+MDB0000530-P28-Ova-106_s55.tif,d4a3b11c-c64e-4d09-9b15-7681c6225d97,Annotation,,Primordial,Annotation (Primordial),Geometry,1664553.7,1539342.4,636029074.6,266447.1
+MDB0000530-P28-Ova-106_s55.tif,0fb8c403-b462-4a1b-9db4-dc078ea4bdb7,Annotation,,Other,Annotation (Primordial),Geometry,1652792.1,1549368.3,24409395.3,45341.5
+MDB0000530-P28-Ova-106_s55.tif,eb2764ea-2858-46bb-814e-e410635eb4e7,Annotation,,Other,Annotation (Other),Geometry,1652792.1,1549368.3,24409395.3,45341.5
+MDB0000530-P28-Ova-106_s55.tif,79ec0d06-2f35-49fc-bfc0-0934ccf2707e,Annotation,,Stroma,Annotation (Primordial),Geometry,1653853.9,1520892,2617901,13179
+MDB0000530-P28-Ova-106_s55.tif,d1a97eae-32cb-4b51-93b0-a3e80e4c3de6,Annotation,,Transitional Primordial,Annotation (Primordial),Geometry,1662334.7,1531849.3,532823659.4,335929.9
+MDB0000530-P28-Ova-106_s55.tif,a2c7e199-eb9d-4321-88d1-be19633c0c7b,Annotation,,Primordial,Annotation (Primordial),Geometry,1664553.7,1539342.4,636029074.6,266447.1
+MDB0000530-P28-Ova-106_s55.tif,9b554231-bd95-4c98-b453-e166bbd7650c,Annotation,,Other,Annotation (Primordial),Geometry,1652792.1,1549368.3,24409395.3,45341.5
+MDB0000530-P28-Ova-106_s55.tif,d276e19e-afb5-4092-9f08-89a190e4d5b3,Annotation,,Primordial,Root object (Image),Polygon,1797671.8,1610979.5,1228493246.1,127657.3
+MDB0000530-P28-Ova-106_s55.tif,8c7ac617-6d40-48f2-89bc-cf12915605b8,Annotation,,Transitional Primordial,Annotation (Primordial),Geometry,1805283.8,1610744.6,368523720.6,337851.7
+MDB0000530-P28-Ova-106_s55.tif,d90b03dc-3f0e-44ee-9ab1-b3941ec7e6bb,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1805283.8,1610744.6,368523720.6,337851.7
+MDB0000530-P28-Ova-106_s55.tif,4e477467-cf07-4237-828a-a90256957533,Annotation,,Primordial,Annotation (Primordial),Geometry,1795152.1,1611012.6,748250459.6,437565.6
+MDB0000530-P28-Ova-106_s55.tif,6c8f8853-8387-4527-afd1-4e2b89adbf73,Annotation,,Primordial,Annotation (Primordial),Geometry,1795152.1,1611012.6,748250459.6,437565.6
+MDB0000530-P28-Ova-106_s55.tif,c1e60f86-9864-4f35-9fd1-f5e8e1bf153a,Annotation,,Other,Annotation (Primordial),Geometry,1789447.7,1611527.6,111719361.5,123059.5
+MDB0000530-P28-Ova-106_s55.tif,6936077c-18c0-4fe8-b518-d173c25acc8d,Annotation,,Other,Annotation (Other),Geometry,1789447.7,1611527.6,111719361.5,123059.5
+MDB0000530-P28-Ova-106_s55.tif,3585c0e1-e5d1-4ce2-b02e-b6d50763807c,Annotation,,Transitional Primordial,Annotation (Primordial),Geometry,1805283.8,1610744.6,368523720.6,337851.7
+MDB0000530-P28-Ova-106_s55.tif,c4b938ac-f780-4cd6-a35f-b36d9137b9ba,Annotation,,Primordial,Annotation (Primordial),Geometry,1795152.1,1611012.6,748250459.6,437565.6
+MDB0000530-P28-Ova-106_s55.tif,e628eca4-abf9-4d7c-ae85-43c500b75eed,Annotation,,Other,Annotation (Primordial),Geometry,1789447.7,1611527.6,111719361.5,123059.5
+MDB0000530-P28-Ova-106_s55.tif,31c06b77-ea9f-49d3-84b0-59cd4b840a83,Annotation,,Primordial,Root object (Image),Polygon,1661940.6,1630103.3,1100521324.9,119609.9
+MDB0000530-P28-Ova-106_s55.tif,b5bd5870-a574-492b-ad02-eeae2746e1f9,Annotation,,Primordial,Annotation (Primordial),Geometry,1664225.7,1629321.7,470166241.3,331800.5
+MDB0000530-P28-Ova-106_s55.tif,2da3bbf1-e63a-4286-8a5f-89d3cecc72f3,Annotation,,Primordial,Annotation (Primordial),Geometry,1664225.7,1629321.7,470166241.3,331800.5
+MDB0000530-P28-Ova-106_s55.tif,e24ce83a-ca65-435b-9592-868d87d638a7,Annotation,,Transitional Primordial,Annotation (Primordial),Geometry,1660362.7,1630253.1,614765112,413308.3
+MDB0000530-P28-Ova-106_s55.tif,f217f1bd-8d2c-417c-a32a-b4e8d5cd7d12,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1660362.7,1630253.1,614765112,413308.3
+MDB0000530-P28-Ova-106_s55.tif,cc851ab1-1e3b-4a09-9fe9-5400c94d067a,Annotation,,Stroma,Annotation (Primordial),Polygon,1655259,1647648.6,15590762.6,23188.8
+MDB0000530-P28-Ova-106_s55.tif,512b3007-28ec-4eaf-b183-c8108138b98c,Annotation,,Stroma,Annotation (Stroma),Polygon,1655259,1647648.6,15590762.6,23188.8
+MDB0000530-P28-Ova-106_s55.tif,44846bba-8368-49e0-9b02-e20e9af5eeb1,Annotation,,Primordial,Annotation (Primordial),Geometry,1664225.7,1629321.7,470166241.3,331800.5
+MDB0000530-P28-Ova-106_s55.tif,30d9a0fa-77af-4554-8448-5caab731854c,Annotation,,Transitional Primordial,Annotation (Primordial),Geometry,1660362.7,1630253.1,614765112,413308.3
+MDB0000530-P28-Ova-106_s55.tif,44939d7e-0155-438b-9888-47342eaff3ab,Annotation,,Stroma,Annotation (Primordial),Polygon,1655259,1647648.6,15590762.6,23188.8
+MDB0000530-P28-Ova-106_s55.tif,dc2abae1-967d-4b9a-961e-124b34588202,Annotation,,Primordial,Root object (Image),Polygon,1604592,1581333.8,1215776983.1,124914.7
+MDB0000530-P28-Ova-106_s55.tif,c981ca1a-8e76-4172-9ea3-d51f739ff21e,Annotation,,Other,Annotation (Primordial),Polygon,1590087.1,1570175.1,414435.4,3250.7
+MDB0000530-P28-Ova-106_s55.tif,2bf272c7-b276-4607-a16d-31155879cdba,Annotation,,Other,Annotation (Other),Polygon,1590087.1,1570175.1,414435.4,3250.7
+MDB0000530-P28-Ova-106_s55.tif,afc28e5e-167e-4e41-aeeb-9a11484a457b,Annotation,,Transitional Primordial,Annotation (Primordial),Geometry,1602761.1,1579269.7,475827194.6,367370.2
+MDB0000530-P28-Ova-106_s55.tif,ee8ea83d-e4cd-4d54-83f9-1049953157e3,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1602761.1,1579269.7,475827194.6,367370.2
+MDB0000530-P28-Ova-106_s55.tif,f5ca0e9c-9402-4120-a42a-8f6c60af57dc,Annotation,,Primordial,Annotation (Primordial),Geometry,1605847.9,1582649.3,736992682.4,329192.5
+MDB0000530-P28-Ova-106_s55.tif,54f25bb5-1f93-474e-98ab-949c49065bd8,Annotation,,Primordial,Annotation (Primordial),Geometry,1605847.9,1582649.3,736992682.4,329192.5
+MDB0000530-P28-Ova-106_s55.tif,90c52f95-c4ab-400d-86d3-930278905512,Annotation,,Stroma,Annotation (Primordial),Polygon,1585736.1,1587697.9,2542670.7,9654.1
+MDB0000530-P28-Ova-106_s55.tif,3165ee25-8a6f-41e1-9435-66af84ad9b0a,Annotation,,Stroma,Annotation (Stroma),Polygon,1585736.1,1587697.9,2542670.7,9654.1
+MDB0000530-P28-Ova-106_s55.tif,e51025c6-1efc-4e56-9a4e-5dc667e02a93,Annotation,,Other,Annotation (Primordial),Polygon,1590087.1,1570175.1,414435.4,3250.7
+MDB0000530-P28-Ova-106_s55.tif,40478709-a3b0-4157-88e8-d417d4b933ec,Annotation,,Transitional Primordial,Annotation (Primordial),Geometry,1602761.1,1579269.7,475827194.6,367370.2
+MDB0000530-P28-Ova-106_s55.tif,270a7354-23e7-4b9f-ba3d-6b3049795502,Annotation,,Primordial,Annotation (Primordial),Geometry,1605847.9,1582649.3,736992682.4,329192.5
+MDB0000530-P28-Ova-106_s55.tif,cf0d54ed-3f28-4aa9-af71-7b12288a8474,Annotation,,Stroma,Annotation (Primordial),Polygon,1585736.1,1587697.9,2542670.7,9654.1
+MDB0000530-P28-Ova-106_s55.tif,0c598f20-848c-412c-a291-0f2dc8baa085,Annotation,,Background,Root object (Image),Polygon,368673.7,1356089.4,266831835901.9,2441109.3
+MDB0000530-P28-Ova-106_s55.tif,5dbf4173-768a-4791-9ef7-aaa3c082f214,Annotation,,Other,Annotation (Background),Geometry,427351.5,1119261.6,4586113310.9,2091248.1
+MDB0000530-P28-Ova-106_s55.tif,397811a7-8a7b-43f4-a358-dac9e86976cd,Annotation,,Other,Annotation (Other),Geometry,427351.5,1119261.6,4586113310.9,2091248.1
+MDB0000530-P28-Ova-106_s55.tif,b49521c3-452e-46dc-b3f0-7ea8a54d78e2,Annotation,,Background,Annotation (Background),Geometry,367647.4,1360230,262245725660.2,4460957.1
+MDB0000530-P28-Ova-106_s55.tif,ee092a3b-e103-4832-87d0-233c1962577e,Annotation,,Background,Annotation (Background),Geometry,367647.4,1360230,262245725660.2,4460957.1
+MDB0000530-P28-Ova-106_s55.tif,dd0605e5-c7b9-4273-8122-86ca5524062d,Annotation,,Other,Annotation (Background),Geometry,427351.5,1119261.6,4586113310.9,2091248.1
+MDB0000530-P28-Ova-106_s55.tif,0d69c6cf-488e-4f5c-a90c-3da1471b418a,Annotation,,Background,Annotation (Background),Geometry,367647.4,1360230,262245725660.2,4460957.1
+MDB0000530-P28-Ova-106_s55.tif,9851399c-1bfa-4cde-b8dd-911ea5bbd247,Annotation,,Background,Root object (Image),Polygon,2834574.8,2724628.9,268511771088.9,2452827.6
+MDB0000530-P28-Ova-106_s55.tif,f7a35611-4e69-4c1f-a664-6c93ac671bd9,Annotation,,Other,Annotation (Background),Geometry,2780213.4,2264018.4,873111450.7,286147.2
+MDB0000530-P28-Ova-106_s55.tif,a7465620-9e4a-44a6-8b09-9090e1ad9b14,Annotation,,Other,Annotation (Other),Geometry,2780213.4,2264018.4,873111450.7,286147.2
+MDB0000530-P28-Ova-106_s55.tif,2e81b316-d7b2-47b8-aa35-b7c915415fee,Annotation,,Background,Annotation (Background),Geometry,2834752.9,2726132.7,267638658976.4,2675915.1
+MDB0000530-P28-Ova-106_s55.tif,2d8f5f07-58d7-4601-a1fb-e748741ac3ef,Annotation,,Background,Annotation (Background),Geometry,2834752.9,2726132.7,267638658976.4,2675915.1
+MDB0000530-P28-Ova-106_s55.tif,eb784cc8-5088-47ef-bdbe-272520acd6ac,Annotation,,Other,Annotation (Background),Geometry,2780213.4,2264018.4,873111450.7,286147.2
+MDB0000530-P28-Ova-106_s55.tif,aad0fd52-43b5-4a26-b7ed-ef18c80a3f55,Annotation,,Background,Annotation (Background),Geometry,2834752.9,2726132.7,267638658976.4,2675915.1
+MDB0000530-P28-Ova-106_s55.tif,8ffea950-30c5-4a07-94da-1e30910b5630,Annotation,,Background,Root object (Image),Polygon,2225301.7,238116.1,136270747219.8,1448611
+MDB0000530-P28-Ova-106_s55.tif,0853e770-d6a7-427e-b41a-57f0cebd8696,Annotation,,Other,Annotation (Background),Geometry,2242153.2,110758.1,14335190043.5,1284474.7
+MDB0000530-P28-Ova-106_s55.tif,81401f06-c4da-47fe-b01d-68327a791805,Annotation,,Other,Annotation (Other),Geometry,2242153.2,110758.1,14335190043.5,1284474.7
+MDB0000530-P28-Ova-106_s55.tif,9b76a85b-cc26-416a-b617-93fadcbf12f5,Annotation,,Background,Annotation (Background),Geometry,2223322,253089.8,121935554378.2,2047475.1
+MDB0000530-P28-Ova-106_s55.tif,5b279aa7-3625-4f3c-a270-adb4f8b81f30,Annotation,,Background,Annotation (Background),Geometry,2223322,253089.8,121935554378.2,2047475.1
+MDB0000530-P28-Ova-106_s55.tif,5c53d400-ebdd-4f69-b8f7-013c594e4d2a,Annotation,,Other,Annotation (Background),Geometry,2242153.2,110758.1,14335190043.5,1284474.7
+MDB0000530-P28-Ova-106_s55.tif,4e035bfa-79e2-46a4-b868-59d468b8d2b3,Annotation,,Background,Annotation (Background),Geometry,2223322,253089.8,121935554378.2,2047475.1
+MDB0000530-P28-Ova-106_s55.tif,c7f46f4b-53ff-4c0a-b5f8-9cb986497ca9,Annotation,,Other,Root object (Image),Geometry,1851144.9,483799.5,1477960918137.5,8316547.6
+MDB0000530-P28-Ova-106_s55.tif,da4ae02f-d572-4832-a060-0ea6987c96c5,Annotation,,Artifact,Annotation (Other),Rectangle,341488.9,78316.7,3982469.1,8466.7
+MDB0000530-P28-Ova-106_s55.tif,abe51173-670f-4f8b-adcd-b8194b417e0a,Annotation,,Artifact,Annotation (Artifact),Rectangle,341488.9,78316.7,3982469.1,8466.7
+MDB0000530-P28-Ova-106_s55.tif,430c80a1-9482-4cb6-bb1d-ace28fb0d9d8,Annotation,,Background,Annotation (Other),Geometry,2092900,448493.4,215032674453.4,8996346.4
+MDB0000530-P28-Ova-106_s55.tif,89fc94fa-114a-4182-b6a5-a14e777a0de1,Annotation,,Background,Annotation (Background),Geometry,2092900,448493.4,215032674453.4,8996346.4
+MDB0000530-P28-Ova-106_s55.tif,66d817a8-66e8-4b9e-9a52-b60ebabc3280,Annotation,,Other,Annotation (Other),Geometry,1808377.6,489482.7,1261331412815.6,12628735.4
+MDB0000530-P28-Ova-106_s55.tif,7d2bce41-cd99-4ec4-9a11-48920c8285c5,Annotation,,Other,Annotation (Other),Geometry,1808377.6,489482.7,1261331412815.6,12628735.4
+MDB0000530-P28-Ova-106_s55.tif,1dba27d0-55ac-42dd-9b39-e9c17d2b43b6,Annotation,,Artifact,Annotation (Other),Rectangle,341488.9,78316.7,3982469.1,8466.7
+MDB0000530-P28-Ova-106_s55.tif,5b1dfdc6-cdbe-4327-b6d7-2b61618597f8,Annotation,,Background,Annotation (Other),Geometry,2092900,448493.4,215032674453.4,8996346.4
+MDB0000530-P28-Ova-106_s55.tif,e7df3b75-c357-4b22-ac2a-c1843dee40e5,Annotation,,Other,Annotation (Other),Geometry,1808377.6,489482.7,1261331412815.6,12628735.4
+MDB0000530-P28-Ova-106_s55.tif,92a28168-0996-4775-966b-0ef57a83a3d2,Annotation,,Transitional Primordial,Root object (Image),Polygon,1594549.4,2067675.7,2149551966.9,168618.3
+MDB0000530-P28-Ova-106_s55.tif,0e52494b-a72c-48cd-a9f8-ee7fc04d0ecc,Annotation,,Other,Annotation (Transitional Primordial),Geometry,1582338.9,2047800.9,76401229.9,61316.3
+MDB0000530-P28-Ova-106_s55.tif,8d651e2a-8c55-403f-a0cd-07ced59e75db,Annotation,,Other,Annotation (Other),Geometry,1582338.9,2047800.9,76401229.9,61316.3
+MDB0000530-P28-Ova-106_s55.tif,e1c40c06-c02f-45a8-b380-59a5ae9cf2e3,Annotation,,Primordial,Annotation (Transitional Primordial),Geometry,1597120.3,2067186.1,429710530.1,358039.1
+MDB0000530-P28-Ova-106_s55.tif,35edbeb5-3188-418b-84d8-4b553274c901,Annotation,,Primordial,Annotation (Primordial),Geometry,1597120.3,2067186.1,429710530.1,358039.1
+MDB0000530-P28-Ova-106_s55.tif,68b952a0-beb0-4f2c-9dd5-480b0484ebcd,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1594446.2,2068727.6,1643440976,534969.7
+MDB0000530-P28-Ova-106_s55.tif,65dc3f82-eb80-42c2-801a-c5909b1f84f5,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1594446.2,2068727.6,1643440976,534969.7
+MDB0000530-P28-Ova-106_s55.tif,7b1d7b0f-c574-4035-b7c9-066babb6c033,Annotation,,Other,Annotation (Transitional Primordial),Geometry,1582338.9,2047800.9,76401229.9,61316.3
+MDB0000530-P28-Ova-106_s55.tif,5d71981b-328f-4390-b2bb-59062c6da0d7,Annotation,,Primordial,Annotation (Transitional Primordial),Geometry,1597120.3,2067186.1,429710530.1,358039.1
+MDB0000530-P28-Ova-106_s55.tif,5852b175-3623-4e06-b687-7e5a3111d220,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1594446.2,2068727.6,1643440976,534969.7
+MDB0000530-P28-Ova-106_s55.tif,cca2fa9e-9492-41d1-ac8f-4184072db312,Annotation,,Transitional Primordial,Root object (Image),Polygon,1626564.6,1954019.2,1440825926.9,144134.9
+MDB0000530-P28-Ova-106_s55.tif,726f2b5e-5a56-4f2b-af62-1bddac4fcec5,Annotation,,Stroma,Annotation (Transitional Primordial),Geometry,1629551.2,1939448.7,106046482,101224.9
+MDB0000530-P28-Ova-106_s55.tif,c4b353f9-67e0-4def-a965-c6981fd50053,Annotation,,Stroma,Annotation (Stroma),Geometry,1629551.2,1939448.7,106046482,101224.9
+MDB0000530-P28-Ova-106_s55.tif,307795b3-1a0f-4e43-a4a3-372cd4234d7e,Annotation,,Primordial,Annotation (Transitional Primordial),Geometry,1628933.8,1953436.3,417399772,279384.3
+MDB0000530-P28-Ova-106_s55.tif,77ac4d10-168e-4534-9816-1ec97620bf9e,Annotation,,Primordial,Annotation (Primordial),Geometry,1628933.8,1953436.3,417399772,279384.3
+MDB0000530-P28-Ova-106_s55.tif,49b1f0c3-fa76-42c3-9657-ac74238fa4e2,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1624517,1955436.7,851669476.8,403069.1
+MDB0000530-P28-Ova-106_s55.tif,bf6e7602-3d2e-4f34-b84c-48c9fb294991,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1624517,1955436.7,851669476.8,403069.1
+MDB0000530-P28-Ova-106_s55.tif,82800a0a-ad84-4883-8387-0a6cc602eb04,Annotation,,Other,Annotation (Transitional Primordial),Geometry,1633234.2,1962876.7,65710740.7,73377.8
+MDB0000530-P28-Ova-106_s55.tif,8e8e5296-76aa-4283-90dc-0a419b65ff88,Annotation,,Other,Annotation (Other),Geometry,1633234.2,1962876.7,65710740.7,73377.8
+MDB0000530-P28-Ova-106_s55.tif,8446cb7f-3eea-4160-bda5-f52d00a2d0b9,Annotation,,Stroma,Annotation (Transitional Primordial),Geometry,1629551.2,1939448.7,106046482,101224.9
+MDB0000530-P28-Ova-106_s55.tif,6fc4ea96-88b2-403f-b8a9-26987eb61967,Annotation,,Primordial,Annotation (Transitional Primordial),Geometry,1628933.8,1953436.3,417399772,279384.3
+MDB0000530-P28-Ova-106_s55.tif,800a2e48-a0b4-48ad-ba21-e2b7cfaa7fef,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1624517,1955436.7,851669476.8,403069.1
+MDB0000530-P28-Ova-106_s55.tif,21bea087-66d2-4cd5-a8b3-6a6148a8fd77,Annotation,,Other,Annotation (Transitional Primordial),Geometry,1633234.2,1962876.7,65710740.7,73377.8
+MDB0000530-P28-Ova-106_s55.tif,a74a167d-7e92-43a7-9ee0-07b1ca954082,Annotation,,Transitional Primordial,Root object (Image),Polygon,810362.6,2241180,9016215016.8,339860.6
+MDB0000530-P28-Ova-106_s55.tif,911b859d-1a96-4238-98bd-19bacd5a0e28,Annotation,,Other,Annotation (Transitional Primordial),Polygon,787258.9,2198087.7,9956172.8,14111.1
+MDB0000530-P28-Ova-106_s55.tif,fccfd5b8-d7c4-4824-a0fa-e54818b04bbe,Annotation,,Other,Annotation (Other),Polygon,787258.9,2198087.7,9956172.8,14111.1
+MDB0000530-P28-Ova-106_s55.tif,27f5eae6-9c4d-4c68-93e8-029b1256527b,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,810069.5,2240646.9,8825207458.5,561350.2
+MDB0000530-P28-Ova-106_s55.tif,403578f8-8032-463c-9ad3-9a69c2c7056c,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,810069.5,2240646.9,8825207458.5,561350.2
+MDB0000530-P28-Ova-106_s55.tif,9a6c6854-2623-4211-9b4c-87ced65d741b,Annotation,,Primordial,Annotation (Transitional Primordial),Geometry,823838.4,2249413.4,81640617.3,159455.6
+MDB0000530-P28-Ova-106_s55.tif,f3151fff-9b98-4f75-b8eb-d675f23237df,Annotation,,Primordial,Annotation (Primordial),Geometry,823838.4,2249413.4,81640617.3,159455.6
+MDB0000530-P28-Ova-106_s55.tif,c5496ee4-7708-4c94-bbc3-e0cc97ea3125,Annotation,,Stroma,Annotation (Transitional Primordial),Geometry,827524.9,2286155.2,99410044,101746.6
+MDB0000530-P28-Ova-106_s55.tif,ebc88099-9473-4853-b646-1df88d6e5aa1,Annotation,,Stroma,Annotation (Stroma),Geometry,827524.9,2286155.2,99410044,101746.6
+MDB0000530-P28-Ova-106_s55.tif,8d45c90a-49ae-4b14-a8e2-5fcb914ce6ac,Annotation,,Other,Annotation (Transitional Primordial),Polygon,787258.9,2198087.7,9956172.8,14111.1
+MDB0000530-P28-Ova-106_s55.tif,cdcf50a8-6e41-4142-9c54-b67283170eb9,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,810069.5,2240646.9,8825207458.5,561350.2
+MDB0000530-P28-Ova-106_s55.tif,9c07d246-d79b-4013-9d8b-eb9db12b1309,Annotation,,Primordial,Annotation (Transitional Primordial),Geometry,823838.4,2249413.4,81640617.3,159455.6
+MDB0000530-P28-Ova-106_s55.tif,a4b3b544-45cd-4a80-bd7a-7bf8c8f8f5b7,Annotation,,Stroma,Annotation (Transitional Primordial),Geometry,827524.9,2286155.2,99410044,101746.6
+MDB0000530-P28-Ova-106_s55.tif,d1e6dbe7-d40d-4df7-bb30-b4a376fb19f3,Annotation,,Stroma,Root object (Image),Polygon,1389126.1,1824822.1,6920170611.6,334190.2
+MDB0000530-P28-Ova-106_s55.tif,c7be178e-ff77-4614-b179-72864882acc2,Annotation,,Primordial,Annotation (Stroma),Geometry,1389944.4,1793875,7964938.3,16933.3
+MDB0000530-P28-Ova-106_s55.tif,0a0679df-a471-47c1-b224-823f5b895cae,Annotation,,Primordial,Annotation (Primordial),Geometry,1389944.4,1793875,7964938.3,16933.3
+MDB0000530-P28-Ova-106_s55.tif,ff132066-ffde-4a6d-ad4f-b78af0ff036e,Annotation,,Transitional Primordial,Annotation (Stroma),Geometry,1388709.7,1805209.7,454587722.3,391490.8
+MDB0000530-P28-Ova-106_s55.tif,f3247f5f-e94b-40e7-830d-1c20543103ae,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1388709.7,1805209.7,454587722.3,391490.8
+MDB0000530-P28-Ova-106_s55.tif,0dd77795-e4a1-468f-9d59-748b5e679638,Annotation,,Stroma,Annotation (Stroma),Geometry,1389154.2,1826242.4,6457608254.8,623797.2
+MDB0000530-P28-Ova-106_s55.tif,c30488f3-5f22-4d6f-88c5-f6496183408f,Annotation,,Stroma,Annotation (Stroma),Geometry,1389154.2,1826242.4,6457608254.8,623797.2
+MDB0000530-P28-Ova-106_s55.tif,dc4a7c16-5d89-41c3-aa12-3f4014497970,Annotation,,Primordial,Annotation (Stroma),Geometry,1389944.4,1793875,7964938.3,16933.3
+MDB0000530-P28-Ova-106_s55.tif,c19fc585-cb2c-49c2-9e6a-b5774e278fcf,Annotation,,Transitional Primordial,Annotation (Stroma),Geometry,1388709.7,1805209.7,454587722.3,391490.8
+MDB0000530-P28-Ova-106_s55.tif,87949ea7-cd92-46be-bbf4-8bd8d465087c,Annotation,,Stroma,Annotation (Stroma),Geometry,1389154.2,1826242.4,6457608254.8,623797.2
+MDB0000530-P28-Ova-106_s55.tif,d4324a2a-55a2-46e2-ad72-6d05f6417264,Annotation,,Stroma,Root object (Image),Polygon,2036477.9,968218.9,5855292084.7,319390.4
+MDB0000530-P28-Ova-106_s55.tif,812a8b69-82c5-4cc8-92b2-dfed25fa9872,Annotation,,Transitional Primordial,Annotation (Stroma),Geometry,2023173.5,967761.2,241289301.2,216989.8
+MDB0000530-P28-Ova-106_s55.tif,254737dc-9468-43c0-ba68-08fec9f5b56d,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,2023173.5,967761.2,241289301.2,216989.8
+MDB0000530-P28-Ova-106_s55.tif,36bafa9e-9396-47ee-8f85-7ab12925bc1e,Annotation,,Stroma,Annotation (Stroma),Geometry,2037048.3,968237.5,5614005035.1,496298.3
+MDB0000530-P28-Ova-106_s55.tif,c96a16f9-79d3-44ab-bf47-4e7c3d8de38b,Annotation,,Stroma,Annotation (Stroma),Geometry,2037048.3,968237.5,5614005035.1,496298.3
+MDB0000530-P28-Ova-106_s55.tif,600128d9-25c8-4796-8dbf-bbc92daa332a,Annotation,,Transitional Primordial,Annotation (Stroma),Geometry,2023173.5,967761.2,241289301.2,216989.8
+MDB0000530-P28-Ova-106_s55.tif,285e56f0-027d-4633-aa71-40e84e22eb33,Annotation,,Stroma,Annotation (Stroma),Geometry,2037048.3,968237.5,5614005035.1,496298.3
+MDB0000530-P28-Ova-106_s55.tif,c0320bbb-0374-47e0-b01f-786cf5502221,Annotation,,Artifact,Root object (Image),Polygon,2024680.2,1011010.2,921797221,182786.8
+MDB0000530-P28-Ova-106_s55.tif,a48dcf8b-ef93-45dd-b657-e1a4842d5996,Annotation,,Other,Annotation (Artifact),Geometry,1988319.1,1007053.5,3765285.5,12357.8
+MDB0000530-P28-Ova-106_s55.tif,e59fe79a-bbce-48e4-91e0-51944c547f98,Annotation,,Other,Annotation (Other),Geometry,1988319.1,1007053.5,3765285.5,12357.8
+MDB0000530-P28-Ova-106_s55.tif,dd19515d-ae85-4c43-8a00-8fd56dc057fc,Annotation,,Artifact,Annotation (Artifact),Polygon,2024829.2,1011026.4,918032543.1,183601.7
+MDB0000530-P28-Ova-106_s55.tif,27333225-d0d3-4881-b223-bd90b5281904,Annotation,,Artifact,Annotation (Artifact),Polygon,2024829.2,1011026.4,918032543.1,183601.7
+MDB0000530-P28-Ova-106_s55.tif,d1e222c5-4e64-4415-91bf-1b61ad711fe7,Annotation,,Other,Annotation (Artifact),Geometry,1988319.1,1007053.5,3765285.5,12357.8
+MDB0000530-P28-Ova-106_s55.tif,46657325-b1bc-499b-80c7-5dd60b77e299,Annotation,,Artifact,Annotation (Artifact),Polygon,2024829.2,1011026.4,918032543.1,183601.7
+MDB0000530-P28-Ova-106_s55.tif,18bfa7da-fee5-4ad1-9ec6-ab80153681bc,Annotation,,Artifact,Root object (Image),Polygon,1316116.6,965315.8,1323545072.9,172217.5
+MDB0000530-P28-Ova-106_s55.tif,bdfc227b-e4aa-4689-9435-599e3ceac861,Annotation,,Transitional Primordial,Annotation (Artifact),Polygon,1347728.7,959673.1,62226.1,1204.5
+MDB0000530-P28-Ova-106_s55.tif,7e54de0c-89e5-4beb-a51b-8c2fe5b16389,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Polygon,1347728.7,959673.1,62226.1,1204.5
+MDB0000530-P28-Ova-106_s55.tif,cb7d448e-368d-466c-b5e9-0d01eb235519,Annotation,,Other,Annotation (Artifact),Geometry,1339673.6,963351.4,7194396.2,31389.5
+MDB0000530-P28-Ova-106_s55.tif,88296fb5-9a53-4fe0-a3d0-75617c2e3b19,Annotation,,Other,Annotation (Other),Geometry,1339673.6,963351.4,7194396.2,31389.5
+MDB0000530-P28-Ova-106_s55.tif,ab8e8e99-2f1e-42f3-9811-13f0038d6b48,Annotation,,Artifact,Annotation (Artifact),Polygon,1315986.2,965326.9,1316283869.7,180653.5
+MDB0000530-P28-Ova-106_s55.tif,b2336c1b-6c5e-4ef7-88c7-b691bc557bce,Annotation,,Artifact,Annotation (Artifact),Polygon,1315986.2,965326.9,1316283869.7,180653.5
+MDB0000530-P28-Ova-106_s55.tif,af964abb-a1af-4bb9-93b7-d7f45ee5100a,Annotation,,Transitional Primordial,Annotation (Artifact),Polygon,1347728.7,959673.1,62226.1,1204.5
+MDB0000530-P28-Ova-106_s55.tif,cc7772f1-9b64-4980-81c1-60c77df11629,Annotation,,Other,Annotation (Artifact),Geometry,1339673.6,963351.4,7194396.2,31389.5
+MDB0000530-P28-Ova-106_s55.tif,9364fc17-dea0-45b1-900f-b9756ab39f32,Annotation,,Artifact,Annotation (Artifact),Polygon,1315986.2,965326.9,1316283869.7,180653.5
+MDB0000530-P28-Ova-106_s55.tif,3b70a40b-f6bf-45be-9eba-a6cfbc7fa04d,Annotation,,Transitional Primordial,Root object (Image),Polygon,1156948.8,1268469.5,1663318914.4,146948.5
+MDB0000530-P28-Ova-106_s55.tif,df279c76-1765-4327-b5be-be170917ce6f,Annotation,,Stroma,Annotation (Transitional Primordial),Geometry,1159347.8,1263378.4,143847275.2,236986.4
+MDB0000530-P28-Ova-106_s55.tif,7c7eda5d-5cd1-4d85-9ca6-2329d4ddb9dc,Annotation,,Stroma,Annotation (Stroma),Geometry,1159347.8,1263378.4,143847275.2,236986.4
+MDB0000530-P28-Ova-106_s55.tif,a7491946-da5d-4598-bc48-7fbadabbbd20,Annotation,,Primordial,Annotation (Transitional Primordial),Geometry,1139708.6,1265297.4,11947407.4,22577.8
+MDB0000530-P28-Ova-106_s55.tif,0d2efaed-73ed-4b3f-a77a-99b73db1f6b5,Annotation,,Primordial,Annotation (Primordial),Geometry,1139708.6,1265297.4,11947407.4,22577.8
+MDB0000530-P28-Ova-106_s55.tif,ab7e1c63-c4f2-4aa1-a109-ea2f0dbb8f9d,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1156857.1,1268980.5,1507526358.7,349057.4
+MDB0000530-P28-Ova-106_s55.tif,97cfae77-9a3e-4eab-8c3e-13c84d5b0c6f,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1156857.1,1268980.5,1507526358.7,349057.4
+MDB0000530-P28-Ova-106_s55.tif,76516f91-19d5-421a-83dc-8fb1e58b1d0a,Annotation,,Stroma,Annotation (Transitional Primordial),Geometry,1159347.8,1263378.4,143847275.2,236986.4
+MDB0000530-P28-Ova-106_s55.tif,60495fd5-3576-42cb-aec0-74680a44eab0,Annotation,,Primordial,Annotation (Transitional Primordial),Geometry,1139708.6,1265297.4,11947407.4,22577.8
+MDB0000530-P28-Ova-106_s55.tif,f951b1f0-5c8a-4ca0-b49e-869f88adbc5f,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,1156857.1,1268980.5,1507526358.7,349057.4
+MDB0000530-P28-Ova-106_s55.tif,e98a514c-c91a-4184-b09d-52193bbfb16d,Annotation,,Transitional Primordial,Root object (Image),Polygon,2177886.5,1539126.4,4555322430.6,253443.7
+MDB0000530-P28-Ova-106_s55.tif,8e23b9cb-ac90-426f-89bc-313359d46f03,Annotation,,Stroma,Annotation (Transitional Primordial),Geometry,2178032.4,1521142.5,569410017,473762.9
+MDB0000530-P28-Ova-106_s55.tif,1609974d-64bb-4e8a-9011-c09bfdfa0c2e,Annotation,,Stroma,Annotation (Stroma),Geometry,2178032.4,1521142.5,569410017,473762.9
+MDB0000530-P28-Ova-106_s55.tif,39fdb677-e625-4259-a64e-7233cfb4fa09,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,2177901.9,1541674.2,3979938406,569077.6
+MDB0000530-P28-Ova-106_s55.tif,e1988071-8545-4d76-bd18-f171695e8576,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,2177901.9,1541674.2,3979938406,569077.6
+MDB0000530-P28-Ova-106_s55.tif,2a8a3608-ce64-4408-b443-4ed0c928defb,Annotation,,Primordial,Annotation (Transitional Primordial),Rectangle,2154061.1,1555750,5973703.7,11288.9
+MDB0000530-P28-Ova-106_s55.tif,4eed7e73-a6a3-49a9-8fd9-ae47f6ebc361,Annotation,,Primordial,Annotation (Primordial),Rectangle,2154061.1,1555750,5973703.7,11288.9
+MDB0000530-P28-Ova-106_s55.tif,be842835-b51a-4c2a-b115-efbd84afc713,Annotation,,Stroma,Annotation (Transitional Primordial),Geometry,2178032.4,1521142.5,569410017,473762.9
+MDB0000530-P28-Ova-106_s55.tif,72d8326e-a0e2-4e0e-9ab9-14f9fd7d0224,Annotation,,Transitional Primordial,Annotation (Transitional Primordial),Geometry,2177901.9,1541674.2,3979938406,569077.6
+MDB0000530-P28-Ova-106_s55.tif,6e3af5b1-4aeb-436e-b84a-45167dff3631,Annotation,,Primordial,Annotation (Transitional Primordial),Rectangle,2154061.1,1555750,5973703.7,11288.9
+MDB0000530-P28-Ova-106_s55.tif,c4282205-4fe0-4e16-8d81-d24cba9a494b,Annotation,,Stroma,Root object (Image),Polygon,1402587.3,1061470.7,1854486264.5,156907.1
