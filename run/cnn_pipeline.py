@@ -5,6 +5,8 @@ Ovarian Follicle Classification Pipeline
 ResNet34 transfer-learning classifier for histological tile images,
 with whole-slide image (WSI) inference support. 
 
+Authors: Julian Coles, Martin Orkuma, and Pamela Styborski
+
 Expected directory layout:
     <data_dir>/
         train/          ← one subfolder per class (e.g. Primordial/, Stroma/)
@@ -16,7 +18,7 @@ Usage:
 
 Debugging and code assistance for image analysis and model training
 were provided by ChatGPT (GPT 5.2 Thinking) and Claude (Opus 4.6).
-"""
+""" 
 
 from __future__ import annotations
 
@@ -37,7 +39,7 @@ from PIL import Image
 
 from fastai.vision.all import (
     ImageDataLoaders, Resize, Normalize, imagenet_stats,
-    cnn_learner, resnet34, error_rate, ClassificationInterpretation,
+    vision_learner, resnet34, error_rate, ClassificationInterpretation,
     aug_transforms, CrossEntropyLossFlat,
 )
 from fastai.callback.tracker import EarlyStoppingCallback, SaveModelCallback
@@ -359,7 +361,7 @@ def main() -> int:
     # Create learner (pretrained ResNet34) with weighted loss
     # ==================================================================
     log("initialising ResNet34 learner (ImageNet pretrained, weighted CE loss)")
-    learn = cnn_learner(dls, resnet34, metrics=error_rate, loss_func=loss_func)
+    learn = vision_learner(dls, resnet34, metrics=error_rate, loss_func=loss_func)
     learn.model.to(device)
 
     # ==================================================================
