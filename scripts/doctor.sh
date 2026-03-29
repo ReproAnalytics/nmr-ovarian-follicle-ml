@@ -12,10 +12,10 @@ FAIL=0
 check() {
   if eval "$2" >/dev/null 2>&1; then
     echo "  😊 $1"
-    ((PASS++))
+    PASS=$((PASS + 1))
   else
     echo "  ☠️ $1"
-    ((FAIL++))
+    FAIL=$((FAIL + 1))
   fi
 }
 
@@ -32,15 +32,7 @@ check "pandas importable"       "python3 -c 'import pandas'"
 check "yaml importable"         "python3 -c 'import yaml'"
 check "tifffile importable"     "python3 -c 'import tifffile'"
 check "openslide importable"    "python3 -c 'import openslide'"
-
-# Optional torch check (does not fail the doctor)
-if python3 -c 'import torch' >/dev/null 2>&1; then
-  echo "  😊 torch importable"
-  ((PASS++))
-else
-  echo "  ⚠️  torch not installed (OK for now; required for deep learning training)"
-  ((PASS++))
-fi
+check "torch importable"        "python3 -c 'import torch'"
 
 echo ""
 echo "Results: ${PASS} passed, ${FAIL} failed"

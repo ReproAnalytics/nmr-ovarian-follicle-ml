@@ -1,7 +1,11 @@
 {
   "background": 0,
   "primordial": 1,
-  "primary": 2,
-  "secondary": 3,
-  "antral": 4
+  "transitional_primordial": 2,
+  "primary": 3,
+  "multilayer": 4,
+  "antral": 5,
+  "atretic_antral": 6,
+  "stroma": 7,
+  "germ_cells": 8
 }

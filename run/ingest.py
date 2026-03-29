@@ -72,6 +72,7 @@ def build_manifest(dest_dir: Path, manifest_path: Path) -> None:
         accession = acc_dir.name
         for f in sorted(acc_dir.rglob("*")):
             if f.is_file():
+                ext = f.suffix 
                 rows.append({
                     "accession_id": accession,
                     "relpath": str(f.relative_to(dest_dir)),

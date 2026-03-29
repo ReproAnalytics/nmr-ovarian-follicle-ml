@@ -56,7 +56,7 @@ pip install -r environment/requirements.txt
 echo "Creating project directories..."
 mkdir -p data/raw data/interim data/processed
 mkdir -p outputs/logs outputs/models outputs/predictions outputs/metrics outputs/figures outputs/reports
-mkdir -p annotations/gold_set
+mkdir -p annotations/gold_set annotations/raw_exports
 
 touch data/.gitkeep
 touch outputs/logs/.gitkeep

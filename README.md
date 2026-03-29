@@ -32,7 +32,7 @@ bash scripts/doctor.sh
 
 This will:
 
-- create a local virtual environment (.venv)
+- create/activate a local virtual environment (.venv)
 - install all Python dependencies
 - verify your setup
 - print the next recommended steps

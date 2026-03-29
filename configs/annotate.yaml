@@ -5,6 +5,6 @@ paths:
   tiles_manifest: data/interim/tiles/H_glaber_tiles_manifest.csv
 
 annotate:
-  min_agreement: 2
+  min_agreement: 1
   strategy: majority_vote   # majority_vote | expert_override
   

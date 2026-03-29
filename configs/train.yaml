@@ -24,6 +24,6 @@ train:
   device: auto            # auto | cpu | cuda | mps
 
 wsi:
-  wsi_dir: data/wsi
+  wsi_dir: data/raw/H_glaber
   level: 1
   download_script: scripts/download_mother_nmr.sh
