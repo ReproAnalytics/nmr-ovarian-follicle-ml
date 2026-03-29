@@ -24,6 +24,7 @@ fastcore
 tifffile>=2023.9
 imageio>=2.31
 pillow>=10.0
+imagecodecs>=2024.1
 
 # OME / bioformats metadata handling
 ome-types>=0.5

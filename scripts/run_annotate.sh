@@ -1,5 +1,5 @@
 #!/bin/bash
-# Goal: To run the Annotate (Validate Exports) Stage of the ML pipeline
+# Goal: To run the Annotate (Validate Exports) Stage of the ML pipeline 
 
 set -euo pipefail
 
