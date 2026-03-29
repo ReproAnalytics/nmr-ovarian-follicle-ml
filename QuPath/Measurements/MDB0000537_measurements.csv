@@ -1,0 +1,82 @@
+Image,Object ID,Object type,Name,Classification,Parent,ROI,Centroid X µm,Centroid Y µm,Area µm^2,Perimeter µm
+MDB0000537-2653-3y-Exsub-s19.tif,b41d04a4-4876-4fae-be0f-8092de275eb4,Annotation,,,Root object (Image),Geometry,6370404.6,4484497,57461761641704.5,218445372
+MDB0000537-2653-3y-Exsub-s19.tif,572281e9-9ba0-46fb-8dad-2e6c1ef91e29,Annotation,,Background,Annotation,Geometry,2839353.1,2375464.5,341021157.4,169181.3
+MDB0000537-2653-3y-Exsub-s19.tif,fa178f7a-c2c8-4df5-bb32-142bf432af8b,Annotation,,Atretic Antral (granulosa in antrum),Annotation,Geometry,6241118.4,4222496.1,5172856953201.5,1706502169.1
+MDB0000537-2653-3y-Exsub-s19.tif,0536fb74-fb01-4896-b901-d425fa29fb24,Annotation,,Stroma,Annotation,Geometry,6400433.4,4457364.8,48032576379754.8,2037160511.4
+MDB0000537-2653-3y-Exsub-s19.tif,032f9b9b-99c8-4a95-af5b-99631c6000dd,Annotation,,Multilayer,Annotation,Geometry,6561853.4,4589762.2,714978099629.4,309602421.8
+MDB0000537-2653-3y-Exsub-s19.tif,11d36576-1e8d-4417-855f-d1b43cbe17d4,Annotation,,Primordial,Annotation,Geometry,6458542.6,4610459.7,175051714534.4,91568488.2
+MDB0000537-2653-3y-Exsub-s19.tif,70bc9c55-6623-4a6f-b5d9-a875fe99d501,Annotation,,Antral (clear antrum),Annotation,Geometry,6095714.1,5245608.2,3365956022638.6,598419639.4
+MDB0000537-2653-3y-Exsub-s19.tif,4952fcf1-296e-4ca2-865f-d5b515c5ca35,Annotation,,Background,Root object (Image),Geometry,5260703.5,697995.5,2644245178786.7,8645284
+MDB0000537-2653-3y-Exsub-s19.tif,9b1cf3f0-47fa-4ed8-9487-16d8c323befd,Annotation,,Background,Annotation (Background),Geometry,5260703.5,697995.5,2644245178786.7,8645284
+MDB0000537-2653-3y-Exsub-s19.tif,6162eaa1-e17c-424d-ba6e-6a3af5406b97,Annotation,,Background,Root object (Image),Polygon,11702399.6,770446.3,3341364737062.9,7286015.5
+MDB0000537-2653-3y-Exsub-s19.tif,a559f08d-c5c6-4690-bce2-41dd9d31a5a1,Annotation,,Background,Annotation (Background),Polygon,11702399.6,770446.3,3341364737062.9,7286015.5
+MDB0000537-2653-3y-Exsub-s19.tif,431a4892-e1b1-44fc-81cc-4cefd9b90555,Annotation,,Background,Root object (Image),Polygon,11956104.7,6622879.1,6539778248729,10686885.2
+MDB0000537-2653-3y-Exsub-s19.tif,4d1ef519-3494-4d29-9b19-e0d2fe84e3ec,Annotation,,Background,Annotation (Background),Polygon,11955572.7,6621979.3,6535083228748.3,10682124.6
+MDB0000537-2653-3y-Exsub-s19.tif,bda10fa6-c922-4986-9ac6-5ffd0663d071,Annotation,,Multilayer,Root object (Image),Geometry,6805855.7,1414434.3,75674278295,2959832.5
+MDB0000537-2653-3y-Exsub-s19.tif,6eeb6750-0995-4202-9f5c-b2fd12f60ecc,Annotation,,Primordial,Annotation (Multilayer),Geometry,6688063.1,1322613.2,390281975.3,304800
+MDB0000537-2653-3y-Exsub-s19.tif,311f2fa6-6804-4961-a9c3-05ae9cb7d9fb,Annotation,,Multilayer,Annotation (Multilayer),Geometry,6805665.6,1397617.4,14252544270,5487881.3
+MDB0000537-2653-3y-Exsub-s19.tif,01409bca-93b9-4c3a-8e06-fec14e1e2850,Annotation,,Antral (clear antrum),Annotation (Multilayer),Geometry,6766828.3,1409202.6,18145959446.3,4198388.7
+MDB0000537-2653-3y-Exsub-s19.tif,a8336eb0-63f1-4ec9-8de4-3d0ae6b05e03,Annotation,,Stroma,Annotation (Multilayer),Geometry,6826070.2,1420936,38759076769.2,7828619.4
+MDB0000537-2653-3y-Exsub-s19.tif,8dfa459d-a5ed-49fe-83e4-1a0ca24d3deb,Annotation,,Atretic Antral (granulosa in antrum),Annotation (Multilayer),Geometry,6799414.1,1443178.6,4126419206.6,2962133.9
+MDB0000537-2653-3y-Exsub-s19.tif,e6b3cb81-050b-4f53-ac44-101617fe9f2b,Annotation,,Multilayer,Root object (Image),Geometry,10243982.5,1701563.7,63131653682.4,2715183
+MDB0000537-2653-3y-Exsub-s19.tif,e517ed79-c1f6-4f98-82ad-76b980e21ba2,Annotation,,Stroma,Annotation (Multilayer),Geometry,10246374.1,1692670.2,32404047731.8,7820071.5
+MDB0000537-2653-3y-Exsub-s19.tif,64ae96f6-b56d-4886-93a2-503753e27f6e,Annotation,,Antral (clear antrum),Annotation (Multilayer),Geometry,10238994,1709656.4,7894918374.8,2998066.4
+MDB0000537-2653-3y-Exsub-s19.tif,7f7750a7-13cf-43a5-a0f1-701c8f42e3a9,Annotation,,Multilayer,Annotation (Multilayer),Geometry,10242472.1,1710721.8,14433396269.7,3997965.5
+MDB0000537-2653-3y-Exsub-s19.tif,304b695b-c559-428c-a6d7-76857053120f,Annotation,,Atretic Antral (granulosa in antrum),Annotation (Multilayer),Geometry,10242049.1,1712496.2,8391326990.7,4782403
+MDB0000537-2653-3y-Exsub-s19.tif,350df44f-9dd8-464f-82d1-177d22cd78a6,Annotation,,Primordial,Annotation (Multilayer),Rectangle,10215033.3,1756833.3,7964938.3,11288.9
+MDB0000537-2653-3y-Exsub-s19.tif,df8fe8dc-4ebe-467b-b87e-e166ecfdb573,Annotation,,Primordial,Root object (Image),Geometry,9845664.7,1219125.9,3179007993,335949.8
+MDB0000537-2653-3y-Exsub-s19.tif,a3588217-c50a-44fb-929d-d9bd7f0ab7c7,Annotation,,Multilayer,Annotation (Primordial),Geometry,9841646.3,1210708.6,389671989.6,372694.5
+MDB0000537-2653-3y-Exsub-s19.tif,b080c6d5-be42-4c8f-8a1d-1d39fd270ded,Annotation,,Antral (clear antrum),Annotation (Primordial),Geometry,9842905.8,1217573.7,313930574.8,202580
+MDB0000537-2653-3y-Exsub-s19.tif,19ae1b8d-57af-4f62-94b5-a68c7cadd67e,Annotation,,Primordial,Annotation (Primordial),Geometry,9844916.4,1217683,2082779705.5,430700
+MDB0000537-2653-3y-Exsub-s19.tif,a1f5842d-e483-4fa8-bf83-86750cac5773,Annotation,,Stroma,Annotation (Primordial),Geometry,9858131.8,1235600.6,323523660.9,252395.6
+MDB0000537-2653-3y-Exsub-s19.tif,8b68a442-c46b-486b-a290-dbe9cb36dce0,Annotation,,Atretic Antral (granulosa in antrum),Annotation (Primordial),Geometry,9844990.8,1239999.8,69102062.1,71940.3
+MDB0000537-2653-3y-Exsub-s19.tif,7a9efe97-96f5-42eb-a5ad-ef97b04cfd75,Annotation,,Primordial,Root object (Image),Geometry,10347790.8,1504505.6,2926088084.5,354156.7
+MDB0000537-2653-3y-Exsub-s19.tif,08a7b085-5656-4f69-8e5c-e0775a695f30,Annotation,,Multilayer,Annotation (Primordial),Geometry,10357389.5,1490644.9,252575659.7,202024.9
+MDB0000537-2653-3y-Exsub-s19.tif,96b844b0-a3e2-49c7-bd88-5912f2716cd7,Annotation,,Primordial,Annotation (Primordial),Geometry,10355438.9,1500427.5,1277252523.1,390614.9
+MDB0000537-2653-3y-Exsub-s19.tif,f17c9cd6-0cec-4d3a-924a-0e0351cd28c1,Annotation,,Antral (clear antrum),Annotation (Primordial),Geometry,10331626.4,1506103.6,267261014.7,177038.2
+MDB0000537-2653-3y-Exsub-s19.tif,c3d3ef86-c26e-4f19-8001-acabd52627e9,Annotation,,Stroma,Annotation (Primordial),Geometry,10342319.3,1510943.8,566786251.9,411133
+MDB0000537-2653-3y-Exsub-s19.tif,593cb289-dc9f-472d-a366-24805da71375,Annotation,,Atretic Antral (granulosa in antrum),Annotation (Primordial),Geometry,10339295.9,1512753.5,562212635,258490.1
+MDB0000537-2653-3y-Exsub-s19.tif,0f909dbb-c7ff-4cc0-bb07-9a942ef6b0a2,Annotation,,Primordial,Root object (Image),Geometry,10576111.7,1566527.3,3335547216.7,518925.2
+MDB0000537-2653-3y-Exsub-s19.tif,aa613467-e8cb-4f1d-b3c6-37171cd15e64,Annotation,,Antral (clear antrum),Annotation (Primordial),Geometry,10555019.5,1550042,303395529.3,283262.1
+MDB0000537-2653-3y-Exsub-s19.tif,c3ef95a3-8761-4ae1-94e3-5e55ed7cce6d,Annotation,,Atretic Antral (granulosa in antrum),Annotation (Primordial),Geometry,10551287.1,1553753.2,313494992.3,228330.5
+MDB0000537-2653-3y-Exsub-s19.tif,9242196e-8983-42b5-9c34-6deac9fa4fc8,Annotation,,Stroma,Annotation (Primordial),Geometry,10561094.6,1559891.7,817486091.8,595632.5
+MDB0000537-2653-3y-Exsub-s19.tif,5dc64483-0008-406a-bc68-de66623c964c,Annotation,,Primordial,Annotation (Primordial),Geometry,10588671.2,1571498,1148029123,428365.1
+MDB0000537-2653-3y-Exsub-s19.tif,8b6e9816-0406-467b-9154-9e4e4f670b13,Annotation,,Multilayer,Annotation (Primordial),Geometry,10592092.8,1578105.6,753140874.5,440327.8
+MDB0000537-2653-3y-Exsub-s19.tif,fe92f42c-aa36-46d1-bf28-96d34b49ca4d,Annotation,,Stroma,Root object (Image),Geometry,3073625.7,6155108.2,503306237368.5,8500337.1
+MDB0000537-2653-3y-Exsub-s19.tif,d86e15bf-27c4-4293-aa30-fec2f3a078a5,Annotation,,Atretic Antral (granulosa in antrum),Annotation (Stroma),Geometry,2974382.4,6120341.7,1538510527.4,1054262.4
+MDB0000537-2653-3y-Exsub-s19.tif,b7bb2983-7cd1-4cb1-915e-5e87e751653b,Annotation,,Antral (clear antrum),Annotation (Stroma),Geometry,3041297.2,6142415.1,130612542.4,105797.9
+MDB0000537-2653-3y-Exsub-s19.tif,05f744ed-bbb5-4f86-91ff-87703783a295,Annotation,,Stroma,Annotation (Stroma),Geometry,3073929.2,6155196.4,501586308522.5,9567172.7
+MDB0000537-2653-3y-Exsub-s19.tif,4fb5cb6d-2781-4671-866e-1c3945384542,Annotation,,Multilayer,Annotation (Stroma),Geometry,3180058.8,6378899.5,50803340.8,70083.3
+MDB0000537-2653-3y-Exsub-s19.tif,b17ca78c-5068-46ba-b785-36340395fdde,Annotation,,Stroma,Root object (Image),Polygon,2275543.4,4777821,1591369776.2,290307.8
+MDB0000537-2653-3y-Exsub-s19.tif,8b996fb9-92f3-4328-b109-ab39d9a8d410,Annotation,,Stroma,Annotation (Stroma),Polygon,2275543.4,4777821,1591369776.2,290307.8
+MDB0000537-2653-3y-Exsub-s19.tif,3d247325-d2bc-4e85-8d35-2fe9c848c4d5,Annotation,,Stroma,Root object (Image),Geometry,2083607.9,4687838.2,269356811368.7,17797477
+MDB0000537-2653-3y-Exsub-s19.tif,918dc565-6739-402e-b9f9-34abde2b1ce2,Annotation,,Atretic Antral (granulosa in antrum),Annotation (Stroma),Geometry,2159529.2,4622620.2,191345196.8,148665.6
+MDB0000537-2653-3y-Exsub-s19.tif,870be501-9b5d-41ed-b1e0-f820aaec7fd2,Annotation,,Stroma,Annotation (Stroma),Geometry,2083547.9,4687869.9,269072689203.1,17993227
+MDB0000537-2653-3y-Exsub-s19.tif,c78ef4c3-cad8-4914-9052-cacb0320b5dd,Annotation,,Multilayer,Annotation (Stroma),Geometry,2105688.2,4727465.8,92779085.6,55411.2
+MDB0000537-2653-3y-Exsub-s19.tif,17a0ad5a-40a6-4ac8-802d-ec04461052f4,Annotation,,Stroma,Root object (Image),Geometry,4759363.9,5682629.2,104303417936,8897058.2
+MDB0000537-2653-3y-Exsub-s19.tif,c6fe7b19-90b7-4bd3-b08d-68b4a3efb8a5,Annotation,,Stroma,Annotation (Stroma),Geometry,4759504.8,5682269.2,103070968190.6,9700143
+MDB0000537-2653-3y-Exsub-s19.tif,82bafb5b-9195-4dee-ac64-1a20122cb678,Annotation,,Antral (clear antrum),Annotation (Stroma),Geometry,4800127.3,5698006.7,134843915.9,157424.5
+MDB0000537-2653-3y-Exsub-s19.tif,62a754e4-7aaa-40d1-802e-1886ac3d93db,Annotation,,Atretic Antral (granulosa in antrum),Annotation (Stroma),Geometry,4713195.9,5714089.8,942600663.6,720814.9
+MDB0000537-2653-3y-Exsub-s19.tif,e6198814-d7b8-492e-9769-2750596b7a1c,Annotation,,Multilayer,Annotation (Stroma),Geometry,4910818.3,5717406.1,155005165.9,193336.9
+MDB0000537-2653-3y-Exsub-s19.tif,05a9c5bd-bf9b-4ad5-a206-7ae24a66906c,Annotation,,Stroma,Root object (Image),Polygon,12404362.6,2758421.6,32404500642.8,1114347.6
+MDB0000537-2653-3y-Exsub-s19.tif,393c1281-6276-4308-b88b-33fead86f687,Annotation,,Antral (clear antrum),Annotation (Stroma),Geometry,12405828.8,2683693.4,126198155.6,122653.2
+MDB0000537-2653-3y-Exsub-s19.tif,8b48c758-2cae-4630-8801-4ee313bd4b53,Annotation,,Stroma,Annotation (Stroma),Geometry,12404164.1,2756887.7,31495410758.3,1253204.8
+MDB0000537-2653-3y-Exsub-s19.tif,97c8084d-80e5-4edd-a3a7-65d324341347,Annotation,,Multilayer,Annotation (Stroma),Geometry,12412069.9,2832174.1,782880232,256776.8
+MDB0000537-2653-3y-Exsub-s19.tif,3583f6e8-24ce-4e7c-84a9-43885451c919,Annotation,,Antral (clear antrum),Root object (Image),Polygon,7702266.8,6602992,418267767854.6,2393773.3
+MDB0000537-2653-3y-Exsub-s19.tif,f8fafc77-5a15-4839-a67f-95ed8f9f8cf5,Annotation,,Antral (clear antrum),Annotation (Antral (clear antrum)),Geometry,7702380.5,6592125.4,329632788263.8,20915204.8
+MDB0000537-2653-3y-Exsub-s19.tif,94dbb7d2-5e53-4e71-a1c1-22e392c015f8,Annotation,,Stroma,Annotation (Antral (clear antrum)),Geometry,7699315.1,6628549.8,56630914409.8,18022693.8
+MDB0000537-2653-3y-Exsub-s19.tif,22f2908b-d1de-4e72-b30e-ad42daeb5dce,Annotation,,Primordial,Annotation (Antral (clear antrum)),Geometry,7643213.1,6640053.6,318597530.9,197555.6
+MDB0000537-2653-3y-Exsub-s19.tif,acafef00-a526-451d-8510-467903d0d800,Annotation,,Atretic Antral (granulosa in antrum),Annotation (Antral (clear antrum)),Geometry,7711845.6,6658112.8,27147548001.1,15990017.2
+MDB0000537-2653-3y-Exsub-s19.tif,171c35e0-a050-4f8a-b9a5-746c4bc0339e,Annotation,,Multilayer,Annotation (Antral (clear antrum)),Geometry,7677644,6740969.4,4537917836.5,2866052.9
+MDB0000537-2653-3y-Exsub-s19.tif,7d976a41-60e6-459e-9efc-35d1a89c209e,Annotation,,Atretic Antral (granulosa in antrum),Root object (Image),Polygon,7923264.9,3459030.9,1013614866957.7,4060177.2
+MDB0000537-2653-3y-Exsub-s19.tif,3e72ac4a-aa5d-415c-8f91-da458baaf149,Annotation,,Primordial,Annotation (Atretic Antral (granulosa in antrum)),Geometry,7793132.6,3234101,76249715.5,98312.5
+MDB0000537-2653-3y-Exsub-s19.tif,02edcb70-531a-43b4-92cf-1e4d1dcd3e0f,Annotation,,Multilayer,Annotation (Atretic Antral (granulosa in antrum)),Geometry,8015072.5,3343751.1,2572675061.7,1371600
+MDB0000537-2653-3y-Exsub-s19.tif,dbb11dc9-670f-4236-a839-eebf51bc83ae,Annotation,,Atretic Antral (granulosa in antrum),Annotation (Atretic Antral (granulosa in antrum)),Geometry,7903841.4,3434986.5,650042686216.3,79585951
+MDB0000537-2653-3y-Exsub-s19.tif,f7c23c24-fa53-4fb5-851f-cef80995533f,Annotation,,Stroma,Annotation (Atretic Antral (granulosa in antrum)),Geometry,7962512.1,3502677.5,342833536952,75660785.9
+MDB0000537-2653-3y-Exsub-s19.tif,046259b1-0f6c-452a-8edb-110de7881a98,Annotation,,Antral (clear antrum),Annotation (Atretic Antral (granulosa in antrum)),Geometry,7864916,3513208.1,18089725917.3,9569925.9
+MDB0000537-2653-3y-Exsub-s19.tif,03564ff1-39ed-40c8-87bf-698b15bff949,Annotation,,Stroma,Root object (Image),Polygon,5986286.1,4093280.6,2054855010154.3,5082403.3
+MDB0000537-2653-3y-Exsub-s19.tif,fc6b328b-eb03-451d-b9a0-0a5842281b3c,Annotation,,Primordial,Annotation (Stroma),Geometry,5895731.8,3842236.8,207088395.1,174977.8
+MDB0000537-2653-3y-Exsub-s19.tif,a188a5ca-cec4-40ed-aaf3-11d25494c3f4,Annotation,,Stroma,Annotation (Stroma),Geometry,6011513.2,4058288.4,1837201036702.9,85478524.4
+MDB0000537-2653-3y-Exsub-s19.tif,dc6c17e5-5103-4f12-bde2-fe916b81b681,Annotation,,Multilayer,Annotation (Stroma),Geometry,5752207.4,4124271.9,2874725627.6,2268487.4
+MDB0000537-2653-3y-Exsub-s19.tif,772e34bf-db66-4a63-8613-26354f0c1fd0,Annotation,,Atretic Antral (granulosa in antrum),Annotation (Stroma),Geometry,5813619.3,4369854.9,177371811622.7,76462086.7
+MDB0000537-2653-3y-Exsub-s19.tif,5a4bdbc8-018f-4082-ab36-1b7f9c500626,Annotation,,Antral (clear antrum),Annotation (Stroma),Geometry,5582232.2,4501652.5,37200380024.4,12499916.3
