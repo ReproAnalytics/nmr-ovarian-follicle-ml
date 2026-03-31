@@ -6,9 +6,11 @@
 # leave blank to auto-generate a timestamped name.
 # ============================================================
 
+seed: 42                                   # global RNG seed (random, numpy, torch)
+
 paths:
   data_dir: data/processed/H_glaber       # folder with train/, valid/, test/ subfolders
-  test_dir: data/processed/H_glaber/test   # test tiles 
+  test_dir: data/processed/H_glaber/test   # test tiles
   output_dir: outputs
   run_name: null                           # null = auto-generated timestamp
 

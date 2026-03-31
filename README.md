@@ -49,6 +49,7 @@ bash scripts/run_preprocess.sh          # 2. Tile WSIs into patches
 # ── manual QuPath annotation happens here ──
 bash scripts/run_annotate.sh            # 3. Validate/consolidate QuPath exports
 bash scripts/run_organize_splits.sh     # 4. Organize labeled tiles into folder layout
+bash scripts/sync_tiles.sh              # (if tiles were exported via QuPath directly)
 bash scripts/run_cnn_pipeline.sh        # 5. Train ResNet34 + evaluate (+ optional WSI inference)
 bash scripts/run_postprocess_count.sh   # 6. Aggregate tile predictions → slide-level counts
 ```
