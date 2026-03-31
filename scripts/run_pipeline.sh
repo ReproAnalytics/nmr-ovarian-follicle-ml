@@ -27,13 +27,13 @@ bash scripts/run_annotate.sh
 # 4) Organize splits (labeled tiles → folder layout)
 bash scripts/run_organize_splits.sh
 
+# 4.5) (Optional) If tiles were exported via QuPath directly
+bash scripts/sync_tiles.sh  
+
 # 5) CNN Pipeline (train + eval + optional WSI inference)
 bash scripts/run_cnn_pipeline.sh
 
-# 6) (Optional) Re-run inference on new tiles
-# bash scripts/run_infer.sh
-
-# 7) Post-process (aggregate to slide-level counts)
+# 6) Post-process (aggregate to slide-level counts)
 bash scripts/run_postprocess_count.sh
 
 echo "[pipeline] done."
