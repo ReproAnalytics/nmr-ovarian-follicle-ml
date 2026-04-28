@@ -14,7 +14,6 @@ from pathlib import Path
 def find_repo_root(start: Path) -> Path:
     """
     Walk upward until we find a marker that indicates repo root.
-    Adjust markers as needed.
     """
     markers = ["configs", "src", "environment", ".git", "README.md"]
     cur = start.resolve()
